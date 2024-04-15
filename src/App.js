@@ -1,9 +1,17 @@
 import './App.css';
-import { Input } from '@material-tailwind/react'
+import Header from './components/frontend/Header';
+import Home from './components/frontend/Home';
+import About from './components/frontend/About';
+import Events from './components/frontend/Events';
 
 function App() {
   return (
-    <Input label="Full Name" name="" className=''></Input>
+    <>
+      <Header />
+      <Home />
+      <About />
+      <Events />
+    </>
   )
 }
 
