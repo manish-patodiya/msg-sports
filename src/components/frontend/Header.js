@@ -7,7 +7,7 @@ const Header = () => {
         console.log("handle navigation")
     }
     return (
-        <Navbar className='text-black flex justify-between items-center'>
+        <Navbar className='text-black flex justify-between items-center fixed top-0 left-0 right-0 bg-white bg-opacity-100' style={{ "z-index": "999" }}>
             <div><img src={logo} className='h-10' /></div>
             <ul className='flex'>
                 <li className='me-4 font-sans text-lg'><a href='#home'>Home</a></li>
