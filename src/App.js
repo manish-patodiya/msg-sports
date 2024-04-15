@@ -1,17 +1,17 @@
-import './App.css';
-import Header from './components/frontend/Header';
-import Home from './components/frontend/Home';
-import About from './components/frontend/About';
-import Events from './components/frontend/Events';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Frontend from './components/Frontend'
+import Admin from './components/Admin'
 
 function App() {
   return (
-    <>
-      <Header />
-      <Home />
-      <About />
-      <Events />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Frontend />}></Route>
+        <Route path='/admin' element={<Admin />}></Route>
+      </Routes>
+
+    </BrowserRouter>
   )
 }
 
