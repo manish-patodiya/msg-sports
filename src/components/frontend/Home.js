@@ -3,7 +3,7 @@ import { Carousel } from "@material-tailwind/react";
 
 const Home = () => {
     return (
-        <div className='mt-19 mb-14'>
+        <section id="home" className='mt-19 mb-14'>
             <Carousel
                 autoplay={true}
                 loop={true}
@@ -25,7 +25,7 @@ const Home = () => {
                     className="h-[625px] w-full object-cover"
                 />
             </Carousel>
-        </div>
+        </section>
     );
 }
 
