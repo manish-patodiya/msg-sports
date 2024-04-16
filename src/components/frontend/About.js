@@ -21,12 +21,12 @@ const About = () => {
     ]
     return (
         <section id="about" className='mb-14'>
-            <h1 className='text-rose-800 font-sans text-5xl text-pretty'>About</h1>
+            <Typography variant='h2' className='text-rose-800 font-sans'>About</Typography>
             <Typography variant="h2" color="blue-gray" className="mb-2">
                 msg sports
             </Typography>
             <Typography variant="h4" className="mb-2 font-serif font-thin">
-                We are a system integrator, software development partner, and managed services provider that helps companies improve their operational efficiency and decision-making capabilities utilizing SAP® technology. Our company tagline is Passion. People. Performance. and accurately summarizes who we are.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore laboriosam ut laborum cum architecto itaque dolores delectus obcaecati expedita quos temporibus aliquid atque mollitia unde labore, ullam autem! Rerum cupiditate pariatur saepe, tempora, quod totam dolorem eum voluptates enim, facere hic delectus perspiciatis inventore nostrum exercitationem consequatur maxime consectetur corrupti.
             </Typography>
 
             <div className='flex justify-between mt-10 gap-5'>

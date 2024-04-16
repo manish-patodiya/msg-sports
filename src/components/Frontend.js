@@ -9,10 +9,10 @@ const Frontend = () => {
     return (
         <>
             <Header />
-            <Home />
+            <Home className='' />
             <div className='container mx-auto px-4 my-4 text-lg'>
-                <About />
                 <Events />
+                <About />
             </div>
             <Footer />
         </>
