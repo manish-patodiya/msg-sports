@@ -44,7 +44,7 @@ const About = () => {
 
     ]
     return (
-        <section id="about" className='mb-14'>
+        <div id="about" className='mt-20'>
             <Typography variant='h2' className='text-rose-800 font-sans'>About</Typography>
             <Typography variant="h2" color="blue-gray" className="mb-2">
                 msg sports
@@ -57,7 +57,7 @@ const About = () => {
                 {
                     obj.map((e, i) => {
                         return (
-                            <Card className={`w-[32%] text-white ${e.color} `} key={i}>
+                            <Card className={`w-[32%] text-white ${e.color} hover:-translate-y-1 hover:scale-105 duration-300`} key={i}>
                                 <CardHeader
                                     floated={false}
                                     shadow={false}
@@ -87,7 +87,7 @@ const About = () => {
 
             </div>
 
-        </section>
+        </div>
     )
 }
 

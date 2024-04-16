@@ -2,6 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Frontend from './components/Frontend'
 import Admin from './components/Admin'
+import './App.css';
 
 function App() {
   return (

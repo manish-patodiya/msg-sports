@@ -19,7 +19,7 @@ const Events = () => {
                                     <img
                                         src={event.img}
                                         alt={`Image ${i + 1}`}
-                                        className="h-[300px] w-full object-cover rounded-xl hover:-translate-y-1 hover:scale-110 duration-300"
+                                        className="max-h-[350px] w-full object-cover rounded-xl hover:-translate-y-1 hover:scale-105 duration-300"
                                     />
                                 </div>
                                 <div className='w-1/2'>

@@ -3,7 +3,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <div className='bg-rose-800 text-white px-16 py-8 flex'>
+        <section id='contact' className='bg-rose-800 text-white px-16 py-8 flex'>
             <div className='w-7/12 flex gap-2 flex-col'>
                 <div className='flex flex-col gap-2 mb-10 '>
                     <Typography variant='h6' className='font-serif'><i className='fas fa-phone'></i> +91 9999999999</Typography>
@@ -26,9 +26,9 @@ const Footer = () => {
                 </div>
             </div>
             <div className='w-1/2 flex justify-end'>
-                <img src="https://www.msg-global.com/images/2023/08/11/hi_msg-global_about-us_800x800.webp" alt="" className='w-3/4' />
+                <img src="https://www.msg-global.com/images/2023/08/11/hi_msg-global_about-us_800x800.webp" alt="" className='w-11/12' />
             </div>
-        </div>
+        </section>
     )
 }
 

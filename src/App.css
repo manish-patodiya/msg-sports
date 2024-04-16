@@ -1,0 +1,12 @@
+.active::after{
+    content: " ";
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+    height: 10px;
+    width: 30px;
+}
+
+.pointer{
+    cursor: pointer;
+}
