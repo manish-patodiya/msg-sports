@@ -29,11 +29,11 @@ const About = () => {
                 We are a system integrator, software development partner, and managed services provider that helps companies improve their operational efficiency and decision-making capabilities utilizing SAP® technology. Our company tagline is Passion. People. Performance. and accurately summarizes who we are.
             </Typography>
 
-            <div className='flex justify-between mt-10'>
+            <div className='flex justify-between mt-10 gap-5'>
                 {
                     obj.map((e) => {
                         return (
-                            <Card style={{ width: "30%" }} className="">
+                            <Card className="w-1/3">
                                 <CardHeader
                                     floated={false}
                                     shadow={false}
