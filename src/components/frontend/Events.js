@@ -14,12 +14,12 @@ const Events = () => {
                 {
                     events.map((event, i) => {
                         return <Card className='w-full'>
-                            <CardBody className={`flex gap-5 ${i % 2 != 0 || 'flex-row-reverse'}`}>
+                            <CardBody className={`flex gap-8 ${i % 2 != 0 || 'flex-row-reverse'}`}>
                                 <div className='w-1/2'>
                                     <img
                                         src={event.img}
                                         alt={`Image ${i + 1}`}
-                                        className="h-[300px] w-full object-cover rounded-xl"
+                                        className="h-[300px] w-full object-cover rounded-xl hover:-translate-y-1 hover:scale-110 duration-300"
                                     />
                                 </div>
                                 <div className='w-1/2'>
