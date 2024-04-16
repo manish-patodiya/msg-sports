@@ -13,7 +13,7 @@ const Events = () => {
             <div className='flex mt-8 gap-10 flex-col'>
                 {
                     events.map((event, i) => {
-                        return <Card className='w-full'>
+                        return <Card className='w-full' key={i}>
                             <CardBody className={`flex gap-8 ${i % 2 != 0 || 'flex-row-reverse'}`}>
                                 <div className='w-1/2'>
                                     <img

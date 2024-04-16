@@ -55,9 +55,9 @@ const About = () => {
 
             <div className='flex gap-5 mt-10 flex-wrap'>
                 {
-                    obj.map((e) => {
+                    obj.map((e, i) => {
                         return (
-                            <Card className={`w-[32%] text-white ${e.color}  `}>
+                            <Card className={`w-[32%] text-white ${e.color} `} key={i}>
                                 <CardHeader
                                     floated={false}
                                     shadow={false}
