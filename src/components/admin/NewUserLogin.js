@@ -9,7 +9,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const Signup = () => {
+const NewUserLogin = () => {
   return (
     <div className="h-screen flex items-center justify-center px-10 py-10 bg-red-50">
       <Card className="w-96">
@@ -39,4 +39,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default NewUserLogin

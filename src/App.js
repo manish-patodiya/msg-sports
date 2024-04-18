@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Frontend from "./components/Frontend";
-import Admin from "./components/Admin";
+import Login from "./components/admin/Login";
+import NewUserLogin from "./components/admin/NewUserLogin";
 import "./App.css";
 
 function App() {
@@ -8,7 +9,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Frontend />}></Route>
-        <Route path="/admin" element={<Admin />}></Route>
+        <Route path="/admin">
+          <Route path='' element={<Login />}></Route>
+          <Route path='new-login' element={<NewUserLogin />}></Route>
+          <Route path='dashboard' element={<Login />} ></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

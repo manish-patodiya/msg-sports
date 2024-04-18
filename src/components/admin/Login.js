@@ -8,6 +8,7 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -30,30 +31,26 @@ const Login = () => {
           <Button variant="" className="bg-rose-800 w-full">
             Sign In
           </Button>
-          <Typography
+
+          <div
             variant="small"
             className="mt-3 flex flex-col items-end justify-center"
           >
-            <Typography
-              as="a"
-              href="/forgotPassword"
-              variant="small"
+            <Link to='/forgot-password'
               className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
             >
               Forgot Password?
-            </Typography>
-            <Typography
-              as="a"
-              href="/signup"
-              variant="small"
+            </Link>
+            <Link
+              to="new-login"
               className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
             >
               New user?
-            </Typography>
-          </Typography>
+            </Link>
+          </div>
         </CardBody>
       </Card>
-    </div>
+    </div >
   );
 };
 
