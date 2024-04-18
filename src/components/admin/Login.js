@@ -12,7 +12,6 @@ const Login = () => {
   const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,20 +21,12 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
   };
-
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formErrors);
-    }
-  }, [formErrors]);
 
   const validate = (values) => {
     const errors = {};
     const emailregx = /[a-zA-Z]{4,}(@msg-global.com)$/g;
-    const passregx = "";
+    const passregx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
     if (!values.email) {
       errors.email = "Email required";
     } else if (!emailregx.test(values.email)) {
@@ -43,14 +34,13 @@ const Login = () => {
     }
     if (!values.password) {
       errors.password = "Password is required";
-    } else if (values.password.length < 6) {
+    } else if (!passregx.test(values.password)) {
       errors.password = "Password should have a minimum of 6 characters";
     }
     return errors;
   };
 
   return (
-    <div className="container">
       <form onSubmit={handleSubmit}>
         <div className="h-screen flex items-center justify-center px-10 py-10">
           <Card className="w-96">
@@ -111,7 +101,6 @@ const Login = () => {
           </Card>
         </div>
       </form>
-    </div>
   );
 };
 
