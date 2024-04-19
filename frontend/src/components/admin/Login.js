@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
@@ -51,7 +51,7 @@ const Login = () => {
               <span className="text-rose-900"> Sports</span>
             </Typography>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
                 name="email"

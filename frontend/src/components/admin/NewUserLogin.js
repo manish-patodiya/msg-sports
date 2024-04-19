@@ -50,17 +50,18 @@ const NewUserLogin = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="h-screen flex items-center justify-center px-10 py-10">
-        <Card className="w-96">
-          <CardBody className="flex flex-col gap-6">
-            <div className="flex justify-center mb-5">
-              <Typography variant="h3" className="flex text-gray-600">
-                <span className="font-serif text-rose-900 font-bold">.</span>
-                msg-
-                <span className="text-rose-900"> Sports</span>
-              </Typography>
-            </div>
+
+    <div className="h-screen flex items-center justify-center px-10 py-10">
+      <Card className="w-96">
+        <CardBody className="flex flex-col gap-6">
+          <div className="flex justify-center mb-5">
+            <Typography variant="h3" className="flex text-gray-600">
+              <span className="font-serif text-rose-900 font-bold">.</span>
+              msg-
+              <span className="text-rose-900"> Sports</span>
+            </Typography>
+          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
                 name="email"
@@ -103,21 +104,21 @@ const NewUserLogin = () => {
             <Button className="bg-rose-800 w-full" onClick={handleSubmit}>
               Sign In
             </Button>
-            <div
-              variant="small"
-              className="mt-3 flex flex-col items-end justify-center"
+          </form>
+          <div
+            variant="small"
+            className="mt-3 flex flex-col items-end justify-center"
+          >
+            <Link
+              to="/admin"
+              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
             >
-              <Link
-                to="/admin"
-                className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-              >
-                Back to Login page
-              </Link>
-            </div>
-          </CardBody>
-        </Card>
-      </div>
-    </form>
+              Back to Login page
+            </Link>
+          </div>
+        </CardBody>
+      </Card>
+    </div>
   );
 };
 
