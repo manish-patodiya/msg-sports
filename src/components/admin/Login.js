@@ -41,66 +41,66 @@ const Login = () => {
   };
 
   return (
-      <form onSubmit={handleSubmit}>
-        <div className="h-screen flex items-center justify-center px-10 py-10">
-          <Card className="w-96">
-            <CardBody className="flex flex-col gap-6">
-              <div className="flex justify-center mb-5">
-                <Typography variant="h3" className="flex text-gray-600">
-                  <span className="font-serif text-rose-900 font-bold">.</span>
-                  msg-
-                  <span className="text-rose-900"> Sports</span>
-                </Typography>
-              </div>
-              <div>
-                <Input
-                  name="email"
-                  label="Email"
-                  size="lg"
-                  error={formErrors.email}
-                  value={formValues.email}
-                  onChange={handleChange}
-                />
-                <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
-              </div>
-              <div className="flex flex-col">
-                <Input
-                  type="password"
-                  name="password"
-                  label="Password"
-                  error={formErrors.password}
-                  size="lg"
-                  value={formValues.password}
-                  onChange={handleChange}
-                />
-                <p className="text-sm ml-1 text-red-400">
-                  {formErrors.password}
-                </p>
-              </div>
-              <Button className="bg-rose-800 w-full" onClick={handleSubmit}>
-                Sign In
-              </Button>
-              <div
-                variant="small"
-                className="mt-3 flex flex-col items-end justify-center"
-              >
-                <Link
-                  to="/forgot-password"
-                  className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-                >
-                  Forgot Password?
-                </Link>
-                <Link
-                  to="new-login"
-                  className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-                >
-                  New user?
-                </Link>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-      </form>
+    <div className="h-screen flex items-center justify-center px-10 py-10">
+      <Card className="w-96">
+        <CardBody className="flex flex-col gap-6">
+          <div className="flex justify-center mb-5">
+            <Typography variant="h3" className="flex text-gray-600">
+              <span className="font-serif text-rose-900 font-bold">.</span>
+              msg-
+              <span className="text-rose-900"> Sports</span>
+            </Typography>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <Input
+                name="email"
+                label="Email"
+                size="lg"
+                error={formErrors.email}
+                value={formValues.email}
+                onChange={handleChange}
+              />
+              <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
+            </div>
+            <div className="flex flex-col">
+              <Input
+                type="password"
+                name="password"
+                label="Password"
+                error={formErrors.password}
+                size="lg"
+                value={formValues.password}
+                onChange={handleChange}
+              />
+              <p className="text-sm ml-1 text-red-400">
+                {formErrors.password}
+              </p>
+            </div>
+            <Button className="bg-rose-800 w-full" onClick={handleSubmit}>
+              Sign In
+            </Button>
+          </form>
+          <div
+            variant="small"
+            className="mt-3 flex flex-col items-end justify-center"
+          >
+            <Link
+              to="/forgot-password"
+              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
+            >
+              Forgot Password?
+            </Link>
+            <Link
+              to="new-login"
+              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
+            >
+              New user?
+            </Link>
+          </div>
+        </CardBody>
+      </Card>
+    </div>
   );
 };
 

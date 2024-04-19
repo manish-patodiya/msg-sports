@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 
 const NewUserLogin = () => {
-  const initialValues = { email: "", newPassword: "", confirmPassword: "" };
+  const initialValues = { email: "", password: "", cpassword: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
 
@@ -34,16 +34,16 @@ const NewUserLogin = () => {
       errors.email = "Invalid email";
     }
     //New Password
-    if (!values.newPassword) {
-      errors.newPassword = "Password is required";
-    } else if (!passregx.test(values.newPassword)) {
-      errors.newPassword = "Password should have a minimum of 6 characters";
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (!passregx.test(values.password)) {
+      errors.password = "Password should have a minimum of 6 characters";
     }
     //Confirm Password
-    if (!values.confirmPassword) {
-      errors.confirmPassword = "Password is required";
-    } else if (values.newPassword !== values.confirmPassword) {
-      errors.confirmPassword = "Password not matching";
+    if (!values.cpassword) {
+      errors.cpassword = "Password is required";
+    } else if (values.password !== values.cpassword) {
+      errors.cpassword = "Password not matching";
     }
 
     return errors;
@@ -77,27 +77,27 @@ const NewUserLogin = () => {
                 type="password"
                 name="password"
                 label="New Password"
-                error={formErrors.newPassword}
+                error={formErrors.password}
                 size="lg"
-                value={formValues.newPassword}
+                value={formValues.password}
                 onChange={handleChange}
               />
               <p className="text-sm ml-1 text-red-400">
-                {formErrors.newPassword}
+                {formErrors.password}
               </p>
             </div>
             <div className="flex flex-col">
               <Input
                 type="password"
-                name="confirm-password"
+                name="cpassword"
                 label="Confirm Password"
-                error={formErrors.confirmPassword}
+                error={formErrors.cpassword}
                 size="lg"
-                value={formValues.confirmPassword}
+                value={formValues.cpassword}
                 onChange={handleChange}
               />
               <p className="text-sm ml-1 text-red-400">
-                {formErrors.confirmPassword}
+                {formErrors.cpassword}
               </p>
             </div>
             <Button className="bg-rose-800 w-full" onClick={handleSubmit}>
