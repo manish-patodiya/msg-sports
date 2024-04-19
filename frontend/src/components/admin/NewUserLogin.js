@@ -20,14 +20,14 @@ const NewUserLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formErrors));
+    setFormErrors(validate(formValues));
   };
 
   const validate = (values) => {
     const errors = {};
     const emailregx = /[a-zA-Z]{4,}(@msg-global.com)$/g;
     const passregx =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!values.email) {
       errors.email = "Email required";
     } else if (!emailregx.test(values.email)) {

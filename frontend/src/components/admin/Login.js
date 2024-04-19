@@ -26,7 +26,6 @@ const Login = () => {
   const validate = (values) => {
     const errors = {};
     const emailregx = /[a-zA-Z]{4,}(@msg-global.com)$/g;
-    const passregx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
     if (!values.email) {
       errors.email = "Email required";
     } else if (!emailregx.test(values.email)) {
@@ -34,9 +33,8 @@ const Login = () => {
     }
     if (!values.password) {
       errors.password = "Password is required";
-    } else if (!passregx.test(values.password)) {
-      errors.password = "Password should have a minimum of 6 characters";
     }
+
     return errors;
   };
 
