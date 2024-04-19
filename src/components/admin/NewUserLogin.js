@@ -37,7 +37,8 @@ const NewUserLogin = () => {
     if (!values.password) {
       errors.password = "Password is required";
     } else if (!passregx.test(values.password)) {
-      errors.password = "Password should have a minimum of 6 characters";
+      errors.password =
+        "Password should have one uppercase, one lowercase, one Special character and one Number";
     }
     //Confirm Password
     if (!values.cpassword) {
@@ -82,9 +83,7 @@ const NewUserLogin = () => {
                 value={formValues.password}
                 onChange={handleChange}
               />
-              <p className="text-sm ml-1 text-red-400">
-                {formErrors.password}
-              </p>
+              <p className="text-sm ml-1 text-red-400">{formErrors.password}</p>
             </div>
             <div className="flex flex-col">
               <Input
