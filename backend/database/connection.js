@@ -11,7 +11,7 @@ export const connectDatabase = () => {
 
     con.connect(function (err) {
         if (err) throw err;
-        console.log("Database connected..");
+        // console.log("Database connected..");
     });
 
     return con;
@@ -25,4 +25,5 @@ export const executeQuery = (sql, params) => {
             else resolve({ result, fields })
         });
     })
+    con.end();
 }

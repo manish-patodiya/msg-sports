@@ -1,6 +1,6 @@
-import { EMAIL_REGEX, PASS_REGEX } from '../constants/const.js';
+import { decryptPass, encryptPass, sendResponse } from '../constants/common.js';
+import { EMAIL_REGEX, PASS_REGEX } from '../constants/constants.js';
 import { executeQuery } from "../database/connection.js"
-import bcrypt from 'bcryptjs';
 
 export const validateUserData = async (data) => {
     const errors = {};
@@ -38,18 +38,6 @@ export const isEmailExist = async (email) => {
     }
 }
 
-const sendResponse = (status, message, response) => {
-    return { status, message, response };
-}
-
-const encryptPass = async (pass) => {
-    return await bcrypt.hash(pass, 8)
-}
-
-const decryptPass = async (pass, hashedPass) => {
-    return await bcrypt.compare(pass, hashedPass);
-}
-
 export const newUserLogin = async (data) => {
     const validation_errors = await validateUserData(data);
     if (Object.keys(validation_errors).length) {
@@ -82,7 +70,7 @@ export const validateLoginData = async (data) => {
     } else {
         const isMatch = await decryptPass(data.password, user_data.password);
         if (!isMatch) {
-            return sendResponse(0, "Invalid credentials", { pass: "Wrong password" });
+            return sendResponse(0, "Invalid credentials", { password: "Wrong password" });
         } else {
             return sendResponse(1, "Login successful", user_data);
         }
