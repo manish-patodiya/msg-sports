@@ -11,10 +11,8 @@ import { BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
 import { validateCPassword, validateEmail, validatePassword } from "../../common/common.js";
 import SuccessfulRegistration from "./SuccessfulRegistration.js";
-import { bounce, slideInDown } from 'react-animations'
 
 const NewUserLogin = () => {
-  const Slide = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`
   const initialValues = { email: "", password: "", cpassword: "" };
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
