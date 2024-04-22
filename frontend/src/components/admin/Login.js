@@ -51,10 +51,8 @@ const Login = () => {
         setformSubmitting(false);
         let data = res.data;
         if (data.status == 1) {
-          setinvalidCreds(false);
           sessionStorage.setItem("auth", data.auth);
-          console.log(sessionStorage.getItem("auth"))
-          navigate("/admin/dashboard");
+          setinvalidCreds(false);
         } else {
           setinvalidCreds(true);
         }
