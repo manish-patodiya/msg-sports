@@ -7,6 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+// import { validateNewUserLogin } from "../../common/common.js";
 
 const NewUserLogin = () => {
   const initialValues = { email: "", password: "", cpassword: "" };
@@ -20,38 +21,10 @@ const NewUserLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
-  };
-
-  const validate = (values) => {
-    const errors = {};
-    const emailregx = /[a-zA-Z]{4,}(@msg-global.com)$/g;
-    const passregx =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    if (!values.email) {
-      errors.email = "Email required";
-    } else if (!emailregx.test(values.email)) {
-      errors.email = "Invalid email";
-    }
-    //New Password
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (!passregx.test(values.password)) {
-      errors.password =
-        "Password should have one uppercase, one lowercase, one Special character and one Number";
-    }
-    //Confirm Password
-    if (!values.cpassword) {
-      errors.cpassword = "Password is required";
-    } else if (values.password !== values.cpassword) {
-      errors.cpassword = "Password not matching";
-    }
-
-    return errors;
+    // setFormErrors(validateNewUserLogin(formValues));
   };
 
   return (
-
     <div className="h-screen flex items-center justify-center px-10 py-10">
       <Card className="w-96">
         <CardBody className="flex flex-col gap-6">

@@ -8,7 +8,7 @@ const Header = () => {
         console.log("handle navigation")
     }
     return (
-        <Navbar className='text-black flex justify-between items-center fixed top-0 left-0 right-0 bg-white bg-opacity-100 container mx-auto rounded-none z-50' >
+        <Navbar className='text-black flex justify-between items-center sticky top-0 bg-white bg-opacity-100 container mx-auto rounded-none z-50' >
             <Typography variant='h3' className='flex text-gray-600'><span className='font-serif text-rose-900 font-bold'>.</span>msg-<span className='text-rose-900'> Sports</span ></Typography>
             <ul className='flex'>
                 <li className='font-sans text-lg pointer'><ScrollerLink to='home' className='px-4 py-2' activeClass='border-b-2 border-red-800' spy={true} smooth={true} offset={-80} duration={500}>Home</ScrollerLink></li>
