@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardBody,
@@ -6,27 +6,79 @@ import {
   Input,
   Button,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-// import { validateNewUserLogin } from "../../common/common.js";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from '../../constants/constant.js';
+import axios from "axios";
+import { validateCPassword, validateEmail, validatePassword } from "../../common/common.js";
+import SuccessfulRegistration from "./SuccessfulRegistration.js";
+import { bounce, slideInDown } from 'react-animations'
 
 const NewUserLogin = () => {
+  const Slide = styled.div`animation: 2s ${keyframes`${bounce}`} infinite`
   const initialValues = { email: "", password: "", cpassword: "" };
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState(initialValues);
+  const [formSubmitting, setformSubmitting] = useState(false)
+  const [succLogin, setSuccLogin] = useState(false)
+
+  useEffect(() => {
+    if (sessionStorage.getItem("auth")) {
+      navigate("/admin/dashboard");
+    }
+  });
 
   const handleChange = (e) => {
+    setFormErrors(initialValues);
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setFormErrors(validateNewUserLogin(formValues));
+
+    const emailError = validateEmail(formValues.email);
+    if (emailError) {
+      setFormErrors({ email: emailError });
+      return;
+    }
+
+    const passError = validatePassword(formValues.password);
+    if (passError) {
+      setFormErrors({ password: passError });
+      return;
+    }
+
+    const cpassError = validateCPassword(formValues.password, formValues.cpassword)
+    if (cpassError) {
+      setFormErrors({ cpassword: cpassError });
+      return;
+    }
+
+    setformSubmitting(true);
+
+    axios({
+      url: BASE_URL + "auth/new-login",
+      method: "POST",
+      data: formValues
+    }).then((res) => {
+      setformSubmitting(false);
+      const data = res.data;
+      if (data.status == 1) {
+        setSuccLogin(true);
+      } else {
+        setFormErrors(data.response.error);
+      }
+    }).catch((err) => {
+      setformSubmitting(false);
+      console.log(err)
+    })
   };
 
   return (
     <div className="h-screen flex items-center justify-center px-10 py-10">
-      <Card className="w-96">
+
+      {!succLogin ? <Card className="w-96">
         <CardBody className="flex flex-col gap-6">
           <div className="flex justify-center mb-5">
             <Typography variant="h3" className="flex text-gray-600">
@@ -41,7 +93,7 @@ const NewUserLogin = () => {
                 name="email"
                 label="Email"
                 size="lg"
-                error={formErrors.email}
+                error={!!formErrors.email}
                 value={formValues.email}
                 onChange={handleChange}
               />
@@ -52,7 +104,7 @@ const NewUserLogin = () => {
                 type="password"
                 name="password"
                 label="New Password"
-                error={formErrors.password}
+                error={!!formErrors.password}
                 size="lg"
                 value={formValues.password}
                 onChange={handleChange}
@@ -64,7 +116,7 @@ const NewUserLogin = () => {
                 type="password"
                 name="cpassword"
                 label="Confirm Password"
-                error={formErrors.cpassword}
+                error={!!formErrors.cpassword}
                 size="lg"
                 value={formValues.cpassword}
                 onChange={handleChange}
@@ -73,8 +125,8 @@ const NewUserLogin = () => {
                 {formErrors.cpassword}
               </p>
             </div>
-            <Button className="bg-rose-800 w-full" onClick={handleSubmit}>
-              Sign In
+            <Button className="bg-rose-800 w-full" disabled={formSubmitting} onClick={handleSubmit}>
+              {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`}
             </Button>
           </form>
           <div
@@ -89,8 +141,8 @@ const NewUserLogin = () => {
             </Link>
           </div>
         </CardBody>
-      </Card>
-    </div>
+      </Card> : <SuccessfulRegistration />}
+    </div >
   );
 };
 

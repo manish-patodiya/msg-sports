@@ -11,56 +11,62 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
 import { validateEmail, validatePassword } from "../../common/common.js";
-// import Cookies from 'js-cookie';
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
-  const [invalidCreds, setinvalidCreds] = useState(false)
-  const [formSubmitting, setformSubmitting] = useState(false)
+  const [formSubmitting, setFormSubmitting] = useState(false)
+  const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
+    sessionStorage.removeItem("auth")
     if (!!sessionStorage.getItem("auth")) {
       navigate("/admin/dashboard");
     }
   });
 
-
   const handleChange = (e) => {
+    setBackendError("");
     setFormErrors(initialValues);
-    setinvalidCreds(false);
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const emailError = validateEmail(formValues.email);
-    const passError = validatePassword(formValues.password);
-    setFormErrors({ email: emailError, password: passError });
+    setBackendError("");
 
-    if (!emailError && !passError) {
-      setformSubmitting(true);
-      axios({
-        url: BASE_URL + "auth/login",
-        data: formValues,
-        method: 'POST',
-      }).then((res) => {
-        setformSubmitting(false);
-        let data = res.data;
-        if (data.status == 1) {
-          sessionStorage.setItem("auth", data.auth);
-          setinvalidCreds(false);
-        } else {
-          setinvalidCreds(true);
-        }
-      }).catch((err) => {
-        setformSubmitting(false);
-        console.log(err);
-      })
+    const emailError = validateEmail(formValues.email);
+    if (emailError) {
+      setFormErrors({ email: emailError });
+      return;
     }
+
+    const passError = validatePassword(formValues.password);
+    if (passError) {
+      setFormErrors({ password: passError });
+      return;
+    }
+
+    setFormSubmitting(true);
+    axios({
+      url: BASE_URL + "auth/login",
+      data: formValues,
+      method: 'POST',
+    }).then((res) => {
+      setFormSubmitting(false);
+      let data = res.data;
+      if (data.status == 1) {
+        sessionStorage.setItem("auth", data.auth);
+      } else {
+        setBackendError(data.message);
+      }
+    }).catch((err) => {
+      setFormSubmitting(false);
+      console.log(err);
+    })
   };
 
   return (
@@ -74,7 +80,7 @@ const Login = () => {
               <span className="text-rose-900"> Sports</span>
             </Typography>
           </div>
-          <Alert className={`bg-rose-800 py-2 ${invalidCreds || "hidden"}`}>Invalid Credentials</Alert>
+          <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
@@ -125,7 +131,7 @@ const Login = () => {
           </div>
         </CardBody>
       </Card>
-    </div>
+    </div >
   );
 };
 

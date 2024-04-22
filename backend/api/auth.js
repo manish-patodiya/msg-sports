@@ -18,10 +18,6 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign({ "_id": user_data.id }, "jwttoken");
         delete result.response.id
         result.auth = token;
-        // res.cookie("auth_token", token, {
-        //     httpOnly: true,
-        //     maxAge: 60000
-        // });
     }
     res.json(result);
 })

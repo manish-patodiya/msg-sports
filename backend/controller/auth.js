@@ -1,32 +1,16 @@
-import { decryptPass, encryptPass, sendResponse } from '../constants/common.js';
-import { EMAIL_REGEX, PASS_REGEX } from '../constants/constants.js';
+import { decryptPass, encryptPass, sendResponse, validateCPassword, validateEmail, validatePassword } from '../constants/common.js';
 import { executeQuery } from "../database/connection.js"
 
 export const validateUserData = async (data) => {
-    const errors = {};
-    if (!data.email) {
-        errors.email = "Email is required";
-    } else if (!data.email.match(EMAIL_REGEX)) {
-        errors.email = "Please try with orgnisation email";
-    } else if (await isEmailExist(data.email)) {
-        errors.email = "Email already exist";
-    }
 
-    //New Password
-    if (!data.password) {
-        errors.password = "Password is required";
-    } else if (!data.password.match(PASS_REGEX)) {
-        errors.password =
-            "Password should have one uppercase, one lowercase, one Special character and one Number";
-    }
+    const emailErr = await validateEmail(data.email);
+    if (emailErr) return { email: emailErr };
 
-    //Confirm Password
-    if (!data.cpassword) {
-        errors.cpassword = "Confirm Password is required";
-    } else if (data.password !== data.cpassword) {
-        errors.cpassword = "Password not matching";
-    }
-    return errors;
+    const passErr = validatePassword(data.password);
+    if (passErr) return { password: passErr };
+
+    const cpassErr = validateCPassword(data.password, data.cpassword)
+    if (cpassErr) return { cpassword: passErr };
 }
 
 export const isEmailExist = async (email) => {
@@ -40,8 +24,8 @@ export const isEmailExist = async (email) => {
 
 export const newUserLogin = async (data) => {
     const validation_errors = await validateUserData(data);
-    if (Object.keys(validation_errors).length) {
-        return sendResponse(0, "Invalid credentials", validation_errors);
+    if (validation_errors) {
+        return sendResponse(0, "Invalid credentials", { error: validation_errors });
     }
     else {
         try {
@@ -66,13 +50,19 @@ export const getUserByEmail = async (email) => {
 export const validateLoginData = async (data) => {
     const user_data = await getUserByEmail(data.email);
     if (!user_data) {
-        return sendResponse(0, "Invalid credentials", { email: "Email doest not exist" });
+        return sendResponse(0, "Invalid credentials", { error: { email: "Email doest not exist" } });
     } else {
         const isMatch = await decryptPass(data.password, user_data.password);
         if (!isMatch) {
-            return sendResponse(0, "Invalid credentials", { password: "Wrong password" });
+            return sendResponse(0, "Invalid credentials", { error: { password: "Wrong password" } });
         } else {
-            return sendResponse(1, "Login successful", user_data);
+            if (user_data.status == 0) {
+                return sendResponse(0, "Your profile is in pending status. Please wait for admin to approve it.");
+            } else if (user_data.status == 1) {
+                return sendResponse(1, "Login successful", user_data);
+            } else if (user_data.status == 2) {
+                return sendResponse(0, "Your profile is in rejected by the admin. Try to contact with your admin.");
+            }
         }
     }
 
