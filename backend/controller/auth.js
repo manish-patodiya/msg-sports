@@ -61,7 +61,7 @@ export const validateLoginData = async (data) => {
             } else if (user_data.status == 1) {
                 return sendResponse(1, "Login successful", user_data);
             } else if (user_data.status == 2) {
-                return sendResponse(0, "Your profile is in rejected by the admin. Try to contact with your admin.");
+                return sendResponse(0, "Your profile is rejected by the admin. Try to contact with your admin.");
             }
         }
     }
