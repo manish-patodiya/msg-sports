@@ -1,11 +1,19 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './admin/Login'
+import Dashboard from './admin/Dashboard'
+import NewUserLogin from './admin/NewUserLogin'
+import AdminPanel from './admin/AdminPanel'
 const Admin = () => {
     return (
-        <Routes >
-            <Route path='dask' element={<Login />} ></Route>
-        </Routes>
+        <Routes>
+            <Route path="/">
+                <Route path='/' element={<Login />}></Route>
+                <Route path='login' element={<Login />}></Route>
+                <Route path='new-login' element={<NewUserLogin />}></Route>
+                <Route path="/*" element={<AdminPanel />}></Route>
+            </Route>
+        </Routes >
     )
 }
 

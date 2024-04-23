@@ -4,19 +4,16 @@ import Login from "./components/admin/Login";
 import NewUserLogin from "./components/admin/NewUserLogin";
 import Dashboard from "./components/admin/Dashboard";
 import "./App.css";
+import Admin from "./components/Admin";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Frontend />}></Route>
-        <Route path="/admin">
-          <Route path='' element={<Login />}></Route>
-          <Route path='new-login' element={<NewUserLogin />}></Route>
-          <Route path='dashboard' element={<Dashboard />} ></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        <Route path="/admin/*" element={<Admin />}></Route>
+      </Routes >
+    </BrowserRouter >
   );
 }
 
