@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './admin/Login'
-import Dashboard from './admin/Dashboard'
 import NewUserLogin from './admin/NewUserLogin'
 import AdminPanel from './admin/AdminPanel'
 const Admin = () => {
