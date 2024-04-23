@@ -21,7 +21,6 @@ const Login = () => {
   const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
-    sessionStorage.removeItem("auth")
     if (!!sessionStorage.getItem("auth")) {
       navigate("/admin/dashboard");
     }
@@ -60,6 +59,7 @@ const Login = () => {
       let data = res.data;
       if (data.status == 1) {
         sessionStorage.setItem("auth", data.auth);
+        navigate("/admin/dashboard");
       } else {
         setBackendError(data.message);
       }

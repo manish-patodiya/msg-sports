@@ -1,5 +1,6 @@
-import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react'
+import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SuccessfulRegistration = () => {
     return (
@@ -15,6 +16,9 @@ const SuccessfulRegistration = () => {
                 <Typography variant='h6' color="gray" className='text-center'>Now, wait for admin to review your profile and authenticate you as a <span className='text-rose-800'>MSG Global Solutions' employee.</span> </Typography>
                 <Typography variant='h6' color="gray" className='text-center'>You will get a mail from admin regarding this.</Typography>
             </CardBody >
+            <CardFooter className='text-rose-800'>
+                <Link to="/admin" className='flex justify-end items-center'><i class="fa-solid fa-arrow-left-long me-1"></i>Back to the login page</Link>
+            </CardFooter>
         </Card >
     )
 }
