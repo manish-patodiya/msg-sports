@@ -10,13 +10,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-
   const handleLogout = () => {
     sessionStorage.removeItem("auth");
-  }
+  };
 
   return (
-    <Navbar className="text-black flex justify-between items-center sticky top-0 bg-white bg-opacity-100 rounded-none z-50 shadow-none">
+    <Navbar className="text-black flex justify-between items-center sticky bg-white bg-opacity-100 rounded-none shadow-none">
       <Typography variant="h3" className="flex">
         Admin
       </Typography>

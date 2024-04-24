@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, PASS_REGEX } from "../constants/constant";
+import { EMAIL_REGEX, PASS_REGEX, PHONE_REGEX } from "../constants/constant";
 
 export const validateEmail = (email) => {
     if (!email) {
@@ -21,5 +21,31 @@ export const validateCPassword = (pass, cpass) => {
         return "Password is required";
     } else if (pass !== cpass) {
         return "Password not matching";
+    }
+}
+
+export const validateContact = (contact) => {
+    if (!contact) {
+        return "Contact info is required";
+    } else if (!contact.match(PHONE_REGEX)) {
+        return "Phone No is not Valid";
+    }
+}
+
+export const validateEmpName = (empName) => {
+    if (!empName) {
+        return "Employee's Name must consist 6 minimum characters";
+    }
+}
+
+export const validateDOB = (dateOfBirth) => {
+    if (!dateOfBirth) {
+        return "Date of Birth required";
+    }
+}
+
+export const validateAddress = (address) => {
+    if (!address) {
+        return "Address required";
     }
 }
