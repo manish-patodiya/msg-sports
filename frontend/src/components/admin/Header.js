@@ -26,22 +26,21 @@ const Header = () => {
             <i className="fa-solid fa-bars cursor-pointer"></i>
           </MenuHandler>
           <MenuList className="text-rose-800">
-            <MenuItem className="flex items-center gap-2">
-              <Link to="/admin/profile">
-                <i className="fa-regular fa-user me-1"></i> Account
-              </Link>
-
-            </MenuItem>
-            <MenuItem className="flex items-center gap-2">
-              <Link to="/admin/manage-password">
-                <i className="fa-solid fa-key me-1"></i> Manage Password
-              </Link>
-            </MenuItem>
-            <MenuItem className="flex items-center gap-2">
-              <Link onClick={handleLogout}>
-                <i className="fa-solid fa-arrow-right-from-bracket me-1"></i> Log out
-              </Link>
-            </MenuItem>
+            <Link to="/admin/profile">
+              <MenuItem className="flex items-center gap-2">
+                <i className="fa-regular fa-user"></i> Account
+              </MenuItem>
+            </Link>
+            <Link to="/admin/manage-password">
+              <MenuItem className="flex items-center gap-2">
+                <i className="fa-solid fa-key "></i> Manage Password
+              </MenuItem>
+            </Link>
+            <Link onClick={handleLogout} className="border-none">
+              <MenuItem className="flex items-center gap-2">
+                <i className="fa-solid fa-arrow-right-from-bracket"></i> Log out
+              </MenuItem>
+            </Link>
           </MenuList>
         </Menu>
       </div>

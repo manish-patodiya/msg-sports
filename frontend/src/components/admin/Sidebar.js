@@ -1,48 +1,96 @@
-import { List, ListItem, ListItemPrefix, Typography } from '@material-tailwind/react'
+import { Accordion, AccordionBody, AccordionHeader, List, ListItem, ListItemPrefix, Typography } from '@material-tailwind/react'
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom';
 
 export const Sidebar = () => {
+    const [open, setOpen] = React.useState(0);
+    const location = useLocation();
+
+    let count = 1;
+    const menu_items = [
+        { name: "Dashboard", path: "/admin/dashboard", icon: "fa-table-columns" },
+        { name: "Captains", path: "/admin/captains", icon: "fa-person-military-rifle" },
+        { name: "Players", path: "/admin/players", icon: "fa-person-running" },
+        { name: "Events", path: "/admin/events", icon: "fa-calendar-day" },
+        {
+            name: "Site Settings", icon: "fa-gear", submenu: [
+                { name: "Home", path: "/admin/site-setting/home" },
+                { name: "About", path: "/admin/site-setting/about" },
+            ]
+        }
+    ]
+
+    const handleOpen = (value) => {
+        setOpen(open === value ? 0 : value);
+    };
+
     return (
-        <div className="h-screen w-full max-w-[16rem] bg-rose-800 fixed top-0 bottom-0 left-0 border-collapse border-x border-gray-600 ">
-            <div className="mb-2 p-4 bg-white ">
+        <div className="h-screen w-full max-w-[16rem] bg-rose-800 fixed top-0 bottom-0 left-0 border-collapse border-x border-gray-600 overflow-y-auto remove-scrollbar">
+            <div className="mb-2 p-4 bg-white sticky top-0">
                 <Typography variant="h3" className="flex text-gray-600 ">
                     <span className="font-serif text-rose-900 font-bold">.</span>msg-
                     <span className="text-rose-900"> Sports</span>
                 </Typography>
             </div>
-            <div className='p-4'>
+            <div className='p-1 '>
                 <List className="text-white">
-                    <ListItem>
-                        <ListItemPrefix>
-                            <i className="fa-solid fa-table-columns"></i>
-                        </ListItemPrefix>
-                        <p color="white">Dashboard</p>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <i className="fa-solid fa-person-military-rifle"></i>
-                        </ListItemPrefix>
-                        Captains
-                    </ListItem>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <i className="fa-solid fa-person-running"></i>
-                        </ListItemPrefix>
-                        Players
-                    </ListItem>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <i className="fa-solid fa-calendar-day"></i>
-                        </ListItemPrefix>
-                        Events
-                    </ListItem>
-                    <hr className="my-10 border-blue-gray-50" />
-                    <ListItem>
-                        <ListItemPrefix>
-                            <i className="fa-solid fa-gear"></i>
-                        </ListItemPrefix>
-                        Site Settings
-                    </ListItem>
+                    {
+                        menu_items.map((menu, key) => {
+                            if (!menu.submenu) {
+                                return (
+                                    <Link to={menu.path} key={key}>
+                                        <ListItem className={menu.path == location.pathname ? 'bg-blue-gray-50 text-blue-gray-900 bg-opacity-80' : ""}>
+                                            <ListItemPrefix>
+                                                <i className={`fa-solid ${menu.icon} w-4`}></i>
+                                            </ListItemPrefix>
+                                            <p color="white">{menu.name}</p>
+                                        </ListItem>
+                                    </Link>
+                                );
+                            } else {
+                                return (
+                                    <Accordion
+                                        key={key}
+                                        className='text-white'
+                                        open={open === count}
+                                        icon={
+                                            <i className={`fa-solid fa-chevron-down w-4 transition-transform text-sm  ${open === count ? "rotate-180" : ""}`}></i>
+                                        }
+                                    >
+                                        <ListItem className="p-0" selected={open === count}>
+                                            <AccordionHeader onClick={() => handleOpen(count++)} className="border-b-0 p-3 text-white">
+                                                <ListItemPrefix>
+                                                    <i className={`fa-solid ${menu.icon} text-base w-4`}></i>
+                                                </ListItemPrefix>
+                                                <Typography className="mr-auto font-normal py-0">
+                                                    {menu.name}
+                                                </Typography>
+                                            </AccordionHeader>
+                                        </ListItem>
+                                        <AccordionBody className="py-1 text-white">
+                                            <List className="p-0 text-white">
+                                                {
+                                                    menu.submenu.map((sm, k) => {
+                                                        return (
+                                                            <Link to={sm.path} key={k}>
+                                                                {/* className={s.path === location.pathname && 'bg-blue-gray-50 text-blue-gray-900 bg-opacity-80'} */}
+                                                                <ListItem>
+                                                                    <ListItemPrefix>
+                                                                        <i className={`fa-solid ${sm.icon || 'fa-chevron-right'} w-4`}></i>
+                                                                    </ListItemPrefix>
+                                                                    <p color="white">{sm.name}</p>
+                                                                </ListItem>
+                                                            </Link>
+                                                        )
+                                                    })
+                                                }
+                                            </List>
+                                        </AccordionBody>
+                                    </Accordion>
+                                );
+                            }
+                        })
+                    }
                 </List>
             </div>
         </div>

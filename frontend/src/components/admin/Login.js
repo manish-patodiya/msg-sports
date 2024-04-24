@@ -18,14 +18,21 @@ const Login = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
   const [formSubmitting, setFormSubmitting] = useState(false)
+  const [pageLoaded, setPageLocaded] = useState(true);
   const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
+    // setTimeout(() => {
+    //   setPageLocaded(true);
+    // }, 700);
+    checkAuth();
+  }, []);
+
+  const checkAuth = () => {
     if (!!sessionStorage.getItem("auth")) {
       navigate("/admin/dashboard");
     }
-  });
-
+  }
   const handleChange = (e) => {
     setBackendError("");
     setFormErrors(initialValues);
@@ -84,12 +91,14 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
+                type="name"
                 name="email"
                 label="Email"
                 size="lg"
                 error={!!formErrors.email}
                 value={formValues.email}
                 onChange={handleChange}
+                disabled={!pageLoaded}
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
             </div>
@@ -98,11 +107,12 @@ const Login = () => {
                 type="password"
                 name="password"
                 label="Password"
-                error={!!formErrors.password}
                 size="lg"
+                error={!!formErrors.password}
                 value={formValues.password}
                 onChange={handleChange}
-                autoComplete="off"
+                disabled={!pageLoaded}
+                autoComplete="new-password"
               />
               <p className="text-sm ml-1 text-red-400">
                 {formErrors.password}

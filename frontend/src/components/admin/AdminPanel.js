@@ -4,6 +4,8 @@ import Dashboard from "./Dashboard";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Profile from "./Profile";
+import HomeSettings from "./HomeSettings";
+
 
 const AdminPanel = () => {
     const navigate = useNavigate();
@@ -24,6 +26,7 @@ const AdminPanel = () => {
                         <Routes>
                             <Route path="dashboard" element={<Dashboard />}></Route>
                             <Route path="profile" element={<Profile />}></Route>
+                            <Route path="site-setting/home" element={<HomeSettings />}></Route>
                         </Routes>
                     </div>
                 </div>
