@@ -25,7 +25,7 @@ const Header = () => {
             <i className="fa-solid fa-bars cursor-pointer"></i>
           </MenuHandler>
           <MenuList className="text-rose-800">
-            <Link to="/admin/profile">
+            <Link to="/captain/profile">
               <MenuItem className="flex items-center gap-2">
                 <i className="fa-regular fa-user"></i> Account
               </MenuItem>

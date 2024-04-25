@@ -4,6 +4,8 @@ import Header from "./Header";
 import Dashboard from "./Dashboard";
 import Sidebar from "./Sidebar";
 import Players from "./Players";
+import Profile from "./Profile";
+import ManagePassword from "./ManagePassword";
 
 const CaptainPanel = () => {
   //   const navigate = useNavigate();
@@ -24,6 +26,8 @@ const CaptainPanel = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="players" element={<Players />}></Route>
+              <Route path="profile" element={<Profile />}></Route>
+              <Route path="manage-password" element={<ManagePassword />}></Route>
             </Routes>
           </div>
         </div>
