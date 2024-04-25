@@ -1,3 +1,4 @@
+import { response } from 'express';
 import { decryptPass, encryptPass, sendResponse, validateCPassword, validateEmail, validatePassword } from '../constants/common.js';
 import { executeQuery } from "../database/connection.js"
 
@@ -30,25 +31,34 @@ export const newUserLogin = async (data) => {
     else {
         try {
             data.password = await encryptPass(data.password);
-            let response = await executeQuery("insert into users (email,password) values(?,?)", [data.email, data.password]);
+            let response = await insertUser(data);
             return sendResponse(1, "User inserted successfully", response);
         } catch (err) {
+            console.log(err)
             return sendResponse(2, "SQL error", err.sqlMessage);
         }
     }
 }
 
-export const getUserByEmail = async (email) => {
+export const insertUser = async (data) => {
+    let response = await executeQuery("insert into users (email,password) values(?,?)", [data.email, data.password]);
+    await executeQuery("insert into users_role (user_id,role_id) values(?,?)", [response.result.insertId, 3]);
+    return response;
+}
+
+export const getUserByEmail = async (email, role_id) => {
     try {
-        let response = await executeQuery("select * from users where email=?", [email]);
+        let response = role_id ?
+            await executeQuery("select * from users join users_role where email=? and role_id=?", [email, role_id]) :
+            await executeQuery("select * from users where email=?", [email]);
         return response.result[0];
     } catch (err) {
         return err;
     }
 }
 
-export const validateLoginData = async (data) => {
-    const user_data = await getUserByEmail(data.email);
+export const validateLoginData = async (data, role_id) => {
+    const user_data = await getUserByEmail(data.email, role_id);
     if (!user_data) {
         return sendResponse(0, "Invalid credentials", { error: { email: "Email doest not exist" } });
     } else {
