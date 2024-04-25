@@ -1,19 +1,20 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./admin/Login";
-import NewUserLogin from "./admin/NewUserLogin";
-import AdminPanel from "./admin/AdminPanel";
-const Admin = () => {
+import Login from "./captain/Login";
+import NewUserLogin from "./captain/NewUserLogin";
+import CaptainPanel from "./captain/CaptainPanel";
+
+const Captains = () => {
   return (
     <Routes>
       <Route path="/">
         <Route path="/" element={<Login />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="new-login" element={<NewUserLogin />}></Route>
-        <Route path="/*" element={<AdminPanel />}></Route>
+        <Route path="/*" element={<CaptainPanel />}></Route>
       </Route>
     </Routes>
   );
 };
 
-export default Admin;
+export default Captains;

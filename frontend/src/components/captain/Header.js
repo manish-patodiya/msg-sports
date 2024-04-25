@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Menu,
   MenuHandler,
@@ -6,7 +7,6 @@ import {
   Navbar,
   Typography,
 } from "@material-tailwind/react";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <Navbar className="text-black flex justify-between items-center sticky bg-white bg-opacity-100 rounded-none shadow-none">
       <Typography variant="h3" className="flex">
-        Admin Panel
+        Captain Panel
       </Typography>
       <div>
         <Menu className="">
@@ -30,7 +30,7 @@ const Header = () => {
                 <i className="fa-regular fa-user"></i> Account
               </MenuItem>
             </Link>
-            <Link to="/admin/manage-password">
+            <Link to="/captain/manage-password">
               <MenuItem className="flex items-center gap-2">
                 <i className="fa-solid fa-key "></i> Manage Password
               </MenuItem>
