@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <Navbar className="text-black flex justify-between items-center sticky bg-white bg-opacity-100 rounded-none shadow-none">
       <Typography variant="h3" className="flex">
-        Captain Panel
+        Player Panel
       </Typography>
       <div>
         <Menu className="">
@@ -25,12 +25,12 @@ const Header = () => {
             <i className="fa-solid fa-bars cursor-pointer"></i>
           </MenuHandler>
           <MenuList className="text-rose-800">
-            <Link to="/captain/profile">
+            <Link to="/player/profile">
               <MenuItem className="flex items-center gap-2">
                 <i className="fa-regular fa-user"></i> Account
               </MenuItem>
             </Link>
-            <Link to="/captain/manage-password">
+            <Link to="/player/manage-password">
               <MenuItem className="flex items-center gap-2">
                 <i className="fa-solid fa-key "></i> Manage Password
               </MenuItem>

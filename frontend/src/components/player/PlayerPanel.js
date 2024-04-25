@@ -3,18 +3,11 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Dashboard from "./Dashboard";
 import Sidebar from "./Sidebar";
-import Players from "./Players";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
+import Nominations from "./Nominations";
 
-const CaptainPanel = () => {
-  //   const navigate = useNavigate();
-  //   useEffect(() => {
-  //     if (!sessionStorage.getItem("auth")) {
-  //       navigate("/admin");
-  //     }
-  //   });
-
+const PlayerPanel = () => {
   return (
     <div className="relative bg-gray-200 min-h-screen">
       <Sidebar />
@@ -25,7 +18,7 @@ const CaptainPanel = () => {
           <div className="bg-white p-4 rounded-md">
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
-              <Route path="players" element={<Players />}></Route>
+              <Route path="nominations" element={<Nominations />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>
             </Routes>
@@ -33,7 +26,7 @@ const CaptainPanel = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CaptainPanel;
+export default PlayerPanel
