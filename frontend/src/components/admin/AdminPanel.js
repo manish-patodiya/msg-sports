@@ -5,6 +5,8 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Profile from "./Profile";
 import HomeSettings from "./HomeSettings";
+import ManagePassword from "./ManagePassword";
+import Players from "./Players";
 
 
 const AdminPanel = () => {
@@ -25,7 +27,9 @@ const AdminPanel = () => {
                     <div className="bg-white p-4 rounded-md">
                         <Routes>
                             <Route path="dashboard" element={<Dashboard />}></Route>
+                            <Route path='players' element={<Players />}></Route>
                             <Route path="profile" element={<Profile />}></Route>
+                            <Route path='manage-password' element={<ManagePassword />}></Route>
                             <Route path="site-setting/home" element={<HomeSettings />}></Route>
                         </Routes>
                     </div>

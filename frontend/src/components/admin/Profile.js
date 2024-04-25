@@ -62,10 +62,11 @@ const Profile = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-row h-full">
-      <div className="m-5 w-2/4 flex flex-col justify-top">
+      <div className="m-5 w-2/5 flex flex-col justify-top">
         <div className="h-64 w-64">
           <img
             src={img}
+            alt=''
             className="rounded-full object-cover h-full w-full shadow-md"
           />
         </div>
@@ -83,7 +84,7 @@ const Profile = () => {
         </div>
       </div>
       <div className="m-5 h-auto flex flex-col gap-5 items-center justify-start">
-        <div className="w-72">
+        <div className="w-96">
           <Input
             name="empname"
             label="Employee Name"
@@ -95,7 +96,7 @@ const Profile = () => {
             required
           />
         </div>
-        <div className="w-72">
+        <div className="w-96">
           <Input
             type="date"
             name="dob"
@@ -107,7 +108,7 @@ const Profile = () => {
             required
           />
         </div>
-        <div className="w-72">
+        <div className="w-96">
           <Input
             name="contact"
             label="Contact"
@@ -118,7 +119,7 @@ const Profile = () => {
             required
           />
         </div>
-        <div className="w-72">
+        <div className="w-96">
           <Input
             name="address"
             label="Address"
@@ -129,9 +130,9 @@ const Profile = () => {
             required
           />
         </div>
-        <div className="m-5">
+        <div>
           <Button
-            className="bg-rose-800"
+            className="bg-rose-800 w-40"
             // disabled={formSubmitting}
             onClick={handleSubmit}
           >
