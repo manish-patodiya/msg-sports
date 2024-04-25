@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <Navbar className="text-black flex justify-between items-center sticky bg-white bg-opacity-100 rounded-none shadow-none">
       <Typography variant="h3" className="flex">
-        Captain Panel
+        Player Panel
       </Typography>
       <div>
         <Menu className="">
