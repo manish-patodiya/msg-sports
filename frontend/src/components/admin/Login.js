@@ -18,13 +18,9 @@ const Login = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
   const [formSubmitting, setFormSubmitting] = useState(false)
-  const [pageLoaded, setPageLocaded] = useState(true);
   const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   setPageLocaded(true);
-    // }, 700);
     checkAuth();
   }, []);
 
@@ -98,7 +94,6 @@ const Login = () => {
                 error={!!formErrors.email}
                 value={formValues.email}
                 onChange={handleChange}
-                disabled={!pageLoaded}
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
             </div>
@@ -111,7 +106,6 @@ const Login = () => {
                 error={!!formErrors.password}
                 value={formValues.password}
                 onChange={handleChange}
-                disabled={!pageLoaded}
                 autoComplete="new-password"
               />
               <p className="text-sm ml-1 text-red-400">

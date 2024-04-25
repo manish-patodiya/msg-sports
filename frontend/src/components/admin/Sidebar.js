@@ -12,12 +12,7 @@ export const Sidebar = () => {
         { name: "Captains", path: "/admin/captains", icon: "fa-person-military-rifle" },
         { name: "Players", path: "/admin/players", icon: "fa-person-running" },
         { name: "Events", path: "/admin/events", icon: "fa-calendar-day" },
-        {
-            name: "Site Settings", icon: "fa-gear", submenu: [
-                { name: "Home", path: "/admin/site-setting/home" },
-                { name: "About", path: "/admin/site-setting/about" },
-            ]
-        }
+        { name: "Site Settings", path: "/admin/site-settings", icon: "fa-gear" },
     ]
 
     const handleOpen = (value) => {

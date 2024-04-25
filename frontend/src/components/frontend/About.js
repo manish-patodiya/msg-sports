@@ -66,7 +66,7 @@ const About = () => {
                                 >
                                     <img
                                         src={e.img}
-                                        alt="ui/ux review check"
+                                        alt="Houses"
                                     />
                                 </CardHeader>
                                 <CardBody>

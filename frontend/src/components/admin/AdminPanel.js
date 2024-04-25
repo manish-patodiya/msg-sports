@@ -4,7 +4,6 @@ import Dashboard from "./Dashboard";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Profile from "./Profile";
-import HomeSettings from "./HomeSettings";
 import ManagePassword from "./ManagePassword";
 import Players from "./Players";
 import SiteSettings from "./SiteSettings";
@@ -31,7 +30,6 @@ const AdminPanel = () => {
                             <Route path='players' element={<Players />}></Route>
                             <Route path="profile" element={<Profile />}></Route>
                             <Route path='manage-password' element={<ManagePassword />}></Route>
-                            <Route path="site-setting/home" element={<HomeSettings />}></Route>
                             <Route path="site-settings" element={<SiteSettings />}></Route>
                         </Routes>
                     </div>
