@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <Navbar className="text-black flex justify-between items-center sticky top-0 bg-white bg-opacity-100
-    z-50 rounded-none shadow-none">
+    z-10 rounded-none shadow-none">
       <Typography variant="h3" className="flex">
         Admin Panel
       </Typography>

@@ -1,27 +1,66 @@
 import { Input, Textarea, Typography, Button } from '@material-tailwind/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import { API_BASE_URL } from '../../constants/constant';
+import { toast, ToastContainer } from 'react-toastify';
 
-const GeneralSettings = () => {
+const GeneralSettings = ({ data }) => {
+    const initValues = { name: "", email: "", contact: "", address: "", website: "", twitter: "", instagram: "", facebook: "" }
+    const [generalInfo, setGeneralInfo] = useState(initValues);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        data && setGeneralInfo(data);
+    }, [data])
+
+    const handleChanges = (e) => {
+        setGeneralInfo({ ...generalInfo, [e.target.name]: e.target.value });
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        axios({
+            url: API_BASE_URL + "site_settings/general_settings/update",
+            method: "POST",
+            data: generalInfo
+        }).then((res) => {
+            setIsSubmitting(false);
+            if (res.data.status) {
+                toast.success(res.data.message, {
+                    position: "top-right",
+                });
+            } else {
+                toast.error(res.data.message, {
+                    position: "top-right",
+                });
+            }
+        }).catch((err) => {
+            setIsSubmitting(false);
+            console.log(err);
+        })
+    }
+
+    let i = 0;
     return (
-        <form className='flex flex-col gap-3'>
+        <form className='flex flex-col gap-3' onSubmit={handleSubmit}>
             <Typography variant='h4'>General Information</Typography>
             <hr />
-            <Input label="Site Name" required />
-            <Input label="Contact No." required />
-            <Input label="Email" required />
-            <Textarea label="Address" required ></Textarea>
+            <Input name="name" label="Site Name" required onChange={handleChanges} value={generalInfo.name} />
+            <Input name="contact" label="Contact No." required onChange={handleChanges} value={generalInfo.contact} />
+            <Input name="email" label="Email" required onChange={handleChanges} value={generalInfo.email} />
+            <Textarea name="address" label="Address" required onChange={handleChanges} value={generalInfo.address} />
 
             <hr className='border-t-2 border-gray-500' />
 
             <Typography variant='h4'>Social links</Typography>
             <hr />
-            <Input label="Website" />
-            <Input label="Twitter" />
-            <Input label="Facebook" />
-            <Input label="Instagram" />
+            <Input name="website" label="Website" onChange={handleChanges} value={generalInfo.website} />
+            <Input name="twitter" label="Twitter" onChange={handleChanges} value={generalInfo.twitter} />
+            <Input name="facebook" label="Facebook" onChange={handleChanges} value={generalInfo.facebook} />
+            <Input name="instagram" label="Instagram" onChange={handleChanges} value={generalInfo.instagram} />
 
             <div className='text-right'>
-                <Button className='bg-rose-800'>Save</Button>
+                <Button type='submit' disabled={isSubmitting} className='bg-rose-800'>{isSubmitting ? <i className='fas fa-spinner animate-spin'></i> : "Save"}</Button>
             </div>
         </form>
     )

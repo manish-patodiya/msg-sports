@@ -8,7 +8,7 @@ import {
   Alert,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from '../../constants/constant.js';
+import { API_BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
 import { validateEmail, validatePassword } from "../../common/common.js";
 
@@ -54,7 +54,7 @@ const Login = () => {
 
     setFormSubmitting(true);
     axios({
-      url: BASE_URL + "auth/admin/login",
+      url: API_BASE_URL + "auth/admin/login",
       data: formValues,
       method: 'POST',
     }).then((res) => {
