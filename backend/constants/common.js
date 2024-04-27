@@ -48,13 +48,13 @@ export const fileUploadMiddleware = (field_name, dest) => {
         destination: function (req, file, cb) {
             switch (dest) {
                 case "banners":
-                    cb(null, '../uploads/banners')
+                    cb(null, './public/data/uploads/banners')
                     break;
                 case "houses":
-                    cb(null, '../uploads/houses')
+                    cb(null, './public/data/uploads/houses')
                     break;
                 default:
-                    cb(null, '../uploads')
+                    cb(null, './public/data/uploads')
                     break;
             }
         },

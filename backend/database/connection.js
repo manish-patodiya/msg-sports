@@ -23,7 +23,7 @@ export const executeQuery = (sql, params) => {
         con.query(sql, params, (err, result, fields) => {
             if (err) reject(err);
             else resolve({ result, fields })
+            con.end();
         });
     })
-    con.end();
 }

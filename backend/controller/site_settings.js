@@ -7,7 +7,8 @@ export const getSiteSettings = async () => {
         let { result } = await executeQuery("select * from site_settings limit 1");
         result = result[0];
         result.banners = result.banners ? JSON.parse(result.banners) : [];
-        return sendResponse(1, "Image Uploaded successfully", { image: req.uploaded_file_name });
+        result.houses = result.houses ? JSON.parse(result.houses) : [];
+        return sendResponse(1, "Information fetched successfully", result);
     } catch (err) {
         console.log(err)
         return sendResponse(2, "SQL error", err.sqlMessage);
