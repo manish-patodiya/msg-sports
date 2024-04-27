@@ -40,3 +40,30 @@ export const validateCPassword = (pass, cpass) => {
         return "Password not matching";
     }
 }
+
+import multer from 'multer';
+import path from 'path';
+export const fileUploadMiddleware = (field_name, dest) => {
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            switch (dest) {
+                case "banners":
+                    cb(null, '../uploads/banners')
+                    break;
+                case "houses":
+                    cb(null, '../uploads/houses')
+                    break;
+                default:
+                    cb(null, '../uploads')
+                    break;
+            }
+        },
+        filename: function (req, file, cb) {
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+            const file_name = file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
+            cb(null, file_name);
+            req.uploaded_file_name = file_name;
+        }
+    })
+    return multer({ storage: storage }).single(field_name);
+}

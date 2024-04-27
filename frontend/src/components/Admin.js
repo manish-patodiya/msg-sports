@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./admin/Login";
-import NewUserLogin from "./admin/NewUserLogin";
 import AdminPanel from "./admin/AdminPanel";
 const Admin = () => {
   return (
@@ -9,7 +8,6 @@ const Admin = () => {
       <Route path="/">
         <Route path="/" element={<Login />}></Route>
         <Route path="login" element={<Login />}></Route>
-        <Route path="new-login" element={<NewUserLogin />}></Route>
         <Route path="/*" element={<AdminPanel />}></Route>
       </Route>
     </Routes>

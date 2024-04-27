@@ -5,13 +5,6 @@ import { ADMIN_ROLE_ID, CAPTAIN_ROLE_ID, PLAYER_ROLE_ID } from '../constants/con
 
 const router = express.Router();
 
-router.post("/admin/login", async (req, res) => {
-    const data = req.body;
-    const result = await validateLoginData(data, ADMIN_ROLE_ID);
-    attachAuthToken(result);
-    res.json(result);
-})
-
 const attachAuthToken = (result) => {
     if (result.status == 1) {
         const user_data = result.response;
@@ -20,6 +13,13 @@ const attachAuthToken = (result) => {
         result.auth = token;
     }
 }
+
+router.post("/admin/login", async (req, res) => {
+    const data = req.body;
+    const result = await validateLoginData(data, ADMIN_ROLE_ID);
+    attachAuthToken(result);
+    res.json(result);
+})
 
 router.post("/captain/login", async (req, res) => {
     const data = req.body;

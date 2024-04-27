@@ -1,4 +1,3 @@
-import { response } from 'express';
 import { decryptPass, encryptPass, sendResponse, validateCPassword, validateEmail, validatePassword } from '../constants/common.js';
 import { executeQuery } from "../database/connection.js"
 

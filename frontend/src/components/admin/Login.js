@@ -54,7 +54,7 @@ const Login = () => {
 
     setFormSubmitting(true);
     axios({
-      url: BASE_URL + "auth/login",
+      url: BASE_URL + "auth/admin/login",
       data: formValues,
       method: 'POST',
     }).then((res) => {
@@ -75,16 +75,21 @@ const Login = () => {
   return (
     <div className="h-screen flex items-center justify-center px-10 py-10">
       <Card className="w-96">
-        <CardBody className="flex flex-col gap-6">
-          <div className="flex justify-center mb-5">
+        <CardBody className="flex flex-col gap-4">
+          <div className="flex justify-center">
             <Typography variant="h3" className="flex text-gray-600">
               <span className="font-serif text-rose-900 font-bold">.</span>
               msg-
               <span className="text-rose-900"> Sports</span>
             </Typography>
           </div>
-          <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
+          <div className="flex justify-center">
+            <Typography className="flex text-rose-800">
+              Admin Login
+            </Typography>
+          </div>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
             <div>
               <Input
                 type="name"
@@ -125,12 +130,6 @@ const Login = () => {
               className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
             >
               Forgot Password?
-            </Link>
-            <Link
-              to="new-login"
-              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-            >
-              New user?
             </Link>
           </div>
         </CardBody>
