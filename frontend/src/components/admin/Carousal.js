@@ -1,47 +1,141 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, CardBody, Switch, Typography } from '@material-tailwind/react'
+import { API_BASE_URL, BASE_URL } from '../../constants/constant';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const Carousal = () => {
-    const [file, setFile] = useState();
-    const handleFileChange = (e) => {
-        e.target.files.length ? setFile(URL.createObjectURL(e.target.files[0])) : setFile("");
+const Carousal = ({ data }) => {
+    const [banners, setBanners] = useState([]);
+    useEffect(() => {
+        data.length && setBanners(data);
+    }, [data]);
+
+    const [doUpdate, setDoUpdate] = useState(false);
+    useEffect(() => {
+        if (doUpdate) {
+            updateBanners();
+            setDoUpdate(false);
+        }
+    }, [doUpdate]);
+
+    const [preview, setPreview] = useState();
+    const showPreview = (e) => {
+        if (e.target.files.length) {
+            setFile(e.target.files[0])
+            setPreview(URL.createObjectURL(e.target.files[0]));
+        } else {
+            setPreview("");
+            setFile("");
+        }
     }
-    const img = ["https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80", "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"]
+
+    const [file, setFile] = useState();
+    const fileRef = useRef(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const uploadBannerImage = (e) => {
+        e.preventDefault();
+        const formData = new FormData()
+        formData.append('banner_image', file);
+        if (!file) {
+            toast.error("Plase select a image", {
+                position: "top-right"
+            })
+            return;
+        }
+        setIsSubmitting(true);
+        axios.post(API_BASE_URL + "site_settings/banner/add", formData, {
+        }).then((res) => {
+            setIsSubmitting(false);
+            if (res.data.status) {
+                banners.push({ image: res.data.response.image, show: false });
+                setBanners(banners);
+                setPreview("");
+                setFile("");
+                fileRef.current.value = null
+                toast.success(res.data.message, {
+                    position: "top-right"
+                });
+            } else {
+                toast.error(res.data.message, {
+                    position: "top-right"
+                })
+            }
+        }).catch(err => {
+            console.log(err);
+            setIsSubmitting(false);
+        })
+    }
+
+    const updateBannerStatus = (e, index) => {
+        banners[index].show = e.target.checked;
+        setBanners(banners);
+        updateBanners();
+    }
+
+    const deleteBanner = (index) => {
+        let con = window.confirm("Are you sure?")
+        if (con) {
+            setBanners(banners.filter((ele, i) => {
+                return i != index;
+            }));
+            setDoUpdate(true);
+        }
+    }
+
+    const updateBanners = () => {
+        axios.post(API_BASE_URL + "site_settings/banner/update", { banners }, {
+        }).then((res) => {
+            if (res.data.status) {
+                toast.success(res.data.message, {
+                    position: "top-right"
+                })
+            } else {
+                toast.error(res.data.message, {
+                    position: "top-right"
+                })
+            }
+        }).catch(err => {
+            console.log(err)
+        });
+    }
 
     return (
         <div className='flex flex-col gap-3'>
             <Typography variant='h4'>Upload banner image</Typography>
             <hr />
-            <div className='flex gap-5'>
+            <form className='flex gap-5' onSubmit={uploadBannerImage}>
                 <div className='w-1/2'>
                     <div className='h-80 w-full rounded-md flex items-center justify-center text-gray-400 bg-gray-100 p-3'>
-                        <div className={`flex flex-col items-center justify-center ${file && "hidden"}`}>
+                        <div className={`flex flex-col items-center justify-center ${preview && "hidden"}`}>
                             <i className="fa-regular fa-images text-8xl"></i>
                             <Typography variant='h4'>Image preview</Typography>
                         </div>
-                        <img src={file} alt="Image Preview" className={`rounded-md object-cover object-center max-w-full max-h-full ${file || "hidden"}`} accept="image/*" />
+                        <img src={preview} alt="Image Preview" className={`rounded-md object-cover object-center max-w-full max-h-full ${preview || "hidden"}`} accept="image/*" />
                     </div>
-                    <input type="file" className='mt-1' accept="image/*" onChange={handleFileChange} />
+                    <input type="file" ref={fileRef} className='mt-1' accept="image/*" onChange={showPreview} />
                 </div>
                 <div className='w-1/2 flex flex-col items-center justify-center '>
-                    <Button className='bg-rose-800 w-3/4 text-md'><i className="fa-regular fa-image"></i> Upload Image</Button>
+                    <Button type='submit' className='bg-rose-800 w-3/4 text-md'>
+                        {isSubmitting ? <i className='fa fa-spinner animate-spin'></i> :
+                            <span><i className="fa-regular fa-image"></i> Upload Image</span>}
+                    </Button>
                 </div>
-            </div>
+            </form>
             <hr className='border-t-2 border-gray-500' />
             <Typography variant='h4'>Manage banner images</Typography>
             <hr />
             <div className='w-full h-screen overflow-y-auto flex gap-3 flex-wrap'>
                 {
-                    img.map((i, key) => {
+                    banners.map((banner, key) => {
                         return (
                             <Card className='w-[32%] rounded h-64' key={key}>
                                 <CardBody className='p-0'>
                                     <div className='m-0 rounded-none w-full h-52 flex justify-center items-center p-2 border-b-2'>
-                                        <img src={i} className="max-w-full rounded-md max-h-full object-cover" alt="" />
+                                        <img src={BASE_URL + "banners/" + banner.image} className="max-w-full rounded-md max-h-full object-cover" alt="" />
                                     </div>
                                     <div className='p-2 flex justify-between'>
-                                        <Switch className='checked:bg-rose-800 peer-checked:border-r-rose-800 peer-checked:before:bg-rose-800' label="Show" ripple={false} />
-                                        <Button size='sm' className='bg-rose-800 text-xs'> Remove</Button>
+                                        <Switch className='checked:bg-rose-800 peer-checked:border-r-rose-800 peer-checked:before:bg-rose-800' label="Show" defaultChecked={banner.show} onChange={(e) => updateBannerStatus(e, key)} />
+                                        <Button size='sm' onClick={() => deleteBanner(key)} className='bg-rose-800 text-xs'> Remove</Button>
                                     </div>
                                 </CardBody>
                             </Card>
