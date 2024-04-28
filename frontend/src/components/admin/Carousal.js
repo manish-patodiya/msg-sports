@@ -34,14 +34,14 @@ const Carousal = ({ data }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const uploadBannerImage = (e) => {
         e.preventDefault();
-        const formData = new FormData()
-        formData.append('banner_image', file);
         if (!file) {
             toast.error("Plase select a image", {
                 position: "top-right"
             })
             return;
         }
+        const formData = new FormData()
+        formData.append('banner_image', file);
         setIsSubmitting(true);
         axios.post(API_BASE_URL + "site_settings/banner/add", formData, {
         }).then((res) => {
