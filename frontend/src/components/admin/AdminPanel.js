@@ -6,6 +6,8 @@ import Header from "./Header";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Players from "./Players";
+import Events from "./Events";
+import Games from "./Games";
 import SiteSettings from "./SiteSettings";
 
 
@@ -30,6 +32,8 @@ const AdminPanel = () => {
                             <Route path='players' element={<Players />}></Route>
                             <Route path="profile" element={<Profile />}></Route>
                             <Route path='manage-password' element={<ManagePassword />}></Route>
+                            <Route path='events' element={<Events />}></Route>
+                            <Route path='games' element={<Games />}></Route>
                             <Route path="site-settings" element={<SiteSettings />}></Route>
                         </Routes>
                     </div>
