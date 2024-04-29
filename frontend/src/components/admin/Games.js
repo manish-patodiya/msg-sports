@@ -2,15 +2,12 @@ import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import React, { useState } from "react";
 
 const Games = () => {
-  const TABLE_HEAD = ["Sport", "Image", "Venue", "Description", "Date", "Time"];
+  const TABLE_HEAD = ["Sport", "Image", "Description"];
 
   const initialGameValues = {
     sport: "",
     image: "",
-    venue: "Cafetaria",
-    description: "",
-    date: "",
-    time: "",
+    description: ""
   };
 
   const [gameValues, setGameValues] = useState(initialGameValues);
@@ -30,7 +27,7 @@ const Games = () => {
   const handleAddGame = (e) => {};
   return (
     <div className="flex flex-col gap-3">
-      <Typography variant="h4">Houses</Typography>
+      <Typography variant="h4">Games</Typography>
       <div className="flex gap-3">
         <div className="w-3/5 h-full border">
           <table className="table-auto w-full text-left">
@@ -93,36 +90,12 @@ const Games = () => {
                 handleAddGameChanges(e);
               }}
             />
-            <Input
-              name="venue"
-              label="Venue"
-              type="text"
-              onChange={handleAddGameChanges}
-              value={gameValues.house}
-            ></Input>
             <Textarea
               name="description"
               label="Description"
               onChange={handleAddGameChanges}
               value={gameValues.description}
             ></Textarea>
-            <div className="flex flex-row gap-3">
-            <Input
-              name="date"
-              label="Date"
-              type="date"
-              onChange={handleAddGameChanges}
-              value={gameValues.house}
-            ></Input>
-            <Input
-            name="time"
-            label="Start-Time"
-            type="time"
-            onChange={handleAddGameChanges}
-            value={gameValues.house}
-          ></Input>
-
-            </div>
             <Button className="bg-rose-800" onChange={handleAddGameChanges}>
               Save
             </Button>
