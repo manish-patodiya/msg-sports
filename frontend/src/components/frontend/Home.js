@@ -1,29 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Carousel } from "@material-tailwind/react";
+import { BASE_URL } from '../../constants/constant';
 
-const Home = () => {
+const Home = ({ data }) => {
+    const [banners, setBanners] = useState([])
+    useEffect(() => {
+        data.length && setBanners(data);
+    }, [data])
     return (
-        <section id="home" className='mt-19 mb-14'>
+        <section id="home" className='mt-19 mb-14 max-h-[50rem]'>
             <Carousel
                 autoplay={true}
                 loop={true}
+                className='max-h-[50rem]'
             >
-                <img
-                    src="https://images.pexels.com/photos/1080882/pexels-photo-1080882.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="image 1"
-                    className="h-full w-full object-cover"
-                />
-                <img
-                    src="https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="image 2"
-                    className="h-full w-full object-cover"
-                />
+                {banners.map((banner, index) => {
+                    if (banner.show) {
+                        return <img
+                            key={index}
+                            src={BASE_URL + "banners/" + banner.image}
+                            alt="image 1"
+                            className="w-full object-cover object-top h-[50rem]"
+                        />
+                    }
+                })}
 
-                <img
-                    src="https://images.pexels.com/photos/10469894/pexels-photo-10469894.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="image 3"
-                    className="h-full w-full object-cover"
-                />
             </Carousel>
         </section>
     );
