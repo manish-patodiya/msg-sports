@@ -12,6 +12,7 @@ export const Sidebar = () => {
         { name: "Captains", path: "/admin/captains", icon: "fa-person-military-rifle" },
         { name: "Players", path: "/admin/players", icon: "fa-person-running" },
         { name: "Events", path: "/admin/events", icon: "fa-calendar-day" },
+        { name: "Games", path: "/admin/games", icon: "fa-baseball-bat-ball" },
         { name: "Site Settings", path: "/admin/site-settings", icon: "fa-gear" },
     ]
 
