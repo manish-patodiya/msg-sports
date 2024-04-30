@@ -1,40 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardBody,
   Typography,
   Input,
   Button,
-  Alert,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../constants/constant.js";
+import { BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import { validateEmail, validatePassword } from "../../common/common.js";
+import {
+  validateCPassword,
+  validateEmail,
+  validatePassword,
+} from "../../../common/common.js";
 
-const Login = () => {
-  const initialValues = { email: "", password: "" };
+const NewUserLogin = () => {
+  const initialValues = { email: "", password: "", cpassword: "" };
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
-  const [formSubmitting, setFormSubmitting] = useState(false);
-  const [pageLoaded, setPageLocaded] = useState(true);
-  const [backendError, setBackendError] = useState("");
+  const [formSubmitting, setformSubmitting] = useState(false);
+  const [succLogin, setSuccLogin] = useState(true);
 
   //   useEffect(() => {
-  //     // setTimeout(() => {
-  //     //   setPageLocaded(true);
-  //     // }, 700);
-  //     checkAuth();
-  //   }, []);
-
-  //   const checkAuth = () => {
-  //     if (!!sessionStorage.getItem("auth")) {
+  //     if (sessionStorage.getItem("auth")) {
   //       navigate("/admin/dashboard");
   //     }
-  //   }
+  //   });
+
   const handleChange = (e) => {
-    setBackendError("");
     setFormErrors(initialValues);
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -42,7 +37,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setBackendError("");
 
     const emailError = validateEmail(formValues.email);
     if (emailError) {
@@ -56,23 +50,32 @@ const Login = () => {
       return;
     }
 
-    // setFormSubmitting(true);
+    const cpassError = validateCPassword(
+      formValues.password,
+      formValues.cpassword
+    );
+    if (cpassError) {
+      setFormErrors({ cpassword: cpassError });
+      return;
+    }
+
+    // setformSubmitting(true);
+
     // axios({
-    //   url: BASE_URL + "auth/login",
-    //   data: formValues,
-    //   method: 'POST',
+    //   url: BASE_URL + "auth/new-login",
+    //   method: "POST",
+    //   data: formValues
     // }).then((res) => {
-    //   setFormSubmitting(false);
-    //   let data = res.data;
+    //   setformSubmitting(false);
+    //   const data = res.data;
     //   if (data.status == 1) {
-    //     sessionStorage.setItem("auth", data.auth);
-    //     navigate("/admin/dashboard");
+    //     setSuccLogin(true);
     //   } else {
-    //     setBackendError(data.message);
+    //     setFormErrors(data.response.error);
     //   }
     // }).catch((err) => {
-    //   setFormSubmitting(false);
-    //   console.log(err);
+    //   setformSubmitting(false);
+    //   console.log(err)
     // })
   };
 
@@ -87,18 +90,15 @@ const Login = () => {
               <span className="text-rose-900"> Sports</span>
             </Typography>
           </div>
-          {/* <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert> */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
-                type="name"
                 name="email"
                 label="Email"
                 size="lg"
                 error={!!formErrors.email}
                 value={formValues.email}
                 onChange={handleChange}
-                // disabled={!pageLoaded}
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
             </div>
@@ -106,40 +106,49 @@ const Login = () => {
               <Input
                 type="password"
                 name="password"
-                label="Password"
-                size="lg"
+                label="New Password"
                 error={!!formErrors.password}
+                size="lg"
                 value={formValues.password}
                 onChange={handleChange}
-                // disabled={!pageLoaded}
-                autoComplete="new-password"
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.password}</p>
+            </div>
+            <div className="flex flex-col">
+              <Input
+                type="password"
+                name="cpassword"
+                label="Confirm Password"
+                error={!!formErrors.cpassword}
+                size="lg"
+                value={formValues.cpassword}
+                onChange={handleChange}
+              />
+              <p className="text-sm ml-1 text-red-400">
+                {formErrors.cpassword}
+              </p>
             </div>
             <Button
               className="bg-rose-800 w-full"
               disabled={formSubmitting}
               onClick={handleSubmit}
             >
-              {/* {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`} */}
-              Sign In
+              {formSubmitting ? (
+                <i className="fa-solid fa-spinner animate-spin"></i>
+              ) : (
+                `Sign In`
+              )}
             </Button>
           </form>
           <div
             variant="small"
-            className="mt-3 flex flex-col items-end justify-end"
+            className="mt-3 flex flex-col items-end justify-center"
           >
             <Link
-              to="/forgot-password"
+              to="/admin"
               className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
             >
-              Forgot Password?
-            </Link>
-            <Link
-              to="new-login"
-              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-            >
-              New user?
+              Back to Login page
             </Link>
           </div>
         </CardBody>
@@ -148,4 +157,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default NewUserLogin;

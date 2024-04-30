@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./player/Login";
-import NewUserLogin from "./player/NewUserLogin";
+import Login from "./player/auth/Login";
+import NewUserLogin from "./player/auth/NewUserLogin";
 import PlayerPanel from "./player/PlayerPanel";
 
 const Player = () => {

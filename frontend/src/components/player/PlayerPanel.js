@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Header from "./Header";
+import Header from "./includes/Header";
 import Dashboard from "./Dashboard";
-import Sidebar from "./Sidebar";
+import Sidebar from "./includes/Sidebar";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";

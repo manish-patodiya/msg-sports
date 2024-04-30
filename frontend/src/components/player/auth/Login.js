@@ -1,35 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
   Typography,
   Input,
   Button,
+  Alert,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../constants/constant.js";
+import { BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import {
-  validateCPassword,
-  validateEmail,
-  validatePassword,
-} from "../../common/common.js";
+import { validateEmail, validatePassword } from "../../../common/common.js";
 
-const NewUserLogin = () => {
-  const initialValues = { email: "", password: "", cpassword: "" };
+const Login = () => {
+  const initialValues = { email: "", password: "" };
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
-  const [formSubmitting, setformSubmitting] = useState(false);
-  const [succLogin, setSuccLogin] = useState(true);
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [pageLoaded, setPageLocaded] = useState(true);
+  const [backendError, setBackendError] = useState("");
 
   //   useEffect(() => {
-  //     if (sessionStorage.getItem("auth")) {
+  //     // setTimeout(() => {
+  //     //   setPageLocaded(true);
+  //     // }, 700);
+  //     checkAuth();
+  //   }, []);
+
+  //   const checkAuth = () => {
+  //     if (!!sessionStorage.getItem("auth")) {
   //       navigate("/admin/dashboard");
   //     }
-  //   });
-
+  //   }
   const handleChange = (e) => {
+    setBackendError("");
     setFormErrors(initialValues);
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -37,6 +42,7 @@ const NewUserLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // setBackendError("");
 
     const emailError = validateEmail(formValues.email);
     if (emailError) {
@@ -50,32 +56,23 @@ const NewUserLogin = () => {
       return;
     }
 
-    const cpassError = validateCPassword(
-      formValues.password,
-      formValues.cpassword
-    );
-    if (cpassError) {
-      setFormErrors({ cpassword: cpassError });
-      return;
-    }
-
-    // setformSubmitting(true);
-
+    // setFormSubmitting(true);
     // axios({
-    //   url: BASE_URL + "auth/new-login",
-    //   method: "POST",
-    //   data: formValues
+    //   url: BASE_URL + "auth/login",
+    //   data: formValues,
+    //   method: 'POST',
     // }).then((res) => {
-    //   setformSubmitting(false);
-    //   const data = res.data;
+    //   setFormSubmitting(false);
+    //   let data = res.data;
     //   if (data.status == 1) {
-    //     setSuccLogin(true);
+    //     sessionStorage.setItem("auth", data.auth);
+    //     navigate("/admin/dashboard");
     //   } else {
-    //     setFormErrors(data.response.error);
+    //     setBackendError(data.message);
     //   }
     // }).catch((err) => {
-    //   setformSubmitting(false);
-    //   console.log(err)
+    //   setFormSubmitting(false);
+    //   console.log(err);
     // })
   };
 
@@ -90,15 +87,18 @@ const NewUserLogin = () => {
               <span className="text-rose-900"> Sports</span>
             </Typography>
           </div>
+          {/* <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert> */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
+                type="name"
                 name="email"
                 label="Email"
                 size="lg"
                 error={!!formErrors.email}
                 value={formValues.email}
                 onChange={handleChange}
+              // disabled={!pageLoaded}
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
             </div>
@@ -106,49 +106,40 @@ const NewUserLogin = () => {
               <Input
                 type="password"
                 name="password"
-                label="New Password"
-                error={!!formErrors.password}
+                label="Password"
                 size="lg"
+                error={!!formErrors.password}
                 value={formValues.password}
                 onChange={handleChange}
+                // disabled={!pageLoaded}
+                autoComplete="new-password"
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.password}</p>
-            </div>
-            <div className="flex flex-col">
-              <Input
-                type="password"
-                name="cpassword"
-                label="Confirm Password"
-                error={!!formErrors.cpassword}
-                size="lg"
-                value={formValues.cpassword}
-                onChange={handleChange}
-              />
-              <p className="text-sm ml-1 text-red-400">
-                {formErrors.cpassword}
-              </p>
             </div>
             <Button
               className="bg-rose-800 w-full"
               disabled={formSubmitting}
               onClick={handleSubmit}
             >
-              {formSubmitting ? (
-                <i className="fa-solid fa-spinner animate-spin"></i>
-              ) : (
-                `Sign In`
-              )}
+              {/* {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`} */}
+              Sign In
             </Button>
           </form>
           <div
             variant="small"
-            className="mt-3 flex flex-col items-end justify-center"
+            className="mt-3 flex flex-col items-end justify-end"
           >
             <Link
-              to="/admin"
+              to="/forgot-password"
               className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
             >
-              Back to Login page
+              Forgot Password?
+            </Link>
+            <Link
+              to="new-login"
+              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
+            >
+              New user?
             </Link>
           </div>
         </CardBody>
@@ -157,4 +148,4 @@ const NewUserLogin = () => {
   );
 };
 
-export default NewUserLogin;
+export default Login;
