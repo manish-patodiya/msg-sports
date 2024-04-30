@@ -6,14 +6,15 @@ import Sidebar from "./includes/Sidebar";
 import Players from "./Players";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
+import { checkCaptainAuth } from "../../common/common";
 
 const CaptainPanel = () => {
-  //   const navigate = useNavigate();
-  //   useEffect(() => {
-  //     if (!sessionStorage.getItem("auth")) {
-  //       navigate("/admin");
-  //     }
-  //   });
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!checkCaptainAuth()) {
+      navigate("/captain");
+    }
+  });
 
   return (
     <div className="relative bg-gray-200 min-h-screen">

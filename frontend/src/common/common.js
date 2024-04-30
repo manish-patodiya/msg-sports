@@ -69,3 +69,12 @@ export const validateRepassword = (npassword, repassword) => {
 export const checkAdminAuth = () => {
   return !!sessionStorage.getItem("admin_auth");
 }
+
+export const checkCaptainAuth = () => {
+  return !!sessionStorage.getItem("captain_auth");
+}
+
+export const checkPlayerAuth = () => {
+  return !!sessionStorage.getItem("player_auth");
+}
+
