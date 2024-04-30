@@ -1,19 +1,13 @@
 import React from "react";
-import {
-  Tab,
-  TabPanel,
-  Tabs,
-  TabsBody,
-  TabsHeader,
-} from "@material-tailwind/react";
-import Cricket from "./Cricket";
-import Football from "./Football";
-import Volleyball from "./Volleyball";
-import Badminton from "./Badminton";
-import TableTennis from "./TableTennis";
-import Fooseball from "./Fooseball";
-import Carrom from "./Carrom";
-import Chess from "./Chess";
+import { Tab, TabPanel, Tabs, TabsBody, TabsHeader } from "@material-tailwind/react";
+import Cricket from "./players/Cricket";
+import Football from "./players/Football";
+import Volleyball from "./players/Volleyball";
+import Badminton from "./players/Badminton";
+import TableTennis from "./players/TableTennis";
+import Fooseball from "./players/Fooseball";
+import Carrom from "./players/Carrom";
+import Chess from "./players/Chess";
 
 const Players = () => {
   const tabs = [
