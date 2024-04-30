@@ -1,7 +1,7 @@
 import { Input, Textarea, Typography, Button } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { API_BASE_URL } from '../../constants/constant';
+import { API_BASE_URL } from '../../../constants/constant';
 import { toast, ToastContainer } from 'react-toastify';
 
 const GeneralSettings = ({ data }) => {

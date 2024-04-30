@@ -1,8 +1,8 @@
 import { Tab, TabPanel, Tabs, TabsBody, TabsHeader } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
-import Carousal from './Carousal';
-import About from './About';
-import GeneralSettings from './GeneralSettings';
+import Carousal from './site_settings/Carousal';
+import About from './site_settings/About';
+import GeneralSettings from './site_settings/GeneralSettings';
 import axios from 'axios';
 import { API_BASE_URL } from '../../constants/constant';
 
