@@ -10,7 +10,7 @@ const GeneralSettings = ({ data }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        data && setGeneralInfo(data);
+        Object.keys(data).length && setGeneralInfo(data);
     }, [data])
 
     const handleChanges = (e) => {

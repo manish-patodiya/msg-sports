@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 
 const Games = () => {
   const TABLE_HEAD = ["Game", "Description", "Actions"];
-
-  const [gameValues, setGameValues] = useState({});
+  const initialValues = { name: "", description: "" };
+  const [gameValues, setGameValues] = useState(initialValues);
   const [categoryValues, setCategoryValues] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [games, setGames] = useState([]);
@@ -39,7 +39,6 @@ const Games = () => {
   }, []);
 
   const handleGameValues = (e) => {
-    console.log(e.target.value);
     setGameValues({ ...gameValues, [e.target.name]: e.target.value });
   };
 
@@ -51,6 +50,9 @@ const Games = () => {
       then((res) => {
         setIsSubmitting(false);
         if (res.data.status) {
+          setGameValues(initialValues);
+          games.push({ game_name: gameValues.name, game_description: gameValues.description })
+          setGames(games)
           toast.success(res.data.message, { position: "top-right" });
         } else {
           toast.error(res.data.message, { position: "top-right" });
@@ -62,6 +64,8 @@ const Games = () => {
   };
 
   const deleteGame = (id) => {
+    const con = window.confirm("Are you sure?");
+    if (!con) return;
     setIsSubmitting(true);
     const data = { "game_id": id }
     axios.delete(API_BASE_URL + 'games', { data }, {}).
@@ -155,7 +159,6 @@ const Games = () => {
             <Button type="submit" disabled={isSubmitting} className="bg-rose-800" >
               {isSubmitting ? <i className="fas fa-spinner animate-spin"></i> : "Save"}
             </Button>
-
           </form>
         </div>
       </div>

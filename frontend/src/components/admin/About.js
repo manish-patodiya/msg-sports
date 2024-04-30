@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const About = ({ data }) => {
     const TABLE_HEAD = ["Image", "House", "Description", "Action"];
-    const [aboutData, setAboutData] = useState({})
+    const [aboutData, setAboutData] = useState({ title: "", description: "" })
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [preview, setPreview] = useState();
     const [file, setFile] = useState();
@@ -17,7 +17,7 @@ const About = ({ data }) => {
     const [doUpdate, setDoUpdate] = useState(false);
 
     useEffect(() => {
-        setAboutData({ title: data.title, description: data.description })
+        Object.keys(data).length && setAboutData({ title: data.title, description: data.description })
         data.houses && setHouses(data.houses);
     }, [data])
 

@@ -21,7 +21,7 @@ const NewUserLogin = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
   const [formSubmitting, setformSubmitting] = useState(false);
-  const [succLogin, setSuccLogin] = useState(false);
+  const [succLogin, setSuccLogin] = useState(true);
 
   //   useEffect(() => {
   //     if (sessionStorage.getItem("auth")) {
