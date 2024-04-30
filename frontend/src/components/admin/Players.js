@@ -15,8 +15,7 @@ const Players = () => {
     "Phone No",
     "Email",
     "Status",
-    "Action",
-    "",
+    "Actions"
   ];
   //   const TABLE_BODY = [
   //     ["1", "abcd", "9876543210", "abcd@msg-global.com", "Approved"],
@@ -60,11 +59,6 @@ const Players = () => {
           </div>
           <div>
             <Button className="bg-black">Search</Button>
-          </div>
-          <div>
-            <Button className="bg-rose-800">
-              <i className="fa-solid fa-user-plus"></i> Add Player
-            </Button>
           </div>
         </div>
       </div>
@@ -112,9 +106,9 @@ const Players = () => {
               <td className="p-4 border-b border-blue-gray-50">
                 <Menu>
                   <div className="flex flex-row gap-3">
-                    <MenuHandler>
+                    <button>
                       <i className="fa-solid fa-pen"></i>
-                    </MenuHandler>
+                    </button>
                     <MenuList>
                       <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
                         <i className="fa-solid fa-check"></i> Approve
@@ -123,8 +117,12 @@ const Players = () => {
                         <i className="fa-solid fa-xmark"></i> Reject
                       </MenuItem>
                     </MenuList>
-                    <i class="fa-regular fa-eye"></i>
-                    <i className="fa-solid fa-circle-up"></i>
+                    <button>
+                      <i class="fa-regular fa-eye"></i>
+                    </button>
+                    <button>
+                      <i className="fa-solid fa-circle-up"></i>
+                    </button>
                   </div>
                 </Menu>
               </td>
@@ -160,17 +158,27 @@ const Players = () => {
               </td>
               <td className="p-4 border-b border-blue-gray-50">
                 <Menu>
-                  <MenuHandler>
-                    <i className="fa-solid fa-pen"></i>
-                  </MenuHandler>
-                  <MenuList>
-                    <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
-                      <i className="fa-solid fa-check"></i> Approve
-                    </MenuItem>
-                    <MenuItem className="flex items-center gap-2 text-red-900 bg-red-500/20">
-                      <i className="fa-solid fa-xmark"></i> Reject
-                    </MenuItem>
-                  </MenuList>
+                  <div className="flex flex-row gap-3">
+                    <MenuHandler>
+                      <button>
+                        <i className="fa-solid fa-pen"></i>
+                      </button>
+                    </MenuHandler>
+                    <MenuList>
+                      <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
+                        <i className="fa-solid fa-check"></i> Approve
+                      </MenuItem>
+                      <MenuItem className="flex items-center gap-2 text-red-900 bg-red-500/20">
+                        <i className="fa-solid fa-xmark"></i> Reject
+                      </MenuItem>
+                    </MenuList>
+                    <button>
+                      <i class="fa-regular fa-eye"></i>
+                    </button>
+                    <button>
+                      <i className="fa-solid fa-circle-up"></i>
+                    </button>
+                  </div>
                 </Menu>
               </td>
             </tr>
@@ -205,17 +213,27 @@ const Players = () => {
               </td>
               <td className="p-4 border-b border-blue-gray-50">
                 <Menu>
-                  <MenuHandler>
-                    <i className="fa-solid fa-pen"></i>
-                  </MenuHandler>
-                  <MenuList>
-                    <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
-                      <i className="fa-solid fa-check"></i> Approve
-                    </MenuItem>
-                    <MenuItem className="flex items-center gap-2 text-red-900 bg-red-500/20">
-                      <i className="fa-solid fa-xmark"></i> Reject
-                    </MenuItem>
-                  </MenuList>
+                  <div className="flex flex-row gap-3">
+                    <MenuHandler>
+                      <button>
+                        <i className="fa-solid fa-pen"></i>
+                      </button>
+                    </MenuHandler>
+                    <MenuList>
+                      <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
+                        <i className="fa-solid fa-check"></i> Approve
+                      </MenuItem>
+                      <MenuItem className="flex items-center gap-2 text-red-900 bg-red-500/20">
+                        <i className="fa-solid fa-xmark"></i> Reject
+                      </MenuItem>
+                    </MenuList>
+                    <button>
+                      <i class="fa-regular fa-eye"></i>
+                    </button>
+                    <button>
+                      <i className="fa-solid fa-circle-up"></i>
+                    </button>
+                  </div>
                 </Menu>
               </td>
             </tr>
