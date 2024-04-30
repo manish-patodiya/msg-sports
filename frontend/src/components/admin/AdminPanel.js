@@ -26,7 +26,7 @@ const AdminPanel = () => {
                 <Header />
                 <div className="p-6">
                     <div></div>
-                    <div className="bg-white p-4 rounded-md">
+                    <div className="bg-white p-4 rounded-md min-h-screen">
                         <Routes>
                             <Route path="dashboard" element={<Dashboard />}></Route>
                             <Route path='players' element={<Players />}></Route>
