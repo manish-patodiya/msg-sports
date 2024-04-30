@@ -22,7 +22,7 @@ export const executeQuery = (sql, params) => {
     return new Promise(async (resolve, reject) => {
         con.query(sql, params, (err, result, fields) => {
             if (err) reject(err);
-            else resolve({ result, fields })
+            else resolve({ result: result, fields: fields })
             con.end();
         });
     })
