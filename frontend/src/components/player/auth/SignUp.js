@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, CardBody, Typography, Input, Button } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import { checkPlayerAuth, validateCPassword, validateEmail, validatePassword } from "../../../common/common.js";
+import { validateCPassword, validateEmail, validatePassword } from "../../../common/common.js";
 
 const NewUserLogin = ({ setSuccLogin }) => {
     const initialValues = { email: "", password: "", cpassword: "" };
-    const navigate = useNavigate();
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState(initialValues);
     const [formSubmitting, setformSubmitting] = useState(false);
-
-    useEffect(() => {
-        if (checkPlayerAuth()) {
-            navigate("/player/dashboard");
-        }
-    });
 
     const handleChange = (e) => {
         setFormErrors(initialValues);

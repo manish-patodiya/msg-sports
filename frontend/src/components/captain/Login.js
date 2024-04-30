@@ -12,11 +12,18 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState(initialValues);
   const [formSubmitting, setFormSubmitting] = useState(false)
   const [backendError, setBackendError] = useState("");
-
+  const [contactInfo, setContactInfo] = useState({ contact: "", email: "" });
   useEffect(() => {
     if (checkCaptainAuth()) {
       navigate("/captain/dashboard");
     }
+    axios.get(API_BASE_URL + "site_settings").then(res => {
+      if (res.data.status) {
+        setContactInfo({ contact: res.data.response.contact, email: res.data.response.email });
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   })
 
   const handleChange = (e) => {
@@ -125,6 +132,18 @@ const Login = () => {
           </div>
         </CardBody>
       </Card>
+      {
+        contactInfo.contact || contactInfo.email ?
+          <div className="p-2 fixed right-10 bottom-10 text-gray-500" >
+            <Typography variant="small">
+              {contactInfo.contact ? "Conatact: " + contactInfo.contact : ""}
+            </Typography>
+            <Typography variant="small">
+              {contactInfo.email ? "Email: " + contactInfo.email : ""}
+            </Typography>
+          </div>
+          : ""
+      }
     </div >
   );
 };
