@@ -111,13 +111,24 @@ const Login = () => {
               {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`}
             </Button>
           </form>
-          <div variant="small" className="mt-3 flex flex-col items-end justify-end">
-            <Link to="/forgot-password" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
-              Forgot Password?
-            </Link>
-            <Link to="/player/new-login" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
-              New user?
-            </Link>
+          <div variant="small" className="mt-3 flex justify-between">
+
+            <div className="flex flex-col">
+              <Link to="/admin" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
+                Admin login
+              </Link>
+              <Link to="/captain" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
+                Captain login
+              </Link>
+            </div>
+            <div className="flex flex-col items-end">
+              <Link to="/forgot-password" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
+                Forgot Password?
+              </Link>
+              <Link to="/player/new-login" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
+                New user?
+              </Link>
+            </div>
           </div>
         </CardBody>
       </Card>
