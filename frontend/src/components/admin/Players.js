@@ -15,6 +15,7 @@ const Players = () => {
     "Phone No",
     "Email",
     "Status",
+    "Action",
     "",
   ];
   //   const TABLE_BODY = [
@@ -110,17 +111,21 @@ const Players = () => {
               </td>
               <td className="p-4 border-b border-blue-gray-50">
                 <Menu>
-                  <MenuHandler>
-                    <i className="fa-solid fa-pen"></i>
-                  </MenuHandler>
-                  <MenuList>
-                    <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
-                      <i className="fa-solid fa-check"></i> Approve
-                    </MenuItem>
-                    <MenuItem className="flex items-center gap-2 text-red-900 bg-red-500/20">
-                      <i className="fa-solid fa-xmark"></i> Reject
-                    </MenuItem>
-                  </MenuList>
+                  <div className="flex flex-row gap-3">
+                    <MenuHandler>
+                      <i className="fa-solid fa-pen"></i>
+                    </MenuHandler>
+                    <MenuList>
+                      <MenuItem className="flex items-center gap-2 text-green-900 bg-green-500/20">
+                        <i className="fa-solid fa-check"></i> Approve
+                      </MenuItem>
+                      <MenuItem className="flex items-center gap-2 text-red-900 bg-red-500/20">
+                        <i className="fa-solid fa-xmark"></i> Reject
+                      </MenuItem>
+                    </MenuList>
+                    <i class="fa-regular fa-eye"></i>
+                    <i className="fa-solid fa-circle-up"></i>
+                  </div>
                 </Menu>
               </td>
             </tr>
@@ -150,7 +155,7 @@ const Players = () => {
               </td>
               <td className="p-4 border-b border-blue-gray-50">
                 <div className="w-max relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-amber-500/20 text-amber-900">
-                  <span className="">pending</span>
+                  <span className="">pending...</span>
                 </div>
               </td>
               <td className="p-4 border-b border-blue-gray-50">

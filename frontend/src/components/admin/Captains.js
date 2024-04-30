@@ -1,7 +1,7 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
 import React, { useState } from "react";
 
-const Events = () => {
+const Captains = () => {
   const TABLE_HEAD = ["Event Name", "Game", "Venue", "Date&Time"];
 
   const initialEventValues = {
@@ -89,4 +89,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default Captains;
