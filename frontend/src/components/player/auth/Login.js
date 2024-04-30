@@ -8,9 +8,9 @@ import {
   Alert,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../../constants/constant.js";
+import { API_BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import { validateEmail, validatePassword } from "../../../common/common.js";
+import { checkPlayerAuth, validateEmail, validatePassword } from "../../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -18,21 +18,14 @@ const Login = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
   const [formSubmitting, setFormSubmitting] = useState(false);
-  const [pageLoaded, setPageLocaded] = useState(true);
   const [backendError, setBackendError] = useState("");
 
-  //   useEffect(() => {
-  //     // setTimeout(() => {
-  //     //   setPageLocaded(true);
-  //     // }, 700);
-  //     checkAuth();
-  //   }, []);
+  useEffect(() => {
+    if (checkPlayerAuth()) {
+      navigate("/player/dashboard");
+    }
+  }, []);
 
-  //   const checkAuth = () => {
-  //     if (!!sessionStorage.getItem("auth")) {
-  //       navigate("/admin/dashboard");
-  //     }
-  //   }
   const handleChange = (e) => {
     setBackendError("");
     setFormErrors(initialValues);
@@ -42,7 +35,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setBackendError("");
+    setBackendError("");
 
     const emailError = validateEmail(formValues.email);
     if (emailError) {
@@ -56,24 +49,24 @@ const Login = () => {
       return;
     }
 
-    // setFormSubmitting(true);
-    // axios({
-    //   url: BASE_URL + "auth/login",
-    //   data: formValues,
-    //   method: 'POST',
-    // }).then((res) => {
-    //   setFormSubmitting(false);
-    //   let data = res.data;
-    //   if (data.status == 1) {
-    //     sessionStorage.setItem("auth", data.auth);
-    //     navigate("/admin/dashboard");
-    //   } else {
-    //     setBackendError(data.message);
-    //   }
-    // }).catch((err) => {
-    //   setFormSubmitting(false);
-    //   console.log(err);
-    // })
+    setFormSubmitting(true);
+    axios({
+      url: API_BASE_URL + "auth/player/login",
+      data: formValues,
+      method: 'POST',
+    }).then((res) => {
+      setFormSubmitting(false);
+      let data = res.data;
+      if (data.status == 1) {
+        sessionStorage.setItem("player_auth", data.auth);
+        navigate("/player/dashboard");
+      } else {
+        setBackendError(data.message);
+      }
+    }).catch((err) => {
+      setFormSubmitting(false);
+      console.log(err);
+    })
   };
 
   return (
@@ -87,7 +80,7 @@ const Login = () => {
               <span className="text-rose-900"> Sports</span>
             </Typography>
           </div>
-          {/* <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert> */}
+          <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
               <Input
@@ -98,7 +91,6 @@ const Login = () => {
                 error={!!formErrors.email}
                 value={formValues.email}
                 onChange={handleChange}
-              // disabled={!pageLoaded}
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.email}</p>
             </div>
@@ -111,34 +103,19 @@ const Login = () => {
                 error={!!formErrors.password}
                 value={formValues.password}
                 onChange={handleChange}
-                // disabled={!pageLoaded}
                 autoComplete="new-password"
               />
               <p className="text-sm ml-1 text-red-400">{formErrors.password}</p>
             </div>
-            <Button
-              className="bg-rose-800 w-full"
-              disabled={formSubmitting}
-              onClick={handleSubmit}
-            >
-              {/* {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`} */}
-              Sign In
+            <Button className="bg-rose-800 w-full" disabled={formSubmitting} onClick={handleSubmit}>
+              {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`}
             </Button>
           </form>
-          <div
-            variant="small"
-            className="mt-3 flex flex-col items-end justify-end"
-          >
-            <Link
-              to="/forgot-password"
-              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-            >
+          <div variant="small" className="mt-3 flex flex-col items-end justify-end">
+            <Link to="/forgot-password" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
               Forgot Password?
             </Link>
-            <Link
-              to="new-login"
-              className="ml-1 mb-1 font-sans text-sm text-rose-800 underline"
-            >
+            <Link to="/player/new-login" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
               New user?
             </Link>
           </div>

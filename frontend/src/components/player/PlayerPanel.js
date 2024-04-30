@@ -6,8 +6,17 @@ import Sidebar from "./includes/Sidebar";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";
+import { checkPlayerAuth } from "../../common/common";
+
 
 const PlayerPanel = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!checkPlayerAuth()) {
+      navigate("/player")
+    }
+  })
+
   return (
     <div className="relative bg-gray-200 min-h-screen">
       <Sidebar />
