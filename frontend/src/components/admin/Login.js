@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
-import { validateEmail, validatePassword } from "../../common/common.js";
+import { checkAdminAuth, validateEmail, validatePassword } from "../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -21,14 +21,11 @@ const Login = () => {
   const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = () => {
-    if (!!sessionStorage.getItem("auth")) {
+    if (checkAdminAuth()) {
       navigate("/admin/dashboard");
     }
-  }
+  }, []);
+
   const handleChange = (e) => {
     setBackendError("");
     setFormErrors(initialValues);
@@ -61,7 +58,7 @@ const Login = () => {
       setFormSubmitting(false);
       let data = res.data;
       if (data.status == 1) {
-        sessionStorage.setItem("auth", data.auth);
+        sessionStorage.setItem("admin_auth", data.auth);
         navigate("/admin/dashboard");
       } else {
         setBackendError(data.message);

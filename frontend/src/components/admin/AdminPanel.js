@@ -9,12 +9,13 @@ import Players from "./Players";
 import Events from "./Events";
 import Games from "./Games";
 import SiteSettings from "./SiteSettings";
+import { checkAdminAuth } from "../../common/common";
 
 
 const AdminPanel = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        if (!sessionStorage.getItem("auth")) {
+        if (!checkAdminAuth()) {
             navigate("/admin");
         }
     })

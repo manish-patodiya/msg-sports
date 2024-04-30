@@ -65,3 +65,7 @@ export const validateRepassword = (npassword, repassword) => {
     return "Password not matching";
   }
 };
+
+export const checkAdminAuth = () => {
+  return !!sessionStorage.getItem("admin_auth");
+}
