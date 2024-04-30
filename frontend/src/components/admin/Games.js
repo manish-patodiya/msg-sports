@@ -1,35 +1,103 @@
-import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
-import React, { useState } from "react";
+import { Button, Input, Select, Textarea, Typography, Option, Checkbox } from "@material-tailwind/react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../constants/constant";
+import { toast } from "react-toastify";
 
 const Games = () => {
-  const TABLE_HEAD = ["Sport", "Image", "Description"];
+  const TABLE_HEAD = ["Game", "Description", "Actions"];
 
-  const initialGameValues = {
-    sport: "",
-    image: "",
-    description: ""
-  };
+  const [gameValues, setGameValues] = useState({});
+  const [categoryValues, setCategoryValues] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [games, setGames] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  const [gameValues, setGameValues] = useState(initialGameValues);
-  const [preview, setPreview] = useState();
+  useEffect(() => {
+    axios.get(API_BASE_URL + "games").
+      then(res => {
+        if (res.data.status) {
+          setGames(res.data.response.games);
+        } else {
+          toast.error(res.data.message)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
 
-  const showPreview = (e) => {
-    e.target.files.length
-      ? setPreview(URL.createObjectURL(e.target.files[0]))
-      : setPreview("");
-  };
+    axios.get(API_BASE_URL + "categories").
+      then(res => {
+        if (res.data.status) {
+          setCategories(res.data.response.categories);
+        } else {
+          toast.error(res.data.message)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
 
-  const handleAddGameChanges = (e) => {
+  }, []);
+
+  const handleGameValues = (e) => {
     console.log(e.target.value);
     setGameValues({ ...gameValues, [e.target.name]: e.target.value });
   };
 
-  const handleAddGame = (e) => {};
+  const addGame = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    gameValues.categories = categoryValues;
+    axios.post(API_BASE_URL + "games/add", gameValues, {}).
+      then((res) => {
+        setIsSubmitting(false);
+        if (res.data.status) {
+          toast.success(res.data.message, { position: "top-right" });
+        } else {
+          toast.error(res.data.message, { position: "top-right" });
+        }
+      }).catch(err => {
+        console.log(err)
+        setIsSubmitting(false);
+      })
+  };
+
+  const deleteGame = (id) => {
+    setIsSubmitting(true);
+    const data = { "game_id": id }
+    axios.delete(API_BASE_URL + 'games', { data }, {}).
+      then(res => {
+        setIsSubmitting(false);
+        if (res.data.status) {
+          toast.success(res.data.message, { position: "top-right" });
+          setGames(games.filter(ele => {
+            return ele.id !== id;
+          }))
+        } else {
+          toast.error(res.data.message, { position: "top-right" });
+        }
+      }).catch(err => {
+        console.log(err);
+        setIsSubmitting(false);
+      })
+  }
+
+  const handleCategories = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setGameValues({ ...gameValues })
+      setCategoryValues([...categoryValues, value])
+    } else {
+      setCategoryValues(categoryValues.filter((category) => {
+        return category !== value;
+      }))
+    }
+  }
+
   return (
     <div className="flex flex-col gap-3">
       <Typography variant="h4">Games</Typography>
       <div className="flex gap-3">
-        <div className="w-3/5 h-full border">
+        <div className="w-2/3 h-full border">
           <table className="table-auto w-full text-left">
             <thead>
               <tr>
@@ -49,56 +117,45 @@ const Games = () => {
                 ))}
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {games.map((game, index) => {
+                const isLast = index == games.length - 1;
+                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                return (
+                  <tr key={index}>
+                    <td width={"20%"} className={classes}>{game.game_name}</td>
+                    <td width={"70%"} className={classes}>
+                      <Typography className='leading-snug max-h-16 overflow-hidden text-ellipsis'>
+                        {game.game_description}
+                      </Typography>
+                    </td>
+                    <td width={"10%"} className={classes}>
+                      <Button color="red" variant="outlined" size="sm" onClick={() => deleteGame(game.id)}><i className="fas fa-trash"></i></Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </div>
-        <div className="w-2/5">
-          <form className="flex flex-col gap-5 w-full" onSubmit={handleAddGame}>
-            <Input
-              name="sport"
-              label="Sport"
-              type="text"
-              onChange={handleAddGameChanges}
-              value={gameValues.house}
-            ></Input>
-            <div className="h-36 w-64 rounded-md flex items-center justify-center text-gray-400 bg-gray-100 p-2">
-              <div
-                className={`flex flex-col items-center justify-center ${
-                  preview && "hidden"
-                }`}
-              >
-                <i className="fa-regular fa-images text-4xl"></i>
-                <Typography variant="h4">Image preview</Typography>
+        <div className="w-1/3">
+          <form className="flex flex-col gap-5 w-full" onSubmit={addGame}>
+            <Input name="name" label="Game" value={gameValues.name} onChange={handleGameValues} required />
+            <Textarea name="description" label="Description" value={gameValues.description} onChange={handleGameValues} required />
+            <div>
+              Select Categories
+              <div className="flex flex-wrap">
+                {
+                  categories.map((cat, index) => {
+                    return <Checkbox key={index} name="category" value={cat.id} label={cat.category} onChange={handleCategories} />
+                  })
+                }
               </div>
-              <img
-                src={preview}
-                alt="Image Preview"
-                className={`rounded-md object-cover object-center max-w-full max-h-full ${
-                  preview || "hidden"
-                }`}
-                accept="image/*"
-              />
             </div>
-            <input
-              name="image"
-              type="file"
-              className="mt-1"
-              value={gameValues.image}
-              accept="image/*"
-              onChange={(e) => {
-                showPreview(e);
-                handleAddGameChanges(e);
-              }}
-            />
-            <Textarea
-              name="description"
-              label="Description"
-              onChange={handleAddGameChanges}
-              value={gameValues.description}
-            ></Textarea>
-            <Button className="bg-rose-800" onChange={handleAddGameChanges}>
-              Save
+            <Button type="submit" disabled={isSubmitting} className="bg-rose-800" >
+              {isSubmitting ? <i className="fas fa-spinner animate-spin"></i> : "Save"}
             </Button>
+
           </form>
         </div>
       </div>
