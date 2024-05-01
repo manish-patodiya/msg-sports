@@ -22,7 +22,7 @@ const Header = () => {
 
             </ul>
             <div>
-                <Link to="/admin">
+                <Link to="/player">
                     <Button className='bg-rose-800 text-white animate-bounce hover:animate-none duration-300' onClick={handleClick} >Login</Button>
                 </Link>
             </div>

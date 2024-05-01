@@ -18,7 +18,7 @@ const Events = () => {
     setEventValues({ ...eventValues, [e.target.name]: e.target.value });
   };
 
-  const handleAddEvent = (e) => {};
+  const handleAddEvent = (e) => { };
 
   return (
     <div className="flex flex-col gap-3">

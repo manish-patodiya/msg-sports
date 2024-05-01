@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
-import { EMAIL_REGEX, PASS_REGEX } from "./constants.js";
-import { isEmailExist } from '../controller/auth.js';
+import { EMAIL_REGEX, NAME_REGEX, PASS_REGEX, PHONE_REGEX } from "./constants.js";
+import { isContactExist, isEmailExist } from '../controller/auth.js';
 
 export const sendResponse = (status, message, response) => {
     return { status, message, response };
@@ -14,6 +14,26 @@ export const decryptPass = async (pass, hashedPass) => {
     return await bcrypt.compare(pass, hashedPass);
 }
 
+export const validateName = (name) => {
+    if (!name) {
+        return "Full name is required";
+    } else if (name.length < 4) {
+        return "Full name should be of atleast 4 characters";
+    } else if (!name.match(NAME_REGEX)) {
+        return "Invalid name";
+    }
+};
+
+export const validateContact = async (contact) => {
+    if (!contact) {
+        return "Contact no. is required";
+    } else if (!contact.match(PHONE_REGEX)) {
+        return "Phone No is not Valid";
+    } else if (await isContactExist(contact)) {
+        return "Contact no. already exist";
+    }
+};
+
 export const validateEmail = async (email) => {
     if (!email) {
         return "Email is required";
@@ -22,7 +42,6 @@ export const validateEmail = async (email) => {
     } else if (await isEmailExist(email)) {
         return "Email already exist";
     }
-
 }
 
 export const validatePassword = (pass) => {

@@ -78,7 +78,7 @@ const Login = () => {
               Admin Login
             </Typography>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
             <div>
               <Input

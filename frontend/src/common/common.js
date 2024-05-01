@@ -1,8 +1,26 @@
-import { EMAIL_REGEX, PASS_REGEX, PHONE_REGEX } from "../constants/constant";
+import { EMAIL_REGEX, NAME_REGEX, PASS_REGEX, PHONE_REGEX } from "../constants/constant";
+
+export const validateName = (name) => {
+  if (!name) {
+    return "Full name is required";
+  } else if (name.length < 4) {
+    return "Full name should be of atleast 4 characters";
+  } else if (!name.match(NAME_REGEX)) {
+    return "Invalid name";
+  }
+};
+
+export const validateContact = (contact) => {
+  if (!contact) {
+    return "Contact no. is required";
+  } else if (!contact.match(PHONE_REGEX)) {
+    return "Phone No is not Valid";
+  }
+};
 
 export const validateEmail = (email) => {
   if (!email) {
-    return "Email required";
+    return "Email is required";
   } else if (!email.match(EMAIL_REGEX)) {
     return "Invalid email";
   }
@@ -21,14 +39,6 @@ export const validateCPassword = (pass, cpass) => {
     return "Password is required";
   } else if (pass !== cpass) {
     return "Password not matching";
-  }
-};
-
-export const validateContact = (contact) => {
-  if (!contact) {
-    return "Contact info is required";
-  } else if (!contact.match(PHONE_REGEX)) {
-    return "Phone No is not Valid";
   }
 };
 

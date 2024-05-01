@@ -3,10 +3,10 @@ import { Card, CardBody, Typography, Input, Button } from "@material-tailwind/re
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import { validateCPassword, validateEmail, validatePassword } from "../../../common/common.js";
+import { validateCPassword, validateContact, validateEmail, validateName, validatePassword } from "../../../common/common.js";
 
 const NewUserLogin = ({ setSuccLogin }) => {
-    const initialValues = { email: "", password: "", cpassword: "" };
+    const initialValues = { name: "", contact: "", email: "", password: "", cpassword: "" };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState(initialValues);
     const [formSubmitting, setformSubmitting] = useState(false);
@@ -19,6 +19,18 @@ const NewUserLogin = ({ setSuccLogin }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const nameError = validateName(formValues.name);
+        if (nameError) {
+            setFormErrors({ name: nameError });
+            return;
+        }
+
+        const contactError = validateContact(formValues.contact);
+        if (contactError) {
+            setFormErrors({ contact: contactError });
+            return;
+        }
 
         const emailError = validateEmail(formValues.email);
         if (emailError) {
@@ -43,7 +55,6 @@ const NewUserLogin = ({ setSuccLogin }) => {
         }
 
         setformSubmitting(true);
-
         axios({
             url: API_BASE_URL + "auth/new-login",
             method: "POST",
@@ -64,14 +75,45 @@ const NewUserLogin = ({ setSuccLogin }) => {
 
     return (
         <Card className="w-96">
-            <CardBody className="flex flex-col gap-6">
+            <CardBody className="flex flex-col gap-4">
                 <div className="flex justify-center mb-5">
                     <Typography variant="h3" className="flex text-gray-600">
                         <span className="font-serif text-rose-900 font-bold">.</span>
                         msg-<span className="text-rose-900"> Sports</span>
                     </Typography>
                 </div>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div>
+                        <Input
+                            name="name"
+                            label="Full Name"
+                            size="lg"
+                            error={!!formErrors.name}
+                            value={formValues.name}
+                            onChange={handleChange}
+                        />
+                        <p className="text-sm ml-1 text-red-400">{formErrors.name}</p>
+                    </div>
+                    <div >
+                        <div className="flex">
+                            <Button
+                                ripple={false}
+                                variant="text"
+                                color="blue-gray"
+                                className={`flex items-center gap-2 rounded-r-none border border-r-0 border-blue-gray-200 bg-blue-gray-500/10 px-4`}
+                            >+91</Button>
+                            <input
+                                type="tel"
+                                name="contact"
+                                className={`w-full text-blue-gray-700 font-sans font-normal border  text-sm px-3 py-3 rounded-md rounded-l-none ${formErrors.contact ? "border-red-500 outline-red-500" : "border-blue-gray-200 "}`}
+
+                                placeholder="Contact no."
+                                value={formValues.contact}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <p className="text-sm ml-1 text-red-400">{formErrors.contact}</p>
+                    </div>
                     <div>
                         <Input
                             name="email"
