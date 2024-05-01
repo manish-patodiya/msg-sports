@@ -23,7 +23,7 @@ const NewUserLogin = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="h-screen flex items-center justify-center px-10 py-10">

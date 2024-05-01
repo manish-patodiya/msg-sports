@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react'
+import { Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 const SuccessfulRegistration = () => {

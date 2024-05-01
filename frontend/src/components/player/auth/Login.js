@@ -32,7 +32,7 @@ const Login = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     setBackendError("");
@@ -65,7 +65,7 @@ const Login = () => {
     }).then((res) => {
       setFormSubmitting(false);
       let data = res.data;
-      if (data.status == 1) {
+      if (data.status) {
         sessionStorage.setItem("player_auth", data.auth);
         navigate("/player/dashboard");
       } else {

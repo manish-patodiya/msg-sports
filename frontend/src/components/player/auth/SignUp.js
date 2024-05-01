@@ -51,7 +51,7 @@ const NewUserLogin = ({ setSuccLogin }) => {
         }).then((res) => {
             setformSubmitting(false);
             const data = res.data;
-            if (data.status == 1) {
+            if (data.status) {
                 setSuccLogin(true);
             } else {
                 setFormErrors(data.response.error);
