@@ -8,8 +8,10 @@ const router = express.Router();
 const attachAuthToken = (result) => {
     if (result.status == 1) {
         const user_data = result.response;
-        const token = jwt.sign({ "_id": user_data.id }, JWT_SECRET_KEY);
+        const token = jwt.sign({ "_id": user_data.user_id }, JWT_SECRET_KEY);
         delete result.response.id
+        delete result.response.user_id
+        delete result.response.role_id
         result.auth = token;
     }
 }
