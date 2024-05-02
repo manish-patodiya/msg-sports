@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";
+import Requests from "./Requests";
 
 const PlayerPanel = () => {
   return (
@@ -19,6 +20,7 @@ const PlayerPanel = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="nominations" element={<Nominations />}></Route>
+              <Route path="requests" element={<Requests />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>
             </Routes>
