@@ -8,45 +8,35 @@ import { API_BASE_URL } from '../constants/constant';
 import axios from 'axios';
 
 const Frontend = () => {
-    const [generalInfo, setGeneralInfo] = useState({})
-    const [homeData, setHomeData] = useState({})
-    const [aboutData, setAboutData] = useState({})
+    let [data, setData] = useState({})
     useEffect(() => {
         axios({
             url: API_BASE_URL + "site_settings",
             method: "GET"
         }).then((res) => {
             if (res.data.status) {
-                let data = res.data.response;
-                setHomeData(data.banners);
-                setAboutData({
-                    title: data.about_title,
-                    description: data.about_description,
-                    houses: data.houses
-                });
-                setGeneralInfo({
-                    name: data.name,
-                    email: data.email,
-                    contact: data.contact,
-                    address: data.address,
-                    website: data.website,
-                    twitter: data.twitter,
-                    instagram: data.instagram,
-                    facebook: data.facebook
-                })
+                data = res.data.response;
+                setData(data);
             }
         }).catch(err => console.log(err));
-    }, []);
 
+        axios.get(API_BASE_URL + "houses").then(res => {
+            if (res.data.status) {
+                setData({ ...data, ...res.data.response });
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }, []);
     return (
         <>
             <Header />
-            <Home className='' data={homeData} />
+            <Home className='' data={data} />
             <div className='container mx-auto px-4 my-4 text-lg'>
                 <Events />
-                <About data={aboutData} />
+                <About data={data} />
             </div>
-            <Footer data={generalInfo} />
+            <Footer data={data} />
         </>
     )
 }

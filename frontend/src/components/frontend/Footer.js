@@ -2,21 +2,15 @@ import { Typography, IconButton } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 
 const Footer = ({ data }) => {
-    const [info, setInfo] = useState({})
-
-    useEffect(() => {
-        setInfo(data);
-    }, [data])
-
     return (
         <section id='contact' className='bg-rose-800 text-white px-16 py-8 flex'>
             <div className='w-7/12 flex gap-2 flex-col'>
                 <div className='flex flex-col gap-2 mb-10 '>
                     <Typography variant='h6' className='font-serif'><i className='fas fa-phone'></i>
-                        {info.contact}
+                        {data.contact}
                     </Typography>
-                    <Typography variant='h6' className='font-serif'><i className='fas fa-location-dot'></i> {info.address}</Typography>
-                    <Typography variant='h6' className='font-serif'><i className='fas fa-envelope'></i> {info.email}</Typography>
+                    <Typography variant='h6' className='font-serif'><i className='fas fa-location-dot'></i> {data.address}</Typography>
+                    <Typography variant='h6' className='font-serif'><i className='fas fa-envelope'></i> {data.email}</Typography>
                 </div>
                 <div className="flex gap-4">
                     <IconButton className="rounded bg-red-600">

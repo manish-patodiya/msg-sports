@@ -4,9 +4,6 @@ import { Link as Link } from 'react-router-dom';
 import React from 'react'
 
 const Header = () => {
-    let handleClick = () => {
-        console.log("handle navigation")
-    }
     return (
         <Navbar className='text-black flex justify-between items-center sticky top-0 bg-white bg-opacity-100 container mx-auto rounded-none z-50' >
             <Typography variant='h3' className='flex text-gray-600'><span className='font-serif text-rose-900 font-bold'>.</span>msg-<span className='text-rose-900'> Sports</span ></Typography>
@@ -23,7 +20,7 @@ const Header = () => {
             </ul>
             <div>
                 <Link to="/player">
-                    <Button className='bg-rose-800 text-white animate-bounce hover:animate-none duration-300' onClick={handleClick} >Login</Button>
+                    <Button className='bg-rose-800 text-white animate-bounce hover:animate-none duration-300'>Login</Button>
                 </Link>
             </div>
         </Navbar>

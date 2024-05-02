@@ -3,10 +3,6 @@ import { Carousel } from "@material-tailwind/react";
 import { BASE_URL } from '../../constants/constant';
 
 const Home = ({ data }) => {
-    const [banners, setBanners] = useState([])
-    useEffect(() => {
-        data.length && setBanners(data);
-    }, [data])
     return (
         <section id="home" className='mt-19 mb-14 max-h-[50rem]'>
             <Carousel
@@ -14,7 +10,7 @@ const Home = ({ data }) => {
                 loop={true}
                 className='max-h-[50rem]'
             >
-                {banners.map((banner, index) => {
+                {data.banners ? data.banners.map((banner, index) => {
                     if (banner.show) {
                         return <img
                             key={index}
@@ -23,7 +19,7 @@ const Home = ({ data }) => {
                             className="w-full object-cover object-top h-[50rem]"
                         />
                     }
-                })}
+                }) : ""}
 
             </Carousel>
         </section>

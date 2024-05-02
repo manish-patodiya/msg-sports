@@ -3,25 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../constants/constant'
 
 const About = ({ data }) => {
-    const [info, setInfo] = useState({})
-
-    useEffect(() => {
-        setInfo(data);
-    }, [data])
-
     return (
         <div id="about" className='mt-20'>
             <Typography variant='h2' className='text-rose-800 font-sans'>About</Typography>
             <Typography variant="h2" color="blue-gray" className="mb-2">
-                {info.title ? info.title : "msg sports"}
+                {data.about_title ? data.about_title : "msg sports"}
             </Typography>
             <Typography variant="h4" className="mb-2 font-serif font-thin">
-                {info.description ? info.description : "Not Available"}
+                {data.about_description ? data.about_description : "Not Available"}
             </Typography>
 
             <div className='flex gap-5 mt-10 flex-wrap'>
                 {
-                    info.houses && info.houses.map((house, i) => {
+                    data.houses && data.houses.map((house, i) => {
                         return (
                             <Card className='w-[32%] text-white hover:-translate-y-1 hover:scale-105 duration-300' style={{ backgroundColor: house.background }} key={i}>
                                 <CardHeader
@@ -37,22 +31,17 @@ const About = ({ data }) => {
                                 </CardHeader>
                                 <CardBody>
                                     <Typography variant="h5" className="mb-2">
-                                        {house.name}
+                                        {house.house_name}
                                     </Typography>
                                     <Typography>
-                                        {house.description}
+                                        {house.house_description}
                                     </Typography>
                                 </CardBody>
-                                <CardFooter className="pt-0">
-                                    <a href='#'>Read More...</a>
-                                </CardFooter>
                             </Card>
                         )
                     })
                 }
-
             </div>
-
         </div>
     )
 }
