@@ -5,8 +5,8 @@ const SuccessfulRegistration = () => {
     return (
         <Card className='w-1/2 animation-wiggle'>
             <CardHeader className='flex justify-center items-center flex-col'>
-                <i class="fa-regular fa-circle-check text-8xl text-rose-800 m-2"></i>
-                <Typography variant='h6' color="gre" className='text-rose-800 text-5xl mb-2 text-justify'>Thankyou</Typography>
+                <i className="fa-regular fa-circle-check text-8xl text-rose-800 m-2"></i>
+                <Typography variant='h6' className='text-rose-800 text-5xl mb-2 text-justify'>Thankyou</Typography>
             </CardHeader>
             <CardBody className='flex flex-col items-center justify-center'>
                 <Typography variant='h6' color="gray" className='text-center'>
@@ -16,7 +16,7 @@ const SuccessfulRegistration = () => {
                 <Typography variant='h6' color="gray" className='text-center'>You will get a mail from admin regarding this.</Typography>
             </CardBody >
             <CardFooter className='text-rose-800'>
-                <Link to="/player" className='flex justify-end items-center'><i class="fa-solid fa-arrow-left-long me-1"></i>Back to the login page</Link>
+                <Link to="/player" className='flex justify-end items-center'><i className="fa-solid fa-arrow-left-long me-1"></i>Back to the login page</Link>
             </CardFooter>
         </Card >
     )

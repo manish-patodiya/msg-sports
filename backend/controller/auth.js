@@ -1,7 +1,12 @@
-import { decryptPass, encryptPass, sendResponse, validateCPassword, validateEmail, validatePassword } from '../constants/common.js';
+import { decryptPass, encryptPass, sendResponse, validateCPassword, validateContact, validateEmail, validateName, validatePassword } from '../constants/common.js';
 import { executeQuery } from "../database/connection.js"
 
 export const validateUserData = async (data) => {
+    const nameErr = validateName(data.name);
+    if (nameErr) return { contact: nameErr }
+
+    const contactErr = await validateContact(data.contact);
+    if (contactErr) return { contact: contactErr }
 
     const emailErr = await validateEmail(data.email);
     if (emailErr) return { email: emailErr };
@@ -11,6 +16,15 @@ export const validateUserData = async (data) => {
 
     const cpassErr = validateCPassword(data.password, data.cpassword)
     if (cpassErr) return { cpassword: passErr };
+}
+
+export const isContactExist = async (contact) => {
+    try {
+        let response = await executeQuery("select id from users where contact=?", [contact]);
+        return response.result.length;
+    } catch (err) {
+        return err;
+    }
 }
 
 export const isEmailExist = async (email) => {
@@ -40,7 +54,7 @@ export const newUserLogin = async (data) => {
 }
 
 export const insertUser = async (data) => {
-    let response = await executeQuery("insert into users (email,password) values(?,?)", [data.email, data.password]);
+    let response = await executeQuery("insert into users (name,contact,email,password) values(?,?,?,?)", [data.name, data.contact, data.email, data.password]);
     await executeQuery("insert into users_role (user_id,role_id) values(?,?)", [response.result.insertId, 3]);
     return response;
 }

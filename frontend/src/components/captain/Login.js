@@ -87,7 +87,7 @@ const Login = () => {
             </Typography>
           </div>
           <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <Input
                 type="name"
@@ -136,7 +136,7 @@ const Login = () => {
         contactInfo.contact || contactInfo.email ?
           <div className="p-2 fixed right-10 bottom-10 text-gray-500" >
             <Typography variant="small">
-              {contactInfo.contact ? "Conatact: " + contactInfo.contact : ""}
+              {contactInfo.contact ? "Contact: " + contactInfo.contact : ""}
             </Typography>
             <Typography variant="small">
               {contactInfo.email ? "Email: " + contactInfo.email : ""}
