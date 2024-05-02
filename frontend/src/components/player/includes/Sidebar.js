@@ -41,7 +41,7 @@ const Sidebar = () => {
                 <Link to={menu.path} key={key}>
                   <ListItem
                     className={
-                      menu.path == location.pathname
+                      menu.path === location.pathname
                         ? "bg-blue-gray-50 text-blue-gray-900 bg-opacity-80"
                         : ""
                     }
@@ -61,9 +61,8 @@ const Sidebar = () => {
                   open={open === count}
                   icon={
                     <i
-                      className={`fa-solid fa-chevron-down w-4 transition-transform text-sm  ${
-                        open === count ? "rotate-180" : ""
-                      }`}
+                      className={`fa-solid fa-chevron-down w-4 transition-transform text-sm  ${open === count ? "rotate-180" : ""
+                        }`}
                     ></i>
                   }
                 >
@@ -90,9 +89,8 @@ const Sidebar = () => {
                             <ListItem>
                               <ListItemPrefix>
                                 <i
-                                  className={`fa-solid ${
-                                    sm.icon || "fa-chevron-right"
-                                  } w-4`}
+                                  className={`fa-solid ${sm.icon || "fa-chevron-right"
+                                    } w-4`}
                                 ></i>
                               </ListItemPrefix>
                               <p color="white">{sm.name}</p>

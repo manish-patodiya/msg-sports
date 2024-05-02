@@ -1,14 +1,23 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Header from "./Header";
+import Header from "./includes/Header";
 import Dashboard from "./Dashboard";
-import Sidebar from "./Sidebar";
+import Sidebar from "./includes/Sidebar";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";
+import { checkPlayerAuth } from "../../common/common";
+
 import Requests from "./Requests";
 
 const PlayerPanel = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!checkPlayerAuth()) {
+      navigate("/player")
+    }
+  })
+
   return (
     <div className="relative bg-gray-200 min-h-screen">
       <Sidebar />

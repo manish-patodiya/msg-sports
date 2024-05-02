@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import Sidebar from "./includes/Sidebar";
+import Header from "./includes/Header";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Captains from "./Captains";
@@ -10,12 +10,13 @@ import Players from "./Players";
 import Events from "./Events";
 import Games from "./Games";
 import SiteSettings from "./SiteSettings";
+import { checkAdminAuth } from "../../common/common";
 
 
 const AdminPanel = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        if (!sessionStorage.getItem("auth")) {
+        if (!checkAdminAuth()) {
             navigate("/admin");
         }
     })

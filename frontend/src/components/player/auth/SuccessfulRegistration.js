@@ -1,7 +1,6 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react'
+import { Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 const SuccessfulRegistration = () => {
     return (
         <Card className='w-1/2 animation-wiggle'>
@@ -17,7 +16,7 @@ const SuccessfulRegistration = () => {
                 <Typography variant='h6' color="gray" className='text-center'>You will get a mail from admin regarding this.</Typography>
             </CardBody >
             <CardFooter className='text-rose-800'>
-                <Link to="/admin" className='flex justify-end items-center'><i class="fa-solid fa-arrow-left-long me-1"></i>Back to the login page</Link>
+                <Link to="/player" className='flex justify-end items-center'><i class="fa-solid fa-arrow-left-long me-1"></i>Back to the login page</Link>
             </CardFooter>
         </Card >
     )

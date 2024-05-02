@@ -1,5 +1,5 @@
 import { Input, Button } from "@material-tailwind/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
   validateContact,

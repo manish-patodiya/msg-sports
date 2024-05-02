@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const handleLogout = () => {
-    sessionStorage.removeItem("auth");
+    sessionStorage.removeItem("player_auth");
   };
 
   return (

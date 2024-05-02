@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, CardBody, Switch, Typography } from '@material-tailwind/react'
-import { API_BASE_URL, BASE_URL } from '../../constants/constant';
+import { API_BASE_URL, BASE_URL } from '../../../constants/constant';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 

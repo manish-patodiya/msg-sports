@@ -1,12 +1,12 @@
 import { Button, Card, CardBody, Input, Textarea, Typography } from '@material-tailwind/react'
 import React, { useEffect, useRef, useState } from 'react'
-import { API_BASE_URL, BASE_URL } from "../../constants/constant"
+import { API_BASE_URL, BASE_URL } from "../../../constants/constant"
 import axios from 'axios';
 import { toast } from 'react-toastify'
 
 const About = ({ data }) => {
     const TABLE_HEAD = ["Image", "House", "Description", "Action"];
-    const [aboutData, setAboutData] = useState({})
+    const [aboutData, setAboutData] = useState({ title: "", description: "" })
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [preview, setPreview] = useState();
     const [file, setFile] = useState();
@@ -17,7 +17,7 @@ const About = ({ data }) => {
     const [doUpdate, setDoUpdate] = useState(false);
 
     useEffect(() => {
-        setAboutData({ title: data.title, description: data.description })
+        Object.keys(data).length && setAboutData({ title: data.title, description: data.description })
         data.houses && setHouses(data.houses);
     }, [data])
 
