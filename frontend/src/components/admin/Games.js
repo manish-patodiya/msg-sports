@@ -51,7 +51,7 @@ const Games = () => {
         setIsSubmitting(false);
         if (res.data.status) {
           setGameValues(initialValues);
-          games.push({ game_name: gameValues.name, game_description: gameValues.description })
+          games.push({ game_name: gameValues.name, game_description: gameValues.description, id: res.data.response.insertId })
           setGames(games)
           toast.success(res.data.message, { position: "top-right" });
         } else {
