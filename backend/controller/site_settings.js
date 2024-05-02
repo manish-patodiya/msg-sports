@@ -7,7 +7,6 @@ export const getSiteSettings = async () => {
         let { result } = await executeQuery("select * from site_settings limit 1");
         result = result[0];
         result.banners = result.banners ? JSON.parse(result.banners) : [];
-        result.houses = result.houses ? JSON.parse(result.houses) : [];
         return sendResponse(1, "Information fetched successfully", result);
     } catch (err) {
         console.log(err)
@@ -60,35 +59,6 @@ export const updateAboutInfo = async (data) => {
     try {
         const { result } = await executeQuery("update site_settings set about_title=?, about_description=?", [data.title, data.description]);
         return sendResponse(1, "Information updated successfully", result);
-    } catch (err) {
-        console.log(err)
-        return sendResponse(2, "SQL error", err.sqlMessage);
-    }
-}
-
-export const addHouse = async (image_name, data) => {
-    try {
-        const { result } = await executeQuery("select houses from site_settings limit 1");
-        let houses = result[0].houses;
-        let house = { image: image_name, ...data };
-        if (houses) {
-            houses = JSON.parse(houses);
-            houses.push(house);
-        } else {
-            houses = [house];
-        }
-        await executeQuery("update site_settings set houses=?", [JSON.stringify(houses)]);
-        return sendResponse(1, "House added successfully", { image: image_name })
-    } catch (err) {
-        console.log(err)
-        return sendResponse(2, "SQL error", err.sqlMessage);
-    }
-}
-
-export const updateHouses = async (houses) => {
-    try {
-        const { result } = await executeQuery("update site_settings set houses=?", [JSON.stringify(houses)]);
-        return sendResponse(1, "House updated successfully", result)
     } catch (err) {
         console.log(err)
         return sendResponse(2, "SQL error", err.sqlMessage);

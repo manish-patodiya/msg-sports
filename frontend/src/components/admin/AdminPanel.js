@@ -11,6 +11,7 @@ import Events from "./Events";
 import Games from "./Games";
 import SiteSettings from "./SiteSettings";
 import { checkAdminAuth } from "../../common/common";
+import Houses from "./Houses";
 
 
 const AdminPanel = () => {
@@ -37,6 +38,7 @@ const AdminPanel = () => {
                             <Route path='manage-password' element={<ManagePassword />}></Route>
                             <Route path='events' element={<Events />}></Route>
                             <Route path='games' element={<Games />}></Route>
+                            <Route path='houses' element={<Houses />}></Route>
                             <Route path="site-settings" element={<SiteSettings />}></Route>
                         </Routes>
                     </div>

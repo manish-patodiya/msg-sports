@@ -13,6 +13,7 @@ export const Sidebar = () => {
         { name: "Players", path: "/admin/players", icon: "fa-person-running" },
         { name: "Events", path: "/admin/events", icon: "fa-calendar-day" },
         { name: "Games", path: "/admin/games", icon: "fa-baseball-bat-ball" },
+        { name: "Houses", path: "/admin/houses", icon: "fa-house" },
         { name: "Site Settings", path: "/admin/site-settings", icon: "fa-gear" },
     ]
 
@@ -23,10 +24,12 @@ export const Sidebar = () => {
     return (
         <div className="h-screen w-full max-w-[16rem] bg-rose-800 fixed top-0 bottom-0 left-0 border-collapse border-x border-gray-600 overflow-y-auto remove-scrollbar">
             <div className="mb-2 p-4 bg-white sticky top-0">
-                <Typography variant="h3" className="flex text-gray-600 ">
-                    <span className="font-serif text-rose-900 font-bold">.</span>msg-
-                    <span className="text-rose-900"> Sports</span>
-                </Typography>
+                <Link to="http://localhost:3000">
+                    <Typography variant="h3" className="flex text-gray-600 ">
+                        <span className="font-serif text-rose-900 font-bold">.</span>msg-
+                        <span className="text-rose-900"> Sports</span>
+                    </Typography>
+                </Link>
             </div>
             <div className='p-1 '>
                 <List className="text-white">
