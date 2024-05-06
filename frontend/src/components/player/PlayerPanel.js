@@ -8,6 +8,7 @@ import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";
 import { checkPlayerAuth } from "../../common/common";
 
+import Requests from "./Requests";
 
 const PlayerPanel = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const PlayerPanel = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="nominations" element={<Nominations />}></Route>
+              <Route path="requests" element={<Requests />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>
             </Routes>
