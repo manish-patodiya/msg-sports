@@ -20,6 +20,25 @@ export const getPlayer = async (user_id) => {
     }
 }
 
+export const getEligiblePlayersForCaptancy = async () => {
+    try {
+        const { result } = await executeQuery("select *, users.id as user_id from users where id in (select user_id from (SELECT * FROM `users_role` group by user_id having count(*) = 1) as t1 where role_id = 3) and status = 1");
+        return sendResponse(1, "Player fetched successfully", { players: result })
+    } catch (err) {
+        return sendResponse(2, "SQL error", err.sqlMessage)
+    }
+}
+
+export const promoteAsCaptain = async (house_id, user_id) => {
+    try {
+        const { result1 } = await executeQuery("insert into users_role (user_id, role_id) values (?,?)", [user_id, CAPTAIN_ROLE_ID]);
+        const { result2 } = await executeQuery("update houses set cap_id = ? where id=?", [user_id, house_id]);
+        return sendResponse(1, "Player fetched successfully")
+    } catch (err) {
+        return sendResponse(2, "SQL error", err.sqlMessage)
+    }
+}
+
 export const updateStatus = async (user_id, status_code) => {
     try {
         const { result } = await executeQuery("update users set status = ? where id = ?", [status_code, user_id]);

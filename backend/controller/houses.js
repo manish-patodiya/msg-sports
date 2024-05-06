@@ -4,7 +4,7 @@ import { sendResponse } from '../constants/common.js';
 
 export const getHouses = async (image_name, data) => {
     try {
-        const { result } = await executeQuery("select * from houses");
+        const { result } = await executeQuery("select *,id as house_id from houses");
         return sendResponse(1, "Houses fetched successfully", { houses: result })
     } catch (err) {
         console.log(err)
