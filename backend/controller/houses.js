@@ -12,6 +12,16 @@ export const getHouses = async (image_name, data) => {
     }
 }
 
+export const getCaptainsList = async () => {
+    try {
+        const { result } = await executeQuery("select *,h.id as house_id from houses h join users u on h.cap_id = u.id");
+        return sendResponse(1, "Houses fetched successfully", { captains_list: result })
+    } catch (err) {
+        console.log(err)
+        return sendResponse(2, "SQL error", err.sqlMessage);
+    }
+}
+
 export const addHouse = async (image_name, data) => {
     try {
         const { result } = await executeQuery("insert into houses (house_name, house_description, background, image) values (?,?,?,?)", [data.name, data.description, data.background, image_name]);;

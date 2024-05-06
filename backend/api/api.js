@@ -6,6 +6,7 @@ import gamesRouter from "./games.js";
 import categoriesRouter from './categories.js';
 import playersRouter from './players.js';
 import housesRouter from './houses.js';
+import captainsRouter from './captains.js';
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use("/games", gamesRouter);
 router.use("/categories", categoriesRouter);
 router.use('/players', playersRouter);
 router.use('/houses', housesRouter);
+router.use('/captains', captainsRouter);
 
 export default router;

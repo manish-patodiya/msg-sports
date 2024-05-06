@@ -1,12 +1,15 @@
-import { Button, Input, Textarea, Typography } from '@material-tailwind/react'
+import { Avatar, Button, Input, Textarea, Tooltip, Typography } from '@material-tailwind/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { API_BASE_URL, BASE_URL } from "../../constants/constant"
 import axios from 'axios';
 import { toast } from 'react-toastify'
+import MakeCaptainDiaglog from './MakeCaptainDiaglog';
 
 const Houses = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const TABLE_HEAD = ["Image", "House", "Description", "Action"];
+    const TABLE_HEAD = ["House details", "Action"];
+    const TABLE_WIDTH = ["75%", "25%"];
+    const [dialogHouseData, setDialogHouseData] = useState({});
     const [preview, setPreview] = useState();
     const [file, setFile] = useState();
     const fileRef = useRef();
@@ -90,14 +93,24 @@ const Houses = () => {
         }
     }
 
+    const openDialogForMakeCaptain = (house) => {
+        setDialogHouseData(house);
+        setOpen(!open);
+    }
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
     return (
         <div className='flex gap-3'>
-            <div className='w-2/3 h-screen flex flex-col gap-3 overflow-y-auto bg-orange'>
+            <MakeCaptainDiaglog open={open} handler={handleOpen} house_data={dialogHouseData} />
+            <div className='w-2/3 h-screen flex flex-col gap-3 bg-orange'>
                 <table className='table-auto w-full text-left'>
-                    <thead>
+                    <thead className='table' style={{ width: "calc(100% - 16px)" }}>
                         <tr>
                             {TABLE_HEAD.map((head, key) => (
-                                <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3" key={key}>
+                                <th width={TABLE_WIDTH[key]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4" key={key}>
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
@@ -109,24 +122,27 @@ const Houses = () => {
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='overflow-y-scroll h-screen block w-full'>
                         {
                             houses.map((house, index) => {
                                 const isLast = index == houses.length - 1;
-                                const classes = isLast ? "p-3" : "p-3 border-b border-blue-gray-50";
+                                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50 text-sm";
                                 return (
-                                    <tr key={index}>
-                                        <td width={"20%"} className={classes}>
-                                            <img src={BASE_URL + 'houses/' + house.image} alt="House image" className="object-cover w-16 h-16" />
+                                    <tr key={index} className='w-full table'>
+                                        <td width={TABLE_WIDTH[0]} className={classes + " text-white"} style={{ backgroundColor: house.background }}>
+                                            <div className='flex gap-1 items-center'>
+                                                <Avatar src={BASE_URL + 'houses/' + house.image} variant='square' />
+                                                <div className='flex flex-col'>
+                                                    {house.house_name}
+                                                    <Typography className='leading-snug max-h-10 overflow-hidden text-ellipsis' variant='small'>
+                                                        {house.house_description}
+                                                    </Typography>
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td width={"20%"} className={classes + " text-white"} style={{ backgroundColor: house.background }}>{house.house_name}</td>
-                                        <td width={"50%"} className={classes}>
-                                            <Typography className='leading-snug max-h-16 overflow-hidden text-ellipsis'>
-                                                {house.house_description}
-                                            </Typography>
-                                        </td>
-                                        <td width={"10%"} className={classes} >
-                                            <Button size='sm' color="red" variant="outlined" onClick={(e) => { deleteHouse(house.id) }}><i className='fas fa-trash'></i></Button>
+                                        <td width={TABLE_WIDTH[1]} className={classes} >
+                                            <Button size='sm' className='me-1' color="red" variant="outlined" onClick={(e) => { deleteHouse(house.house_id) }}><i className='fas fa-trash'></i></Button>
+                                            <Button size='sm' className='' color="blue" variant="outlined" onClick={(e) => { openDialogForMakeCaptain(house) }}><i className="fa-solid fa-user-plus"></i></Button>
                                         </td>
                                     </tr>
                                 );
