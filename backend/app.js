@@ -3,7 +3,7 @@ import apiRouter from './api/api.js';
 import cors from 'cors';
 const app = express();
 
-app.use(express.static("public/data/uploads/"));
+app.use(express.static("public/uploads/"));
 const corsOpts = {
     origin: '*',
     methods: [
