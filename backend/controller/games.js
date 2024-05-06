@@ -3,7 +3,7 @@ import { executeQuery } from "../database/connection.js"
 
 export const getGames = async () => {
     try {
-        const { result } = await executeQuery("select * from games where deleted_at is null");
+        const { result } = await executeQuery("select *,id as game_id from games where deleted_at is null");
         return sendResponse(1, "Games fetched successfully", { games: result });
     } catch (err) {
         console.log(err)
@@ -23,7 +23,6 @@ export const addGame = async (data) => {
 
 export const deleteGame = async (id) => {
     try {
-
         var CURRENT_TIMESTAMP = {
             toSqlString: function () { return 'CURRENT_TIMESTAMP()'; }
         };

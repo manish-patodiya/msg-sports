@@ -134,7 +134,7 @@ const Games = () => {
                       </Typography>
                     </td>
                     <td width={"10%"} className={classes}>
-                      <Button color="red" variant="outlined" size="sm" onClick={() => deleteGame(game.id)}><i className="fas fa-trash"></i></Button>
+                      <Button color="red" variant="outlined" size="sm" onClick={() => deleteGame(game.game_id)}><i className="fas fa-trash"></i></Button>
                     </td>
                   </tr>
                 );
