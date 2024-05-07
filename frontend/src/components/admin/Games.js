@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 const Games = () => {
   const TABLE_HEAD = ["Game", "Description", "Actions"];
+  const COLUMN_WIDTH = ["20%", "70%", "10%"];
   const initialValues = { name: "", description: "" };
   const [gameValues, setGameValues] = useState(initialValues);
   const [categoryValues, setCategoryValues] = useState([]);
@@ -103,37 +104,28 @@ const Games = () => {
       <div className="flex gap-3">
         <div className="w-2/3 h-full border">
           <table className="table-auto w-full text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head, key) => (
-                  <th
-                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                    key={key}
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
+            <thead className='table' style={{ width: "calc(100% - 16px)" }}>
+              <tr className="w-full">
+                {TABLE_HEAD.map((head, index) => (
+                  <th width={COLUMN_WIDTH[index]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3 text-sm text-blue-gray-900 opacity-70" key={index}>
+                    {head}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="overflow-y-scroll block h-[75vh] w-full">
               {games.map((game, index) => {
                 const isLast = index == games.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                const classes = isLast ? "p-3" : "p-3 border-b border-blue-gray-50 text-sm";
                 return (
-                  <tr key={index}>
-                    <td width={"20%"} className={classes}>{game.game_name}</td>
-                    <td width={"70%"} className={classes}>
-                      <Typography className='leading-snug max-h-16 overflow-hidden text-ellipsis'>
+                  <tr key={index} className="table w-full">
+                    <td width={COLUMN_WIDTH[0]} className={classes}>{game.game_name}</td>
+                    <td width={COLUMN_WIDTH[1]} className={classes}>
+                      <Typography variant="small" className='leading-snug max-h-14 overflow-hidden text-ellipsis'>
                         {game.game_description}
                       </Typography>
                     </td>
-                    <td width={"10%"} className={classes}>
+                    <td width={COLUMN_WIDTH[2]} className={classes}>
                       <Button color="red" variant="outlined" size="sm" onClick={() => deleteGame(game.game_id)}><i className="fas fa-trash"></i></Button>
                     </td>
                   </tr>

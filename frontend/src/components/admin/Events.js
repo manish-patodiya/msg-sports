@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 const Events = () => {
   const TABLE_HEAD = ["Event info", "Venue / Timing", "Actions"];
+  const COLUMN_WIDTH = ["40%", "50%", "10%"];
   const initialValues = { event_name: "", game_id: "", venue: "", date_time: "" };
   const [eventValues, setEventValues] = useState(initialValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -117,48 +118,38 @@ const Events = () => {
     <div className="flex flex-col gap-3">
       <Typography variant="h4">Events</Typography>
       <div className="flex gap-3">
-        <div className="w-3/5 h-full border">
+        <div className="w-2/3 h-full border">
           <table className="table-auto w-full text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head, key) => (
-                  <th
-                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                    key={key}
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
+            <thead className='table' style={{ width: "calc(100% - 16px)" }}>
+              <tr className="w-full">
+                {TABLE_HEAD.map((head, index) => (
+                  <th width={COLUMN_WIDTH[index]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3 text-sm text-blue-gray-900 opacity-70" key={index}>
+                    {head}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="overflow-y-auto h-screen block w-full">
               {events.map((event, index) => {
                 const isLast = index == events.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                const classes = isLast ? "p-3" : "p-3 border-b border-blue-gray-50";
                 return (
-                  <tr key={index}>
-                    <td width={"40%"} className={classes}>
+                  <tr key={index} className="table w-full">
+                    <td width={COLUMN_WIDTH[0]} className={classes}>
                       <div className="flex gap-2">
                         <Avatar variant="square" src={BASE_URL + "events/" + event.photo} alt="" />
-                        {/* <Typography>{event.photo}</Typography> */}
                         <div>
                           <Typography variant="small">{event.event_name}</Typography>
                           <Typography variant="small" color="gray">{event.game_name}</Typography>
                         </div>
                       </div>
                     </td>
-                    <td width={"50%"} className={classes}>
+                    <td width={COLUMN_WIDTH[1]} className={classes}>
                       <Typography variant="small">{event.venue}</Typography>
 
                       <Typography variant="small">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(event.date_time))}</Typography>
                     </td>
-                    <td width={"10%"} className={classes}>
+                    <td width={COLUMN_WIDTH[2]} className={classes}>
                       <Button color="red" variant="outlined" size="sm" onClick={() => deleteEvent(event.event_id)}><i className="fas fa-trash"></i></Button>
                     </td>
                   </tr>
@@ -167,16 +158,18 @@ const Events = () => {
             </tbody>
           </table>
         </div>
-        <div className="w-2/5">
+        <div className="w-1/3">
           <form className="flex flex-col gap-5 w-full" onSubmit={addEvent}>
-            <div className="h-56 w-full rounded-md flex items-center justify-center text-gray-400 bg-gray-100 p-2">
-              <div className={`flex flex-col items-center justify-center ${preview && "hidden"}`}>
-                <i className="fa-regular fa-Photos text-4xl"></i>
-                <Typography variant="h4">Photo preview</Typography>
+            <div className='border rounded-md border-gray-300'>
+              <div className='h-56 w-full flex items-center justify-center text-gray-400 bg-gray-100 p-2'>
+                <div className={`flex flex-col items-center justify-center ${preview && "hidden"}`}>
+                  <i className="fa-regular fa-images text-4xl"></i>
+                  <Typography variant='h4'>Image preview</Typography>
+                </div>
+                <img src={preview} alt="Image Preview" className={`rounded-md object-cover object-center max-w-full max-h-full ${preview || "hidden"}`} accept="image/*" />
               </div>
-              <img src={preview} alt="Image Preview" className={`rounded-md object-cover object-center max-w-full max-h-full ${preview || "hidden"}`} accept="image/*" />
+              <input name="photo" type="file" className='text-sm w-full' accept="image/*" onChange={(e) => { showPreview(e); }} />
             </div>
-            <input name="photo" type="file" className="mt-1" accept="image/*" onChange={(e) => { showPreview(e); }} />
             <Input name="event_name" label="Event Name" type="text" onChange={handleEventValues} value={eventValues.event_name} required />
             <div>
               <Select name="game_id" label="Game" onChange={handleEventValues}>

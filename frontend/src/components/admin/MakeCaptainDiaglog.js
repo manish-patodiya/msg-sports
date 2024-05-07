@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const MakeCaptainDiaglog = ({ open, handler, house_data }) => {
     const TABLE_HEAD = ['Name', 'Email', 'Contact', 'Actions'];
-    const TABLE_WIDTH = ['25%', '40%', '15%', '20%'];
+    const COLUMN_WIDTH = ['25%', '40%', '15%', '20%'];
 
     const [players, setPlayers] = useState([])
     useEffect(() => {
@@ -43,7 +43,7 @@ const MakeCaptainDiaglog = ({ open, handler, house_data }) => {
                         <tr className='w-full'>
                             {TABLE_HEAD.map((head, index) => {
                                 return (
-                                    <th key={index} className="p-3 border-y border-blue-gray-100 bg-blue-gray-50/50 text-sm text-blue-gray-900 opacity-70" width={TABLE_WIDTH[index]}>
+                                    <th key={index} className="p-3 border-y border-blue-gray-100 bg-blue-gray-50/50 text-sm text-blue-gray-900 opacity-70" width={COLUMN_WIDTH[index]}>
                                         {head}
                                     </th>
                                 );
@@ -55,10 +55,10 @@ const MakeCaptainDiaglog = ({ open, handler, house_data }) => {
                             players.map((player, index) => {
                                 return (
                                     <tr key={index} className='w-full table'>
-                                        <td width={TABLE_WIDTH[0]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>{player.name}</td>
-                                        <td width={TABLE_WIDTH[1]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>{player.email}</td>
-                                        <td width={TABLE_WIDTH[2]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>{player.contact}</td>
-                                        <td width={TABLE_WIDTH[3]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>
+                                        <td width={COLUMN_WIDTH[0]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>{player.name}</td>
+                                        <td width={COLUMN_WIDTH[1]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>{player.email}</td>
+                                        <td width={COLUMN_WIDTH[2]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>{player.contact}</td>
+                                        <td width={COLUMN_WIDTH[3]} className='p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900'>
                                             <Button variant='outlined' className='me-1' size='sm' color='green' onClick={() => assignCaptancy(player.user_id)}><i className='fas fa-arrow-up'></i></Button>
                                             <Button variant='outlined' size='sm' color='blue' ><i className='fa-solid fa-eye'></i></Button>
                                         </td>

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const Players = () => {
   const TABLE_HEAD = ["Sl No", "Employee Name", "Phone no. / Email", "Status", "Action"];
-  const TABLE_WIDTH = ["8%", "25%", "35%", "17%", "15%"];
+  const COLUMN_WIDTH = ["8%", "25%", "35%", "17%", "15%"];
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Players = () => {
             <tr className='w-full'>
               {TABLE_HEAD.map((head, key) => {
                 return (
-                  <th key={key} className="p-3 border-y border-blue-gray-100 bg-blue-gray-50/50 text-sm text-blue-gray-900 opacity-70" width={TABLE_WIDTH[key]}>
+                  <th key={key} className="p-3 border-y border-blue-gray-100 bg-blue-gray-50/50 text-sm text-blue-gray-900 opacity-70" width={COLUMN_WIDTH[key]}>
                     {head}
                   </th>
                 );
@@ -71,10 +71,10 @@ const Players = () => {
 
                 return (
                   <tr key={index} className="table w-full">
-                    <td width={TABLE_WIDTH[0]} className="p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900">
+                    <td width={COLUMN_WIDTH[0]} className="p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900">
                       {index + 1}
                     </td>
-                    <td width={TABLE_WIDTH[1]} className="p-3 border-b border-blue-gray-50">
+                    <td width={COLUMN_WIDTH[1]} className="p-3 border-b border-blue-gray-50">
                       <div className="flex items-center gap-3">
                         <Avatar src={BASE_URL + "profile_photo/" + (player.profile || "avatar.png")} alt="avatar" />
                         <div className="flex flex-col text-sm antialiased capitalize">
@@ -82,7 +82,7 @@ const Players = () => {
                         </div>
                       </div>
                     </td>
-                    <td width={TABLE_WIDTH[2]} className="p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900">
+                    <td width={COLUMN_WIDTH[2]} className="p-3 border-b border-blue-gray-50 text-sm text-blue-gray-900">
                       <Typography variant="small">
                         +91 {player.contact}
                       </Typography>
@@ -90,10 +90,10 @@ const Players = () => {
                         {player.email}
                       </Typography>
                     </td>
-                    <td width={TABLE_WIDTH[3]} className="p-3 border-b border-blue-gray-50">
+                    <td width={COLUMN_WIDTH[3]} className="p-3 border-b border-blue-gray-50">
                       <div className={`px-2 py-1 font-sans text-xs font-bold uppercase rounded-md ${classes}`}>{player.status == 0 ? "Pending" : (player.status == 1 ? "Approved" : "Rejected")}</div>
                     </td>
-                    <td width={TABLE_WIDTH[4]} className="p-3 border-b border-blue-gray-50">
+                    <td width={COLUMN_WIDTH[4]} className="p-3 border-b border-blue-gray-50">
                       <div className="flex flex-row">
                         {player.status == 0 ? <>
                           <Button size="sm" variant="text" onClick={() => updateStatus(player.user_id, 1)}><i className="fa-solid fa-check text-green-800"></i></Button>

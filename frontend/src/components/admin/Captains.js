@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const Captains = () => {
   const TABLE_HEAD = ["Captain Info", "House Info", "Actions"];
-  const TABLE_WIDTH = ["50%", "40%", "10%"];
+  const COLUMN_WIDTH = ["50%", "40%", "10%"];
   const [captains, setCaptains] = useState([]);
   const [houses, setHouses] = useState([]);
   const [players, setPlayers] = useState([]);
@@ -107,7 +107,7 @@ const Captains = () => {
             <thead>
               <tr>
                 {TABLE_HEAD.map((head, index) => (
-                  <th width={TABLE_WIDTH[index]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3" key={index}>
+                  <th width={COLUMN_WIDTH[index]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3" key={index}>
                     <Typography variant="small" color="blue-gray" className="font-normal leading-none opacity-70">
                       {head}
                     </Typography>

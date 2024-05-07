@@ -8,7 +8,7 @@ import MakeCaptainDiaglog from './MakeCaptainDiaglog';
 const Houses = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const TABLE_HEAD = ["House details", "Action"];
-    const TABLE_WIDTH = ["75%", "25%"];
+    const COLUMN_WIDTH = ["75%", "25%"];
     const [dialogHouseData, setDialogHouseData] = useState({});
     const [preview, setPreview] = useState();
     const [file, setFile] = useState();
@@ -110,7 +110,7 @@ const Houses = () => {
                     <thead className='table' style={{ width: "calc(100% - 16px)" }}>
                         <tr>
                             {TABLE_HEAD.map((head, key) => (
-                                <th width={TABLE_WIDTH[key]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4" key={key}>
+                                <th width={COLUMN_WIDTH[key]} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4" key={key}>
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
@@ -129,7 +129,7 @@ const Houses = () => {
                                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50 text-sm";
                                 return (
                                     <tr key={index} className='w-full table'>
-                                        <td width={TABLE_WIDTH[0]} className={classes + " text-white"} style={{ backgroundColor: house.background }}>
+                                        <td width={COLUMN_WIDTH[0]} className={classes + " text-white"} style={{ backgroundColor: house.background }}>
                                             <div className='flex gap-1 items-center'>
                                                 <Avatar src={BASE_URL + 'houses/' + house.image} variant='square' />
                                                 <div className='flex flex-col'>
@@ -140,7 +140,7 @@ const Houses = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td width={TABLE_WIDTH[1]} className={classes} >
+                                        <td width={COLUMN_WIDTH[1]} className={classes} >
                                             <Button size='sm' className='me-1' color="red" variant="outlined" onClick={(e) => { deleteHouse(house.house_id) }}><i className='fas fa-trash'></i></Button>
                                             <Button size='sm' className='' color="blue" variant="outlined" onClick={(e) => { openDialogForMakeCaptain(house) }}><i className="fa-solid fa-user-plus"></i></Button>
                                         </td>
