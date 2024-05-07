@@ -65,17 +65,11 @@ import path from 'path';
 export const fileUploadMiddleware = (field_name, dest) => {
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            switch (dest) {
-                case "banners":
-                    cb(null, './public/data/uploads/banners')
-                    break;
-                case "houses":
-                    cb(null, './public/data/uploads/houses')
-                    break;
-                default:
-                    cb(null, './public/data/uploads')
-                    break;
+            let path = "./public/uploads/";
+            if (dest) {
+                path += dest;
             }
+            cb(null, path)
         },
         filename: function (req, file, cb) {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
