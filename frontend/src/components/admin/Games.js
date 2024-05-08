@@ -100,7 +100,9 @@ const Games = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <Typography variant="h4">Games</Typography>
+      <Typography variant="h4" className=" text-rose-800">
+        Games
+      </Typography>
       <div className="flex gap-3">
         <div className="w-2/3 h-full border">
           <table className="table-auto w-full text-left">

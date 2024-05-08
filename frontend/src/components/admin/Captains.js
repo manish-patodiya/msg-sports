@@ -100,7 +100,9 @@ const Captains = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <Typography variant="h5">Captains</Typography>
+      <Typography variant="h4" className="text-rose-800">
+        Captains
+      </Typography>
       <div className="flex gap-3">
         <div className="w-2/3">
           <table className="table-auto w-full text-left">

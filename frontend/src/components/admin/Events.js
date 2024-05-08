@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { API_BASE_URL, BASE_URL } from "../../constants/constant";
 import { toast } from "react-toastify";
+import { formatDateTime } from "../../common/common";
 
 const Events = () => {
   const TABLE_HEAD = ["Event info", "Venue / Timing", "Actions"];
@@ -116,7 +117,9 @@ const Events = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <Typography variant="h4">Events</Typography>
+      <Typography variant="h4" className=" text-rose-800">
+        Events
+      </Typography>
       <div className="flex gap-3">
         <div className="w-2/3 h-full border">
           <table className="table-auto w-full text-left">
@@ -147,7 +150,7 @@ const Events = () => {
                     <td width={COLUMN_WIDTH[1]} className={classes}>
                       <Typography variant="small">{event.venue}</Typography>
 
-                      <Typography variant="small">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(event.date_time))}</Typography>
+                      <Typography variant="small">{formatDateTime(event.date_time)}</Typography>
                     </td>
                     <td width={COLUMN_WIDTH[2]} className={classes}>
                       <Button color="red" variant="outlined" size="sm" onClick={() => deleteEvent(event.event_id)}><i className="fas fa-trash"></i></Button>

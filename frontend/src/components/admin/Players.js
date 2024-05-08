@@ -40,15 +40,11 @@ const Players = () => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-        <div>
-          <h3 className="block font-sans text-2xl antialiased font-bold leading-snug tracking-normal text-rose-800">
-            Players
-          </h3>
-        </div>
-      </div>
-      <div className="p-6 px-0">
+    <div className="flex flex-col gap-3">
+      <Typography variant="h4" className=" text-rose-800">
+        Players
+      </Typography>
+      <div>
         <table className="w-full table-auto text-left min-w-max">
           <thead className='table' style={{ width: "calc(100% - 16px)" }}>
             <tr className='w-full'>
