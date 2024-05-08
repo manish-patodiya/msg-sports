@@ -3,7 +3,7 @@ import { Card, CardBody, Typography, Input, Button, Alert } from "@material-tail
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
-import { checkAdminAuth, validateEmail, validatePassword } from "../../common/common.js";
+import { checkAuth, setLoginInfo, validateEmail, validatePassword } from "../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -14,7 +14,7 @@ const Login = () => {
   const [backendError, setBackendError] = useState("");
 
   useEffect(() => {
-    if (checkAdminAuth()) {
+    if (checkAuth("admin")) {
       navigate("/admin/dashboard");
     }
   }, []);
@@ -51,7 +51,7 @@ const Login = () => {
       setFormSubmitting(false);
       let data = res.data;
       if (data.status == 1) {
-        sessionStorage.setItem("admin_auth", data.auth);
+        setLoginInfo("admin", data.response, data.auth);
         navigate("/admin/dashboard");
       } else {
         setBackendError(data.message);

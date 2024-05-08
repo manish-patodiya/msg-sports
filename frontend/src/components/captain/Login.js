@@ -3,7 +3,7 @@ import { Card, CardBody, Typography, Input, Button, Alert } from "@material-tail
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
-import { checkCaptainAuth, validateEmail, validatePassword } from "../../common/common.js";
+import { checkAuth, validateEmail, validatePassword } from "../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -14,7 +14,7 @@ const Login = () => {
   const [backendError, setBackendError] = useState("");
   const [contactInfo, setContactInfo] = useState({ contact: "", email: "" });
   useEffect(() => {
-    if (checkCaptainAuth()) {
+    if (checkAuth("captain")) {
       navigate("/captain/dashboard");
     }
     axios.get(API_BASE_URL + "site_settings").then(res => {

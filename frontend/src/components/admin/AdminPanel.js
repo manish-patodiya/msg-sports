@@ -10,14 +10,14 @@ import Players from "./Players";
 import Events from "./Events";
 import Games from "./Games";
 import SiteSettings from "./SiteSettings";
-import { checkAdminAuth } from "../../common/common";
+import { checkAuth } from "../../common/common";
 import Houses from "./Houses";
 
 
 const AdminPanel = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        if (!checkAdminAuth()) {
+        if (!checkAuth("admin")) {
             navigate("/admin");
         }
     })

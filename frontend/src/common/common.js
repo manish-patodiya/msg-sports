@@ -76,16 +76,19 @@ export const validateRepassword = (npassword, repassword) => {
   }
 };
 
-export const checkAdminAuth = () => {
-  return !!sessionStorage.getItem("admin_auth");
+export const checkAuth = (role) => {
+  return !!sessionStorage.getItem(role + "_auth");
 }
 
-export const checkCaptainAuth = () => {
-  return !!sessionStorage.getItem("captain_auth");
+
+export const setLoginInfo = (role, info, auth) => {
+  sessionStorage.setItem(role + "_auth", auth);
+  sessionStorage.setItem(role + "_info", JSON.stringify(info));
 }
 
-export const checkPlayerAuth = () => {
-  return !!sessionStorage.getItem("player_auth");
+export const getLoginInfo = (role, field = null) => {
+  const info = JSON.parse(sessionStorage.getItem(role + "_info"));
+  return field ? info[field] : info;
 }
 
 export const formatDateTime = (date_time) => {

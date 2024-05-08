@@ -6,12 +6,12 @@ import Sidebar from "./includes/Sidebar";
 import Players from "./Players";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
-import { checkCaptainAuth } from "../../common/common";
+import { checkAuth } from "../../common/common";
 
 const CaptainPanel = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!checkCaptainAuth()) {
+    if (!checkAuth("captain")) {
       navigate("/captain");
     }
   });

@@ -6,14 +6,14 @@ import Sidebar from "./includes/Sidebar";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";
-import { checkPlayerAuth } from "../../common/common";
+import { checkAuth } from "../../common/common";
 
 import Requests from "./Requests";
 
 const PlayerPanel = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!checkPlayerAuth()) {
+    if (!checkAuth("player")) {
       navigate("/player")
     }
   })

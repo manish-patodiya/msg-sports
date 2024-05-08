@@ -103,7 +103,7 @@ const NewUserLogin = ({ setSuccLogin }) => {
                                 className={`flex items-center gap-2 rounded-r-none border border-r-0 border-blue-gray-200 bg-blue-gray-500/10 px-4`}
                             >+91</Button>
                             <input
-                                type="tel"
+                                type="number"
                                 name="contact"
                                 className={`w-full text-blue-gray-700 font-sans font-normal border  text-sm px-3 py-3 rounded-md rounded-l-none ${formErrors.contact ? "border-red-500 outline-red-500" : "border-blue-gray-200 "}`}
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SignUp from './SignUp'
 import SuccessfulRegistration from './SuccessfulRegistration'
-import { checkPlayerAuth } from '../../../common/common';
+import { checkAuth } from '../../../common/common';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../constants/constant';
@@ -13,7 +13,7 @@ const NewUserLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (checkPlayerAuth()) {
+    if (checkAuth("player")) {
       navigate("/player/dashboard");
     }
     axios.get(API_BASE_URL + "site_settings").then(res => {

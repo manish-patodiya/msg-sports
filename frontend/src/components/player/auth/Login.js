@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import { checkPlayerAuth, validateEmail, validatePassword } from "../../../common/common.js";
+import { checkAuth, validateEmail, validatePassword } from "../../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -22,7 +22,7 @@ const Login = () => {
   const [contactInfo, setContactInfo] = useState({ contact: "", email: "" });
 
   useEffect(() => {
-    if (checkPlayerAuth()) {
+    if (checkAuth("player")) {
       navigate("/player/dashboard");
     }
     axios.get(API_BASE_URL + "site_settings").then(res => {
