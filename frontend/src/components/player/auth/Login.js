@@ -82,11 +82,13 @@ const Login = () => {
       <Card className="w-96">
         <CardBody className="flex flex-col gap-4">
           <div className="flex justify-center mb-5">
-            <Typography variant="h3" className="flex text-gray-600">
-              <span className="font-serif text-rose-900 font-bold">.</span>
-              msg-
-              <span className="text-rose-900"> Sports</span>
-            </Typography>
+            <Link to="/">
+              <Typography variant="h3" className="flex text-gray-600">
+                <span className="font-serif text-rose-900 font-bold">.</span>
+                msg-
+                <span className="text-rose-900"> Sports</span>
+              </Typography>
+            </Link>
           </div>
           <Alert className={`bg-rose-800 py-2 text-sm ${backendError || "hidden"}`}> {backendError}</Alert>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -119,8 +121,7 @@ const Login = () => {
               {formSubmitting ? <i className="fa-solid fa-spinner animate-spin"></i> : `Sign In`}
             </Button>
           </form>
-          <div variant="small" className="mt-3 flex justify-between">
-
+          <div className="mt-3 flex justify-between">
             <div className="flex flex-col">
               <Link to="/admin" className="ml-1 mb-1 font-sans text-sm text-rose-800 underline">
                 Admin login
