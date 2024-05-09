@@ -29,7 +29,7 @@ const AdminPanel = () => {
                 <Header />
                 <div className="p-6">
                     <div></div>
-                    <div className="bg-white p-4 rounded-md min-h-screen">
+                    <div className="bg-white p-4 rounded-md min-h-screen overflow-hidden">
                         <Routes>
                             <Route path="dashboard" element={<Dashboard />}></Route>
                             <Route path="captains" element={<Captains />}></Route>
