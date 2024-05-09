@@ -64,7 +64,9 @@ export const checkAuth = (role) => {
 
 
 export const setLoginInfo = (role, info, auth) => {
-  sessionStorage.setItem(role + "_auth", auth);
+  if (auth)
+    sessionStorage.setItem(role + "_auth", auth = null);
+  console.log(info)
   sessionStorage.setItem(role + "_info", JSON.stringify(info));
 }
 

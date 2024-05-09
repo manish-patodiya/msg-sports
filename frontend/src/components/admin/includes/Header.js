@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Menu,
   MenuHandler,
   MenuItem,
@@ -8,6 +9,8 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../../../constants/constant";
+import { getLoginInfo } from "../../../common/common";
 
 const Header = () => {
   const handleLogout = () => {
@@ -17,13 +20,19 @@ const Header = () => {
   return (
     <Navbar className="text-black flex justify-between items-center sticky top-0 bg-white bg-opacity-100
     z-10 rounded-none shadow-none">
-      <Typography variant="h3" className="flex">
+      <Typography variant="h4" className="flex items-center gap-2">
         Admin Panel
       </Typography>
-      <div>
+      <div className="flex items-center gap-2">
+        <Typography>
+          <span>{getLoginInfo("admin", "name")}</span>
+        </Typography>
         <Menu className="">
           <MenuHandler>
-            <i className="fa-solid fa-bars cursor-pointer"></i>
+            <div className="cursor-pointer">
+              <Avatar src={BASE_URL + "profile_photo/" + (getLoginInfo("admin", "profile") ? getLoginInfo("admin", "profile") : "avatar.png")} />
+            </div>
+
           </MenuHandler>
           <MenuList className="text-rose-800">
             <Link to="/admin/profile">
