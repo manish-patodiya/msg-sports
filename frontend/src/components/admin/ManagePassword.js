@@ -33,34 +33,13 @@ const ManagePassword = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Input type="password" name="npassword" className="w-full" label="New Password" error={!!formErrors.npassword} value={formValues.npassword} onChange={handleChange} />
       <div className="m-5 h-auto flex flex-col gap-5 items-center justify-start">
         <div>
-          <Input name="empname" label="Employee Name" size="lg" disabled />
+
         </div>
         <div>
-          <Input name="email" label="Email" size="lg" disabled />
-        </div>
-        <div>
-          <Input
-            type="password"
-            name="npassword"
-            label="New Password"
-            size="lg"
-            error={!!formErrors.npassword}
-            value={formValues.npassword}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Input
-            type="password"
-            name="repassword"
-            label="Confirm Password"
-            size="lg"
-            error={!!formErrors.repassword}
-            value={formValues.repassword}
-            onChange={handleChange}
-          />
+          <Input type="password" name="repassword" label="Confirm Password" error={!!formErrors.repassword} value={formValues.repassword} onChange={handleChange} />
         </div>
         <div>
           <Button className="bg-rose-800" onClick={handleSubmit}>

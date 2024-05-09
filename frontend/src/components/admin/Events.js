@@ -74,9 +74,9 @@ const Events = () => {
         events.push({ ...eventValues, event_id: res.data.response.result.insertId, game_name: game_name, photo: res.data.response.image })
         setEvents(events)
         resetStates();
-        toast.success(res.data.message, { position: "top-right" });
+        toast.success(res.data.message);
       } else {
-        toast.error(res.data.message, { position: "top-right" });
+        toast.error(res.data.message);
       }
     }).catch(err => {
       console.log(err)
@@ -92,12 +92,12 @@ const Events = () => {
       then(res => {
         setIsSubmitting(false);
         if (res.data.status == 1) {
-          toast.success(res.data.message, { position: "top-right" });
+          toast.success(res.data.message);
           setEvents(events.filter(ele => {
             return ele.event_id !== id;
           }))
         } else {
-          toast.error(res.data.message, { position: "top-right" });
+          toast.error(res.data.message);
         }
       }).catch(err => {
         console.log(err);

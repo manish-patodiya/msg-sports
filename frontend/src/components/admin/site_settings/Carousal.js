@@ -35,9 +35,7 @@ const Carousal = ({ data }) => {
     const uploadBannerImage = (e) => {
         e.preventDefault();
         if (!file) {
-            toast.error("Plase select a image", {
-                position: "top-right"
-            })
+            toast.error("Plase select a image")
             return;
         }
         const formData = new FormData()
@@ -52,13 +50,9 @@ const Carousal = ({ data }) => {
                 setPreview("");
                 setFile("");
                 fileRef.current.value = null
-                toast.success(res.data.message, {
-                    position: "top-right"
-                });
+                toast.success(res.data.message);
             } else {
-                toast.error(res.data.message, {
-                    position: "top-right"
-                })
+                toast.error(res.data.message)
             }
         }).catch(err => {
             console.log(err);
@@ -86,13 +80,9 @@ const Carousal = ({ data }) => {
         axios.post(API_BASE_URL + "site_settings/banner/update", { banners }, {
         }).then((res) => {
             if (res.data.status) {
-                toast.success(res.data.message, {
-                    position: "top-right"
-                })
+                toast.success(res.data.message)
             } else {
-                toast.error(res.data.message, {
-                    position: "top-right"
-                })
+                toast.error(res.data.message)
             }
         }).catch(err => {
             console.log(err)

@@ -54,9 +54,9 @@ const Games = () => {
           setGameValues(initialValues);
           games.push({ game_name: gameValues.name, game_description: gameValues.description, id: res.data.response.insertId })
           setGames(games)
-          toast.success(res.data.message, { position: "top-right" });
+          toast.success(res.data.message);
         } else {
-          toast.error(res.data.message, { position: "top-right" });
+          toast.error(res.data.message);
         }
       }).catch(err => {
         console.log(err)
@@ -73,12 +73,12 @@ const Games = () => {
       then(res => {
         setIsSubmitting(false);
         if (res.data.status) {
-          toast.success(res.data.message, { position: "top-right" });
+          toast.success(res.data.message);
           setGames(games.filter(ele => {
             return ele.id !== id;
           }))
         } else {
-          toast.error(res.data.message, { position: "top-right" });
+          toast.error(res.data.message);
         }
       }).catch(err => {
         console.log(err);

@@ -22,7 +22,7 @@ const Houses = () => {
             if (res.data.status) {
                 setHouses(res.data.response.houses);
             } else {
-                toast.error(res.data.message, { position: 'top-right' });
+                toast.error(res.data.message);
             }
         })
     }, [])
@@ -44,9 +44,7 @@ const Houses = () => {
     const addHouse = (e) => {
         e.preventDefault();
         if (!file) {
-            toast.error("Plase select a image", {
-                position: "top-right"
-            })
+            toast.error("Plase select a image")
             return;
         }
         const formData = new FormData()
@@ -59,7 +57,7 @@ const Houses = () => {
         }).then((res) => {
             setIsSubmitting(false);
             if (res.data.status) {
-                toast.success(res.data.message, { position: "top-right" });
+                toast.success(res.data.message);
                 houses.push({ ...houseValues, image: res.data.response.image, id: res.data.response.result.insertId });
                 setHouses(houses);
                 setPreview("");
@@ -67,7 +65,7 @@ const Houses = () => {
                 setHouseValues(initialValues);
                 fileRef.current.value = null
             } else {
-                toast.error(res.data.message, { position: "top-right" })
+                toast.error(res.data.message)
             }
         }).catch(err => {
             console.log(err);
@@ -80,12 +78,12 @@ const Houses = () => {
         if (con) {
             axios.delete(API_BASE_URL + "houses/" + house_id).then((res) => {
                 if (res.data.status) {
-                    toast.success(res.data.message, { position: "top-right" })
+                    toast.success(res.data.message)
                     setHouses(houses.filter((ele) => {
                         return ele.id != house_id;
                     }));
                 } else {
-                    toast.error(res.data.message, { position: "top-right" })
+                    toast.error(res.data.message)
                 }
             }).catch(err => {
                 console.log(err)

@@ -15,7 +15,7 @@ const Players = () => {
         if (res.data.status) {
           setPlayers(res.data.response.players);
         } else {
-          toast.error(res.data.message, { position: "top-right" });
+          toast.error(res.data.message);
         }
       }).catch(err => console.log(err))
   }, [])
@@ -25,7 +25,7 @@ const Players = () => {
     axios.post(API_BASE_URL + "players/update_player_status/" + user_id + "/" + status_code)
       .then(res => {
         if (res.data.status) {
-          toast.success(res.data.message, { position: 'top-right' });
+          toast.success(res.data.message);
           setPlayers(players.map((player) => {
             if (player.user_id === user_id) {
               return { ...player, status: status_code };
@@ -34,7 +34,7 @@ const Players = () => {
             }
           }));
         } else {
-          toast.error(res.data.message, { position: 'top-right' });
+          toast.error(res.data.message);
         }
       }).catch(err => console.log(err));
   }

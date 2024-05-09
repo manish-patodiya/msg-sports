@@ -13,16 +13,16 @@ const MakeCaptainDiaglog = ({ open, handler, house_data }) => {
         axios.get(API_BASE_URL + "players/eligible_for_captain").then(res => {
             if (res.data.status == 1) {
                 setPlayers(res.data.response.players);
-            } else toast.error(res.data.message, { position: 'top-right' })
+            } else toast.error(res.data.message)
         }).catch(err => console.log(err))
     }, [])
 
     const assignCaptancy = (user_id) => {
         axios.get(API_BASE_URL + "players/promote_as_captain/" + house_data.house_id + "/" + user_id).then(res => {
             if (res.data.status == 1) {
-                toast.success(res.data.message, { position: 'top-right' });
+                toast.success(res.data.message);
             } else {
-                toast.error(res.data.message, { position: 'top-right' });
+                toast.error(res.data.message);
             }
             handler();
         }).catch(err => console.log(err))

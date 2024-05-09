@@ -23,13 +23,9 @@ const About = ({ data }) => {
             then((res) => {
                 setIsSubmitting(false);
                 if (res.data.status) {
-                    toast.success(res.data.message, {
-                        position: 'top-right'
-                    })
+                    toast.success(res.data.message)
                 } else {
-                    toast.error(res.data.message, {
-                        position: 'top-right'
-                    })
+                    toast.error(res.data.message)
                 }
             }).catch((err) => {
                 console.log(err);
