@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 08:45 AM
+-- Generation Time: May 09, 2024 at 02:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,6 +107,33 @@ INSERT INTO `games_categories` (`id`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `games_rating`
+--
+
+DROP TABLE IF EXISTS `games_rating`;
+CREATE TABLE `games_rating` (
+  `id` int(11) NOT NULL,
+  `user_id` int(4) NOT NULL,
+  `game_id` int(4) NOT NULL,
+  `rating` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `games_rating`
+--
+
+INSERT INTO `games_rating` (`id`, `user_id`, `game_id`, `rating`) VALUES
+(50, 1, 15, 5),
+(51, 1, 16, 2),
+(52, 1, 17, 3),
+(53, 1, 18, 3),
+(54, 1, 19, 4),
+(55, 1, 20, 4),
+(56, 1, 21, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `houses`
 --
 
@@ -194,9 +221,14 @@ CREATE TABLE `users` (
   `name` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `contact` varchar(15) DEFAULT NULL,
+  `business_unit` varchar(100) NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `emp_id` varchar(15) NOT NULL,
   `password` varchar(100) NOT NULL,
   `profile` varchar(100) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0:pending\r\n1:Approved\r\n2:Rejected',
+  `tshirt` varchar(3) NOT NULL,
+  `is_completed` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -206,16 +238,16 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `contact`, `password`, `profile`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Manish Patodiya', 'manish.patodiya@msg-global.com', '9602065385', '$2a$08$i8PFcmSmaOX/pk/EcEz/L.4mwq4BlBYvxYXN6EtVr44nLo4v1g9Um', NULL, 1, '2024-05-01 13:53:29', '2024-05-01 13:53:29', NULL),
-(2, 'Mahesh', 'mahesh@msg-global.com', '9999999999', '$2a$08$LkFpeywwsZHeNUafxRnJ9.7HljdTBLJOK4VQQvTpRnFcovFnS5ehi', NULL, 1, '2024-05-01 18:23:49', '2024-05-01 18:23:49', NULL),
-(3, 'Manoj', 'manoj@msg-global.com', '9999999998', '$2a$08$5rY2IUhVghH1atFqCMkQu.uDsMRkAvpNlikloY9KOvJyB7FpQj1Ba', NULL, 2, '2024-05-01 18:24:39', '2024-05-01 18:24:39', NULL),
-(4, 'Sameer', 'sameer@msg-global.com', '9999999997', '$2a$08$BZNi4NrKMds1mQc0yp0Mz.RXLKQsfIt8TpujCAepKbXTO9tj00sIC', NULL, 2, '2024-05-01 18:25:31', '2024-05-01 18:25:31', NULL),
-(5, 'Arun', 'arun@msg-global.com', '9999999996', '$2a$08$2.L7u0enxu2Y6DP7Cwr1a.kcLNPM7qJqPbzgJTcojefG2d2ugXWPm', NULL, 1, '2024-05-01 18:26:05', '2024-05-01 18:26:05', NULL),
-(6, 'Anurag', 'anurag@msg-global.com', '9999999995', '$2a$08$erBYJallrbn1V6vii1g70ez.Msux9s8JdE48x7P0vpYDqQdzz9zQG', NULL, 1, '2024-05-01 18:26:38', '2024-05-01 18:26:38', NULL),
-(7, 'Yashash', 'yashash@msg-global.com', '9999999994', '$2a$08$6uc6NUwNkTc/9At4GKFNbOFFDGk7QfVAOj2m1pLj9li6VZwca4OFK', NULL, 2, '2024-05-01 18:27:15', '2024-05-01 18:27:15', NULL),
-(8, 'Sidharth', 'sidharth@msg-global.com', '9999999993', '$2a$08$j6WO3SrAIlI/yIaRq4nWuuVi91XrMErL.YtsxfAzP.EuSkKstXKJi', NULL, 0, '2024-05-01 18:28:28', '2024-05-01 18:28:28', NULL),
-(9, 'Neivedhya', 'neivedhya@msg-global.com', '9999999992', '$2a$08$1X5y5ZU/sZCh5r9elqFvT.a4n65v1n4dSHMbz3RZfOblFSRi7mPT.', NULL, 0, '2024-05-01 18:29:23', '2024-05-01 18:29:23', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `contact`, `business_unit`, `location`, `emp_id`, `password`, `profile`, `status`, `tshirt`, `is_completed`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Manish Patodiya', 'manish.patodiya@msg-global.com', '9602065385', 'RI&E', 'Bangalore', 'INT26', '$2a$08$i8PFcmSmaOX/pk/EcEz/L.4mwq4BlBYvxYXN6EtVr44nLo4v1g9Um', 'profile_photo-1715233104738-827982709.jpg', 1, 'M', 1, '2024-05-01 13:53:29', '2024-05-01 13:53:29', NULL),
+(2, 'Mahesh', 'mahesh@msg-global.com', '9999999999', '', '', '', '$2a$08$LkFpeywwsZHeNUafxRnJ9.7HljdTBLJOK4VQQvTpRnFcovFnS5ehi', NULL, 1, '', 0, '2024-05-01 18:23:49', '2024-05-01 18:23:49', NULL),
+(3, 'Manoj', 'manoj@msg-global.com', '9999999998', '', '', '', '$2a$08$5rY2IUhVghH1atFqCMkQu.uDsMRkAvpNlikloY9KOvJyB7FpQj1Ba', NULL, 2, '', 0, '2024-05-01 18:24:39', '2024-05-01 18:24:39', NULL),
+(4, 'Sameer', 'sameer@msg-global.com', '9999999997', '', '', '', '$2a$08$BZNi4NrKMds1mQc0yp0Mz.RXLKQsfIt8TpujCAepKbXTO9tj00sIC', NULL, 2, '', 0, '2024-05-01 18:25:31', '2024-05-01 18:25:31', NULL),
+(5, 'Arun', 'arun@msg-global.com', '9999999996', '', '', '', '$2a$08$2.L7u0enxu2Y6DP7Cwr1a.kcLNPM7qJqPbzgJTcojefG2d2ugXWPm', NULL, 1, '', 0, '2024-05-01 18:26:05', '2024-05-01 18:26:05', NULL),
+(6, 'Anurag', 'anurag@msg-global.com', '9999999995', '', '', '', '$2a$08$erBYJallrbn1V6vii1g70ez.Msux9s8JdE48x7P0vpYDqQdzz9zQG', NULL, 1, '', 0, '2024-05-01 18:26:38', '2024-05-01 18:26:38', NULL),
+(7, 'Yashash', 'yashash@msg-global.com', '9999999994', '', '', '', '$2a$08$6uc6NUwNkTc/9At4GKFNbOFFDGk7QfVAOj2m1pLj9li6VZwca4OFK', NULL, 2, '', 0, '2024-05-01 18:27:15', '2024-05-01 18:27:15', NULL),
+(8, 'Sidharth', 'sidharth@msg-global.com', '9999999993', '', '', '', '$2a$08$j6WO3SrAIlI/yIaRq4nWuuVi91XrMErL.YtsxfAzP.EuSkKstXKJi', NULL, 2, '', 0, '2024-05-01 18:28:28', '2024-05-01 18:28:28', NULL),
+(9, 'Neivedhya', 'neivedhya@msg-global.com', '9999999992', '', '', '', '$2a$08$1X5y5ZU/sZCh5r9elqFvT.a4n65v1n4dSHMbz3RZfOblFSRi7mPT.', NULL, 0, '', 0, '2024-05-01 18:29:23', '2024-05-01 18:29:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -273,6 +305,12 @@ ALTER TABLE `games_categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `games_rating`
+--
+ALTER TABLE `games_rating`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `houses`
 --
 ALTER TABLE `houses`
@@ -325,6 +363,12 @@ ALTER TABLE `games`
 --
 ALTER TABLE `games_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `games_rating`
+--
+ALTER TABLE `games_rating`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `houses`
