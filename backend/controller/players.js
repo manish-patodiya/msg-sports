@@ -14,6 +14,8 @@ export const getPlayers = async () => {
 export const getPlayer = async (user_id) => {
     try {
         const { result } = await executeQuery("select * from users join users_role on users.id = users_role.user_id where users_role.role_id = ? and users.id=?", [PLAYER_ROLE_ID, user_id]);
+        const ratings = await executeQuery("Select game_id, rating from games_rating where user_id=?", [user_id]);
+        result[0].ratings = ratings.result;
         return sendResponse(1, "Player fetched successfully", { player: result[0] })
     } catch (err) {
         return sendResponse(2, "SQL error", err.sqlMessage)
@@ -57,6 +59,32 @@ export const promotePlayerAsCaptain = async (user_id) => {
     }
 }
 
+export const updateProfilePhoto = async (user_id, image_name) => {
+    try {
+        const { result } = await executeQuery("update users set profile=? where id = ?", [image_name, user_id]);
+        return sendResponse(1, "Profile photo updated successfully", { image: image_name, result })
+    } catch (err) {
+        return sendResponse(2, "SQL error", err.sqlMessage)
+    }
+}
+
+export const updatePlayerInfo = async (user_id, data) => {
+    try {
+        const { name, contact, business_unit, emp_id, location, tshirt } = data;
+        const result1 = await executeQuery("update users set name=?,contact=?,business_unit=?,emp_id=?,location=?,tshirt=?,is_completed=1 where id = ?", [name, contact, business_unit, emp_id, location, tshirt, user_id]);
+        const result2 = await executeQuery("delete from games_rating where user_id = ?", [user_id]);
+
+        const ratings = [];
+        data.ratings.map(row => {
+            ratings.push([Number(user_id), Number(row.game_id), Number(row.rating)]);
+        })
+        const result3 = await executeQuery("insert into games_rating (user_id,game_id,rating) values ?", [ratings]);
+        return sendResponse(1, "Players promoted successfully", { update: result1.result, delete: result2.result, insert: result3.result })
+    } catch (err) {
+        return sendResponse(2, "SQL error", err.sqlMessage)
+    }
+}
+
 export const deletePlayer = async (user_id) => {
     try {
         var CURRENT_TIMESTAMP = {
@@ -65,7 +93,6 @@ export const deletePlayer = async (user_id) => {
         const { result } = await executeQuery("update users set deleted_at = ? where id = ?", [CURRENT_TIMESTAMP, user_id]);
         return sendResponse(1, "Player deleted successfully", result);
     } catch (err) {
-        console.log(err)
         return sendResponse(2, "SQL error", err.sqlMessage);
     }
 }

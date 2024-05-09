@@ -42,24 +42,6 @@ export const validateCPassword = (pass, cpass) => {
   }
 };
 
-export const validateEmpName = (empName) => {
-  if (!empName) {
-    return "Employee's Name must consist 6 minimum characters";
-  }
-};
-
-export const validateDOB = (dateOfBirth) => {
-  if (!dateOfBirth) {
-    return "Date of Birth required";
-  }
-};
-
-export const validateAddress = (address) => {
-  if (!address) {
-    return "Address required";
-  }
-};
-
 export const validateNpassword = (npassword) => {
   if (!npassword) {
     return "Password required";
