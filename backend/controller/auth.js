@@ -62,7 +62,7 @@ export const insertUser = async (data) => {
 export const getUserByEmail = async (email, role_id) => {
     try {
         let response = role_id ?
-            await executeQuery("select * from users join users_role where email=? and role_id=?", [email, role_id]) :
+            await executeQuery("select * from users join users_role on users.id = users_role.user_id where email=? and role_id=?", [email, role_id]) :
             await executeQuery("select * from users where email=?", [email]);
         return response.result[0];
     } catch (err) {
