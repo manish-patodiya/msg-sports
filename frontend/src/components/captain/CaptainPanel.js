@@ -23,7 +23,7 @@ const CaptainPanel = () => {
         <Header />
         <div className="p-6">
           <div></div>
-          <div className="bg-white p-4 rounded-md">
+          <div className="bg-white p-4 rounded-md overflow-hidden">
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="players" element={<Players />}></Route>

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Avatar,
   Menu,
   MenuHandler,
   MenuItem,
@@ -8,6 +9,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../../../constants/constant";
+import { getLoginInfo } from "../../../common/common";
 
 const Header = () => {
   const handleLogout = () => {
@@ -22,7 +25,9 @@ const Header = () => {
       <div>
         <Menu className="">
           <MenuHandler>
-            <i className="fa-solid fa-bars cursor-pointer"></i>
+            <div className="cursor-pointer">
+              <Avatar src={BASE_URL + "profile_photo/" + (getLoginInfo("player", "profile") || "avatar.png")} />
+            </div>
           </MenuHandler>
           <MenuList className="text-rose-800">
             <Link to="/player/profile">

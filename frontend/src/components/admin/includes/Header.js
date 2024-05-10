@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-  Navbar,
-  Typography,
-} from "@material-tailwind/react";
+import { Avatar, Menu, MenuHandler, MenuItem, MenuList, Navbar, Typography } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../../constants/constant";
@@ -24,15 +16,14 @@ const Header = () => {
         Admin Panel
       </Typography>
       <div className="flex items-center gap-2">
-        <Typography>
+        <Typography variant="h6">
           <span>{getLoginInfo("admin", "name")}</span>
         </Typography>
         <Menu className="">
           <MenuHandler>
             <div className="cursor-pointer">
-              <Avatar src={BASE_URL + "profile_photo/" + (getLoginInfo("admin", "profile") ? getLoginInfo("admin", "profile") : "avatar.png")} />
+              <Avatar src={BASE_URL + "profile_photo/" + (getLoginInfo("admin", "profile") || "avatar.png")} />
             </div>
-
           </MenuHandler>
           <MenuList className="text-rose-800">
             <Link to="/admin/profile">
