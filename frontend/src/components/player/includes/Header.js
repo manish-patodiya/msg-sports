@@ -22,7 +22,10 @@ const Header = () => {
       <Typography variant="h3" className="flex">
         Player Panel
       </Typography>
-      <div>
+      <div className="flex items-center gap-2">
+        <Typography variant="h6">
+          <span>{getLoginInfo("player", "name")}</span>
+        </Typography>
         <Menu className="">
           <MenuHandler>
             <div className="cursor-pointer">
