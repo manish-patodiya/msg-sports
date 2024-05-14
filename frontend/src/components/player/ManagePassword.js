@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
-import { validateNpassword, validateRepassword } from "../../common/common";
+import { validatePassword, validateCPassword } from "../../common/common";
 
 const ManagePassword = () => {
   const initialValues = { npassword: "", repassword: "" };
@@ -16,13 +16,13 @@ const ManagePassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const npasswordError = validateNpassword(formValues.npassword);
+    const npasswordError = validatePassword(formValues.npassword);
     if (npasswordError) {
       setFormErrors({ npassword: npasswordError });
       return;
     }
 
-    const repasswordError = validateRepassword(
+    const repasswordError = validateCPassword(
       formValues.npassword,
       formValues.repassword
     );

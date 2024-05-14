@@ -88,5 +88,22 @@ export const validateLoginData = async (data, role_id) => {
             }
         }
     }
+}
 
+export const changePassword = async (data, role_id) => {
+
+    const user_data = await getUserByEmail(data.email, role_id);
+    const isMatch = await decryptPass(data.opassword, user_data.password);
+    if (!isMatch) {
+        return sendResponse(0, "Invalid password", { error: { password: "Wrong password" } });
+    } else {
+        try {
+            data.npassword = await encryptPass(data.npassword);
+            let response = await executeQuery("update users set password = ? where email = ?", [data.npassword, data.email]);
+            return sendResponse(1, "Password changed successfully", response);
+        } catch (err) {
+            console.log(err)
+            return sendResponse(2, "SQL error", err.sqlMessage);
+        }
+    }
 }

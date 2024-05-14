@@ -1,5 +1,5 @@
 import express from 'express';
-import { newUserLogin, validateLoginData } from '../controller/auth.js';
+import { changePassword, newUserLogin, validateLoginData } from '../controller/auth.js';
 import jwt from 'jsonwebtoken';
 import { ADMIN_ROLE_ID, CAPTAIN_ROLE_ID, JWT_SECRET_KEY, PLAYER_ROLE_ID } from '../constants/constants.js';
 
@@ -40,6 +40,12 @@ router.post("/player/login", async (req, res) => {
 router.post("/new-login", async (req, res) => {
     const data = req.body;
     const result = await newUserLogin(data);
+    res.json(result);
+})
+
+router.post("/updatePassword", async (req,res) => {
+    const data = req.body;
+    const result = await changePassword(data, PLAYER_ROLE_ID);
     res.json(result);
 })
 

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Button } from "@material-tailwind/react";
-import { validateNpassword, validateRepassword } from "../../common/common";
+import { validatePassword, validateCPassword, getLoginInfo } from "../../common/common";
+import { API_BASE_URL, BASE_URL } from "../../constants/constant";
+import axios from "axios";
+import { toast } from 'react-toastify'
 
 const ManagePassword = () => {
-  const initialValues = { npassword: "", repassword: "" };
+  const initialValues = { email: getLoginInfo("admin", "email"), opassword: "", npassword: "", cpassword: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormErrors(initialValues);
@@ -13,38 +17,65 @@ const ManagePassword = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validateForm = (e) => {
+    const opasswordError = validatePassword(formValues.opassword);
+    if (opasswordError) {
+      setFormErrors({ opassword: opasswordError });
+      return;
+    }
 
-    const npasswordError = validateNpassword(formValues.npassword);
+    const npasswordError = validatePassword(formValues.npassword);
     if (npasswordError) {
       setFormErrors({ npassword: npasswordError });
       return;
     }
 
-    const repasswordError = validateRepassword(
-      formValues.npassword,
-      formValues.repassword
-    );
-    if (repasswordError) {
-      setFormErrors({ repassword: repasswordError });
+    const cpasswordError = validateCPassword(formValues.npassword, formValues.cpassword);
+    if (cpasswordError) {
+      setFormErrors({ cpassword: cpasswordError });
+      return;
     }
+    return true;
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    setIsSubmitting(true);
+    axios.post(API_BASE_URL + "auth/updatePassword", formValues, {}).
+      then((res) => {
+        setIsSubmitting(false);
+        if (res.data.status) {
+          toast.success(res.data.message)
+        } else {
+          toast.error(res.data.message)
+        }
+      }).catch((err) => {
+        console.log(err);
+        setIsSubmitting(false);
+      })
+  }
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input type="password" name="npassword" className="w-full" label="New Password" error={!!formErrors.npassword} value={formValues.npassword} onChange={handleChange} />
-      <div className="m-5 h-auto flex flex-col gap-5 items-center justify-start">
+      <div className="m-5 flex flex-row">
         <div>
+          <img src="https://www.msg-global.com/images/2023/08/11/hi_msg-global_about-us_800x800.webp" className="w-6/7" alt="" />
+        </div>
+        <div className="m-3 w-full flex flex-col gap-5 items-end justify-center ">
+          <div className="hidden">
+            <Input type="text" label="Email" error={!!formErrors.email} value={formValues.email} autoComplete="new-password" />
+          </div>
 
-        </div>
-        <div>
-          <Input type="password" name="repassword" label="Confirm Password" error={!!formErrors.repassword} value={formValues.repassword} onChange={handleChange} />
-        </div>
-        <div>
-          <Button className="bg-rose-800" onClick={handleSubmit}>
-            Submit
-          </Button>
+          <Input type="password" name="opassword" label="Old Password" error={!!formErrors.opassword} value={formValues.opassword} onChange={handleChange} autoComplete="new-password" />
+
+          <Input type="password" name="npassword" label="New Password" error={!!formErrors.npassword} value={formValues.npassword} onChange={handleChange} autoComplete="new-password" />
+
+          <Input type="password" name="cpassword" label="Confirm Password" error={!!formErrors.cpassword} value={formValues.cpassword} onChange={handleChange} autoComplete="new-password" />
+
+          <div>
+            <Button type='submit' className="bg-rose-800" disabled={isSubmitting}>{isSubmitting ? <i className='fas fa-spinner animate-spin'></i> : "Save"}</Button>
+          </div>
         </div>
       </div>
     </form>

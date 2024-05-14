@@ -42,26 +42,9 @@ export const validateCPassword = (pass, cpass) => {
   }
 };
 
-export const validateNpassword = (npassword) => {
-  if (!npassword) {
-    return "Password required";
-  } else if (!npassword.match(PASS_REGEX)) {
-    return "Password should have one uppercase, one lowercase, one Special character and one Number";
-  }
-};
-
-export const validateRepassword = (npassword, repassword) => {
-  if (!repassword) {
-    return "Re-Enter Password";
-  } else if (repassword !== npassword) {
-    return "Password not matching";
-  }
-};
-
 export const checkAuth = (role) => {
   return !!sessionStorage.getItem(role + "_auth");
 }
-
 
 export const setLoginInfo = (role, info, auth) => {
   if (auth)
