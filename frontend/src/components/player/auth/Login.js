@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../constants/constant.js";
 import axios from "axios";
-import { checkAuth, validateEmail, validatePassword } from "../../../common/common.js";
+import { checkAuth, setLoginInfo, validateEmail, validatePassword } from "../../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -66,7 +66,7 @@ const Login = () => {
       setFormSubmitting(false);
       let data = res.data;
       if (data.status) {
-        sessionStorage.setItem("player_auth", data.auth);
+        setLoginInfo("player", data.response, data.auth);
         navigate("/player/dashboard");
       } else {
         setBackendError(data.message);

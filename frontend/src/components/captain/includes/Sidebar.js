@@ -27,10 +27,12 @@ const Sidebar = () => {
   return (
     <div className="h-screen w-full max-w-[16rem] bg-rose-800 fixed top-0 bottom-0 left-0 border-collapse border-x border-gray-600 overflow-y-auto remove-scrollbar">
       <div className="mb-2 p-4 bg-white sticky top-0">
-        <Typography variant="h3" className="flex text-gray-600 ">
-          <span className="font-serif text-rose-900 font-bold">.</span>msg-
-          <span className="text-rose-900"> Sports</span>
-        </Typography>
+        <Link to="/">
+          <Typography variant="h3" className="flex text-gray-600 ">
+            <span className="font-serif text-rose-900 font-bold">.</span>msg-
+            <span className="text-rose-900"> Sports</span>
+          </Typography>
+        </Link>
       </div>
       <div className="p-1 ">
         <List className="text-white">
@@ -60,9 +62,8 @@ const Sidebar = () => {
                   open={open === count}
                   icon={
                     <i
-                      className={`fa-solid fa-chevron-down w-4 transition-transform text-sm  ${
-                        open === count ? "rotate-180" : ""
-                      }`}
+                      className={`fa-solid fa-chevron-down w-4 transition-transform text-sm  ${open === count ? "rotate-180" : ""
+                        }`}
                     ></i>
                   }
                 >
@@ -89,9 +90,8 @@ const Sidebar = () => {
                             <ListItem>
                               <ListItemPrefix>
                                 <i
-                                  className={`fa-solid ${
-                                    sm.icon || "fa-chevron-right"
-                                  } w-4`}
+                                  className={`fa-solid ${sm.icon || "fa-chevron-right"
+                                    } w-4`}
                                 ></i>
                               </ListItemPrefix>
                               <p color="white">{sm.name}</p>

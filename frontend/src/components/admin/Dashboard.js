@@ -4,12 +4,10 @@ import React from "react";
 import { Chart } from "react-google-charts";
 const Dashboard = () => {
   const data = [
-    ["Task", "Hours per Day"],
-    ["Work", 11],
-    ["Eat", 2],
-    ["Commute", 2],
-    ["Watch TV", 2],
-    ["Sleep", 7],
+    ["Player Status", "Status"],
+    ["Pending", 50],
+    ["Approved", 100],
+    ["rejected", 30]
   ];
 
   const options = {

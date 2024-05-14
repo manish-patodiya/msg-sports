@@ -3,7 +3,7 @@ import { Card, CardBody, Typography, Input, Button, Alert } from "@material-tail
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from '../../constants/constant.js';
 import axios from "axios";
-import { checkAuth, validateEmail, validatePassword } from "../../common/common.js";
+import { checkAuth, setLoginInfo, validateEmail, validatePassword } from "../../common/common.js";
 
 const Login = () => {
   const initialValues = { email: "", password: "" };
@@ -58,7 +58,7 @@ const Login = () => {
       setFormSubmitting(false);
       let data = res.data;
       if (data.status == 1) {
-        sessionStorage.setItem("captain_auth", data.auth);
+        setLoginInfo("captain", data.response, data.auth);
         navigate("/captain/dashboard");
       } else {
         setBackendError(data.message);
