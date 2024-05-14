@@ -95,7 +95,7 @@ export const changePassword = async (data, role_id) => {
     const user_data = await getUserByEmail(data.email, role_id);
     const isMatch = await decryptPass(data.opassword, user_data.password);
     if (!isMatch) {
-        return sendResponse(0, "Invalid password", { error: { password: "Wrong password" } });
+        return sendResponse(0, "Old password is not correct");
     } else {
         try {
             data.npassword = await encryptPass(data.npassword);

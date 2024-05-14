@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from 'react-toastify'
 
 const ManagePassword = () => {
-  const initialValues = { email: getLoginInfo("captain", "email"), opassword: "", npassword: "", cpassword: "" };
+  const initialValues = { opassword: "", npassword: "", cpassword: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState(initialValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,6 +41,7 @@ const ManagePassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+    formValues.email = getLoginInfo("captain", "email");
     setIsSubmitting(true);
     axios.post(API_BASE_URL + "auth/updatePassword", formValues, {}).
       then((res) => {
@@ -63,10 +64,6 @@ const ManagePassword = () => {
           <img src="https://www.msg-global.com/images/2023/08/11/hi_msg-global_about-us_800x800.webp" className="w-6/7" alt="" />
         </div>
         <div className="m-3 w-full flex flex-col gap-5 items-end justify-center ">
-          <div className="hidden">
-            <Input type="text" label="Email" error={!!formErrors.email} value={formValues.email} autoComplete="new-password" />
-          </div>
-
           <Input type="password" name="opassword" label="Old Password" error={!!formErrors.opassword} value={formValues.opassword} onChange={handleChange} autoComplete="new-password" />
 
           <Input type="password" name="npassword" label="New Password" error={!!formErrors.npassword} value={formValues.npassword} onChange={handleChange} autoComplete="new-password" />
