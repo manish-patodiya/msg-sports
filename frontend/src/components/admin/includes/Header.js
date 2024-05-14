@@ -1,12 +1,12 @@
 import { Avatar, Menu, MenuHandler, MenuItem, MenuList, Navbar, Typography } from "@material-tailwind/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../constants/constant";
-import { getLoginInfo } from "../../../common/common";
+import { getLoginInfo, removeLoginInfo } from "../../../common/common";
 
 const Header = () => {
   const handleLogout = () => {
-    sessionStorage.removeItem("admin_auth");
+    removeLoginInfo("admin");
   };
 
   return (

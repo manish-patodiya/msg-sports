@@ -46,17 +46,23 @@ export const checkAuth = (role) => {
   return !!sessionStorage.getItem(role + "_auth");
 }
 
-export const setLoginInfo = (role, info, auth) => {
-  if (auth)
-    sessionStorage.setItem(role + "_auth", auth = null);
-  console.log(info)
+export const setLoginInfo = (role, info = {}, auth = null) => {
+  if (auth) {
+    sessionStorage.setItem(role + "_auth", auth);
+  }
   sessionStorage.setItem(role + "_info", JSON.stringify(info));
 }
 
 export const getLoginInfo = (role, field = null) => {
   const info = JSON.parse(sessionStorage.getItem(role + "_info"));
-  return field && info ? info[field] : info;
+  return info && field ? info[field] : info;
 }
+
+export const removeLoginInfo = (role) => {
+  sessionStorage.removeItem(role + "_auth");
+  sessionStorage.removeItem(role + "_info");
+}
+
 
 export const formatDateTime = (date_time) => {
   return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(date_time))

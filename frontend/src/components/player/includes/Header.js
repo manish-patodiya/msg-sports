@@ -10,11 +10,11 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../../constants/constant";
-import { getLoginInfo } from "../../../common/common";
+import { getLoginInfo, removeLoginInfo } from "../../../common/common";
 
 const Header = () => {
   const handleLogout = () => {
-    sessionStorage.removeItem("player_auth");
+    removeLoginInfo("player");
   };
 
   return (

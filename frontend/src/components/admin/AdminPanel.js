@@ -20,7 +20,7 @@ const AdminPanel = () => {
         if (!checkAuth("admin")) {
             navigate("/admin");
         }
-    }, [])
+    })
 
     return (
         <div className="relative bg-gray-200 min-h-screen">

@@ -2,11 +2,11 @@ import { Avatar, Menu, MenuHandler, MenuItem, MenuList, Navbar, Typography } fro
 import React from "react";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../../constants/constant";
-import { getLoginInfo } from "../../../common/common";
+import { getLoginInfo, removeLoginInfo } from "../../../common/common";
 
 const Header = () => {
   const handleLogout = () => {
-    sessionStorage.removeItem("captain_auth");
+    removeLoginInfo("captain");
   };
 
   return (
