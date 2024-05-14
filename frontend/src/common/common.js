@@ -55,7 +55,7 @@ export const setLoginInfo = (role, info, auth) => {
 
 export const getLoginInfo = (role, field = null) => {
   const info = JSON.parse(sessionStorage.getItem(role + "_info"));
-  return field ? info[field] : info;
+  return field && info ? info[field] : info;
 }
 
 export const formatDateTime = (date_time) => {
