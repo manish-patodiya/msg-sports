@@ -1,11 +1,16 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react'
+import { Button, Card, CardBody, Typography } from '@material-tailwind/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { API_BASE_URL, BASE_URL } from '../../constants/constant'
-import { formatDateTime } from '../../common/common'
+import { formatDateTime, getLoginInfo, updateLoginInfo } from '../../common/common'
+import { useNavigate } from 'react-router-dom'
+import { checkAuth } from '../../common/common';
+import { toast } from 'react-toastify'
 
 const Events = () => {
     const [events, setEvents] = useState([]);
+    const navigate = useNavigate();
+    const [render, setRender] = useState(false);
     useEffect(() => {
         axios.get(API_BASE_URL + "events").then(res => {
             if (res.data.status == 1) {
@@ -16,7 +21,51 @@ const Events = () => {
         })
     }, [])
 
+    const registerForTheEvent = (game_id) => {
+        axios.post(API_BASE_URL + "events/event_registration/" + getLoginInfo("player", "user_id") + "/" + game_id).then(res => {
+            if (res.data.status == 1) {
+                const game_data = getLoginInfo("player", "game_data");
+                game_data && game_data.forEach((game) => {
+                    if (game.game_id == game_id) {
+                        game.status = 0;
+                        return;
+                    }
+                })
+                updateLoginInfo("player", "game_data", game_data);
+                setRender(!render);
+                console.log(game_data)
+                toast.success(res.data.message);
+            } else {
+                toast.error(res.data.message);
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const checkRegisteration = (game_id) => {
+        const game_data = getLoginInfo("player", "game_data");
+        let registered = false;
+        // game_data = JSON.parse(game_data);
+        game_data && game_data.forEach((game) => {
+            if (game.game_id == game_id && game.status != null) {
+                registered = true;
+                return;
+            }
+        })
+
+        if (registered) {
+            return <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3' onClick={() => navigate("/player/nominations")}>
+                <i className='fa fa-circle-check me-1'></i>Registered
+                <span className='ms-3'>Go to nominations page <i className='fa fa-arrow-right'></i></span>
+            </Button>
+        } else {
+            return <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3' onClick={() => registerForTheEvent(game_id)}>Register</Button>
+        }
+    }
+
     if (events.length)
+    
         return (
             <section id='events' className='mb-14'>
                 <Typography variant='h2' className='text-rose-800 font-sans'>Games & Events</Typography>
@@ -48,7 +97,10 @@ const Events = () => {
                                                 <span className='text-rose-800'>Venue: </span> {event.venue}
                                             </Typography>
                                         </div>
-                                        <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3'>Register</Button>
+                                        {checkAuth("player") ?
+                                            checkRegisteration(event.game_id) :
+                                            <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3' onClick={() => navigate("/player")}>Register</Button>
+                                        }
                                     </div>
 
                                 </CardBody>

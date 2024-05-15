@@ -34,3 +34,13 @@ export const deleteEvent = async (event_id) => {
     return sendResponse(2, "SQL Error", err.sqlMessage);
   }
 };
+
+export const nominateUser = async (user_id, game_id) => {
+  try {
+    let result = await executeQuery("update games_rating set status = 0 where user_id = ? and game_id = ?", [user_id, game_id]);
+    return sendResponse(1, "Event added successfully", { result });
+  } catch (err) {
+    console.log(err);
+    return sendResponse(2, "SQL Error", err.sqlMessage);
+  }
+}

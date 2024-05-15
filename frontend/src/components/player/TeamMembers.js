@@ -24,7 +24,7 @@ const TeamMembers = () => {
     return (
         <div className="flex flex-col gap-3">
             <Typography variant="h4" className=" text-rose-800">
-                Players
+                Team Members
             </Typography>
             <div>
                 <table className="w-full table-auto text-left min-w-max">
