@@ -32,7 +32,7 @@ const Frontend = () => {
         <>
             <Header />
             <Home className='' data={data} />
-            <div className='mx-auto px-4 my-4 text-lg'>
+            <div className='mx-auto px-10 py-4 my-4 text-lg'>
                 <Events />
                 <About data={data} />
             </div>

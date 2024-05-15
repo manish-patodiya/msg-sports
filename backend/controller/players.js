@@ -2,11 +2,29 @@ import { sendResponse } from "../constants/common.js";
 import { CAPTAIN_ROLE_ID, PLAYER_ROLE_ID } from "../constants/constants.js"
 import { executeQuery } from "../database/connection.js"
 
-export const getPlayers = async () => {
+export const getPlayers = async (data) => {
     try {
-        const { result } = await executeQuery("select * from users join users_role on users.id = users_role.user_id where role_id = ?", [PLAYER_ROLE_ID]);
+        let where = "role_id = ?";
+        let params = [PLAYER_ROLE_ID];
+        if (data) {
+            if (data.search) {
+                where += " and name like ?";
+                params.push("%" + data.search + "%");
+            }
+            if (data.status != "") {
+                where += " and status = ?";
+                params.push(data.status);
+            }
+            if (data.house_id) {
+                where += " and house_id = ?";
+                params.push(data.house_id);
+            }
+        }
+
+        let { result } = await executeQuery(`select * from users join users_role on users.id = users_role.user_id where ${where}`, params);
         return sendResponse(1, "Players fetched successfully", { players: result })
     } catch (err) {
+        console.log(err)
         return sendResponse(2, "SQL error", err.sqlMessage)
     }
 }
@@ -14,7 +32,7 @@ export const getPlayers = async () => {
 export const getPlayer = async (user_id) => {
     try {
         const { result } = await executeQuery("select * from users join users_role on users.id = users_role.user_id where users_role.role_id = ? and users.id=?", [PLAYER_ROLE_ID, user_id]);
-        const ratings = await executeQuery("Select game_id, rating from games_rating where user_id=?", [user_id]);
+        const ratings = await executeQuery("select gr.game_id, gr.rating, g.game_name from games_rating gr join games g on g.id = gr.game_id where gr.user_id=?", [user_id]);
         result[0].ratings = ratings.result;
         return sendResponse(1, "Player fetched successfully", { player: result[0] })
     } catch (err) {
@@ -31,29 +49,10 @@ export const getEligiblePlayersForCaptancy = async () => {
     }
 }
 
-export const promoteAsCaptain = async (house_id, user_id) => {
-    try {
-        const { result1 } = await executeQuery("insert into users_role (user_id, role_id) values (?,?)", [user_id, CAPTAIN_ROLE_ID]);
-        const { result2 } = await executeQuery("update houses set cap_id = ? where id=?", [user_id, house_id]);
-        return sendResponse(1, "Player fetched successfully")
-    } catch (err) {
-        return sendResponse(2, "SQL error", err.sqlMessage)
-    }
-}
-
 export const updateStatus = async (user_id, status_code) => {
     try {
         const { result } = await executeQuery("update users set status = ? where id = ?", [status_code, user_id]);
         return sendResponse(1, "Status updated successfully", result[0])
-    } catch (err) {
-        return sendResponse(2, "SQL error", err.sqlMessage)
-    }
-}
-
-export const promotePlayerAsCaptain = async (user_id) => {
-    try {
-        const { result } = await executeQuery("update users_role set role_id = ? where user_id = ?", [CAPTAIN_ROLE_ID, user_id]);
-        return sendResponse(1, "Players promoted successfully", { players: result })
     } catch (err) {
         return sendResponse(2, "SQL error", err.sqlMessage)
     }
@@ -79,7 +78,7 @@ export const updatePlayerInfo = async (user_id, data) => {
             ratings.push([Number(user_id), Number(row.game_id), Number(row.rating)]);
         })
         const result3 = await executeQuery("insert into games_rating (user_id,game_id,rating) values ?", [ratings]);
-        return sendResponse(1, "Players promoted successfully", { update: result1.result, delete: result2.result, insert: result3.result })
+        return sendResponse(1, "Players updated successfully", { update: result1.result, delete: result2.result, insert: result3.result })
     } catch (err) {
         return sendResponse(2, "SQL error", err.sqlMessage)
     }
@@ -92,6 +91,19 @@ export const deletePlayer = async (user_id) => {
         };
         const { result } = await executeQuery("update users set deleted_at = ? where id = ?", [CURRENT_TIMESTAMP, user_id]);
         return sendResponse(1, "Player deleted successfully", result);
+    } catch (err) {
+        return sendResponse(2, "SQL error", err.sqlMessage);
+    }
+}
+
+export const assignHouse = async (user_id, house_id, bid_amt) => {
+    console.log(user_id, house_id, bid_amt)
+    try {
+        var CURRENT_TIMESTAMP = {
+            toSqlString: function () { return 'CURRENT_TIMESTAMP()'; }
+        };
+        const { result } = await executeQuery("update users set house_id = ?, sold_amt = ?, updated_at = ? where id = ?", [house_id, bid_amt, CURRENT_TIMESTAMP, user_id]);
+        return sendResponse(1, "Player sold successfully", result);
     } catch (err) {
         return sendResponse(2, "SQL error", err.sqlMessage);
     }
