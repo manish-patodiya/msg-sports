@@ -4,6 +4,7 @@ import Header from "./includes/Header";
 import Dashboard from "./Dashboard";
 import Sidebar from "./includes/Sidebar";
 import Players from "./Players";
+import Team from "./Team";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import { checkAuth } from "../../common/common";
@@ -27,6 +28,7 @@ const CaptainPanel = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="players" element={<Players />}></Route>
+              <Route path="team" element={<Team />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>
             </Routes>

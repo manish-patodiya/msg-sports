@@ -6,6 +6,7 @@ import Sidebar from "./includes/Sidebar";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
 import Nominations from "./Nominations";
+import TeamMembers from "./TeamMembers";
 import { checkAuth } from "../../common/common";
 
 import Requests from "./Requests";
@@ -29,6 +30,7 @@ const PlayerPanel = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="nominations" element={<Nominations />}></Route>
+              <Route path="team" element={<TeamMembers />}></Route>
               <Route path="requests" element={<Requests />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>

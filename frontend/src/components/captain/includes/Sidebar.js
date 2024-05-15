@@ -18,6 +18,7 @@ const Sidebar = () => {
   const menu_items = [
     { name: "Dashboard", path: "/captain/dashboard", icon: "fa-table-columns" },
     { name: "Players", path: "/captain/players", icon: "fa-person-running" },
+    { name: "Your Team", path: "/captain/team", icon: "fa-users" },
   ];
 
   const handleOpen = (value) => {

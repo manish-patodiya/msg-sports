@@ -17,6 +17,7 @@ const Sidebar = () => {
   let count = 1;
   const menu_items = [
     { name: "Dashboard", path: "/player/dashboard", icon: "fa-table-columns" },
+    { name: "Team Members", path: "/player/team", icon: "fa-users" },
     { name: "Nominations", path: "/player/nominations", icon: "fa-hand" },
     { name: "Requests", path: "/player/requests", icon: "fa-bell" },
   ];
