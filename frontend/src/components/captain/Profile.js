@@ -1,12 +1,11 @@
 import { Input, Button, Typography, rating } from "@material-tailwind/react";
 import React, { useState, useEffect, useRef } from "react";
-import { validateContact, getLoginInfo, validateName, setLoginInfo } from "../../common/common.js";
+import { validateContact, getLoginInfo, validateName, updateLoginInfo } from "../../common/common.js";
 import { API_BASE_URL, BASE_URL } from "../../constants/constant.js";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Profile = () => {
-  const [hidden, setHidden] = useState(true)
   const [preview, setPreview] = useState();
   const [file, setFile] = useState();
   const initialValues = { name: "", emp_id: "", contact: "", business_unit: "", location: "" };
@@ -45,7 +44,6 @@ const Profile = () => {
       })
       setRatings(ratings);
       delete playerInfo.ratings;
-      setLoginInfo("captain", playerInfo);
     }
   }, [playerInfo])
 
@@ -57,6 +55,7 @@ const Profile = () => {
       if (res.data.status == 1) {
         toast.success(res.data.message);
         setPreview(BASE_URL + "profile_photo/" + res.data.response.image);
+        updateLoginInfo("captain", "profile", res.data.response.image);
       } else {
         toast.error(res.data.message);
         setPreview(BASE_URL + "profile_photo/avatar.png");
@@ -137,6 +136,7 @@ const Profile = () => {
     axios.post(API_BASE_URL + "players/update_player_info/" + getLoginInfo("captain", "user_id"), formValues).then(res => {
       setIsSubmitting(false);
       if (res.data.status == 1) {
+        updateLoginInfo("captain", "is_completed", 1);
         toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
@@ -160,7 +160,7 @@ const Profile = () => {
       {/* Personal Info */}
       <div className="flex gap-3 mb-5">
         {/* profile photo */}
-        <div className="w-1/3 flex flex-col items-center justify-center" onMouseEnter={() => setHidden(false)} onMouseLeave={() => setHidden(true)}>
+        <div className="w-1/3 flex flex-col items-center justify-center">
           <div className="relative w-52 h-52 rounded-full border-2 border-rose-800">
             <img src={preview} alt='' className="object-cover h-full w-full shadow-md rounded-full" />
             <i className="fas fa-camera text-4xl pointer absolute top-[80%] left-[80%] text-gray-800" onClick={() => { fileRef.current.click() }}></i>
