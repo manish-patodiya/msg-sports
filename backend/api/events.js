@@ -1,5 +1,5 @@
 import express from "express";
-import { addEvent, deleteEvent, getEvents } from "../controller/events.js";
+import { addEvent, deleteEvent, getEvents, nominateUser } from "../controller/events.js";
 import { fileUploadMiddleware } from "../constants/common.js";
 const router = express.Router();
 
@@ -13,6 +13,10 @@ router.post("/add", fileUploadMiddleware("event_image", "events"), async (req, r
 
 router.delete("/:game_id", async (req, res) => {
   res.json(await deleteEvent(req.params.game_id));
+});
+
+router.post("/event_registration/:user_id/:game_id", async (req, res) => {
+  res.json(await nominateUser(req.params.user_id, req.params.game_id));
 });
 
 export default router;
