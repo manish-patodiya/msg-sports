@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_BASE_URL, BASE_URL } from '../../constants/constant'
 import { toast } from 'react-toastify';
 import PlayerBidingDiaglog from "./PlayerBidingDiaglog";
-import UserInfoDialog from "./UserInfoDialog";
+import UserInfoDialog from "../../common/UserInfoDialog";
 
 const Players = () => {
   const TABLE_HEAD = ["Sl No", "Employee Name", "Phone no. / Email", "Status", "Action"];

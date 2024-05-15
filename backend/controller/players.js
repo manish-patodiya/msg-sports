@@ -1,17 +1,17 @@
 import { sendResponse } from "../constants/common.js";
-import { CAPTAIN_ROLE_ID, PLAYER_ROLE_ID } from "../constants/constants.js"
+import { PLAYER_ROLE_ID } from "../constants/constants.js"
 import { executeQuery } from "../database/connection.js"
 
 export const getPlayers = async (data) => {
     try {
         let where = "role_id = ?";
         let params = [PLAYER_ROLE_ID];
-        if (data) {
+        if (Object.keys(data).length) {
             if (data.search) {
                 where += " and name like ?";
                 params.push("%" + data.search + "%");
             }
-            if (data.status != "") {
+            if (data.status != undefined && data.status != "") {
                 where += " and status = ?";
                 params.push(data.status);
             }
@@ -20,7 +20,6 @@ export const getPlayers = async (data) => {
                 params.push(data.house_id);
             }
         }
-
         let { result } = await executeQuery(`select * from users join users_role on users.id = users_role.user_id where ${where}`, params);
         return sendResponse(1, "Players fetched successfully", { players: result })
     } catch (err) {
@@ -31,7 +30,7 @@ export const getPlayers = async (data) => {
 
 export const getPlayer = async (user_id) => {
     try {
-        const { result } = await executeQuery("select * from users join users_role on users.id = users_role.user_id where users_role.role_id = ? and users.id=?", [PLAYER_ROLE_ID, user_id]);
+        const { result } = await executeQuery("select * from users join users_role on users.id = users_role.user_id left join houses on users.house_id = houses.id where users_role.role_id = ? and users.id=?", [PLAYER_ROLE_ID, user_id]);
         const ratings = await executeQuery("select gr.game_id, gr.rating, g.game_name from games_rating gr join games g on g.id = gr.game_id where gr.user_id=?", [user_id]);
         result[0].ratings = ratings.result;
         return sendResponse(1, "Player fetched successfully", { player: result[0] })

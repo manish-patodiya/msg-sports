@@ -1,9 +1,10 @@
 import { Avatar, Dialog, DialogBody, DialogFooter, DialogHeader, Rating, Typography } from '@material-tailwind/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { API_BASE_URL, BASE_URL } from '../../constants/constant'
+import { API_BASE_URL, BASE_URL } from '../constants/constant'
 import { toast } from 'react-toastify'
 import { Button } from 'react-scroll'
+import { getLoginInfo } from './common'
 
 const UserInfoDialog = ({ open, userID, handler }) => {
     const [playerInfo, setPlayerInfo] = useState({});
@@ -43,15 +44,17 @@ const UserInfoDialog = ({ open, userID, handler }) => {
                 <i className='fa fa-xmark cursor-pointer' onClick={handler}></i>
             </DialogHeader>
             <DialogBody className='px-6'>
-                <div className='flex'>
+                <div className='flex gap-3'>
                     <div className='w-2/5'>
                         <Typography variant='h6'>Personal Information</Typography>
                         <hr />
                         <div className=''>
-                            <Typography variant='small'>Employee ID: {playerInfo.emp_id}</Typography>
-                            <Typography variant='small'>Tshirt Size: {playerInfo.tshirt}</Typography>
-                            <Typography variant='small'>Business Unit: {playerInfo.business_unit}</Typography>
-                            <Typography variant='small'>Location: {playerInfo.location}</Typography>
+                            <Typography variant='small'>Employee ID: {playerInfo.emp_id || "NA"}</Typography>
+                            <Typography variant='small'>Tshirt Size: {playerInfo.tshirt || "NA"}</Typography>
+                            <Typography variant='small'>Business Unit: {playerInfo.business_unit || "NA"}</Typography>
+                            <Typography variant='small'>Location: {playerInfo.location || "NA"}</Typography>
+                            <Typography variant='small'>Sold Amount: {playerInfo.sold_amt || (getLoginInfo("captain", "user_id") == playerInfo.user_id ? "Captain" : "Unsold")}</Typography>
+                            <Typography variant='small' style={{ background: playerInfo.background && playerInfo.background, color: playerInfo.background && "white" }}>House: {playerInfo.house_name || "NA"}</Typography>
                         </div>
                     </div>
                     <div className='w-3/5'>
