@@ -32,7 +32,7 @@ const Login = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, [navigate]);
+  }, []);
 
   const handleChange = (e) => {
     setBackendError("");

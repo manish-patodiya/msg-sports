@@ -1,4 +1,4 @@
-import { Avatar, Menu, MenuHandler, MenuItem, MenuList, Navbar, Typography } from "@material-tailwind/react";
+import { Avatar, Chip, Menu, MenuHandler, MenuItem, MenuList, Navbar, Typography } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../../constants/constant";
@@ -14,6 +14,10 @@ const Header = () => {
     z-10 rounded-none shadow-none">
       <Typography variant="h4" className="flex items-center gap-2">
         Captain Panel
+        <div style={{ background: getLoginInfo("captain", "house_name") && getLoginInfo("captain", "background"), color: getLoginInfo("captain", "background") && "white" }} className="flex gap-1 items-center text-sm p-1 rounded-md">
+          <i className="fa fa-home"></i>
+          {getLoginInfo("captain", "house_name")}
+        </div>
       </Typography>
       <div className="flex items-center gap-2">
         <Typography variant="h6">

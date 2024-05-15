@@ -71,8 +71,15 @@ export const getUserByEmail = async (email, role_id) => {
     }
 }
 
+const attachCompleteInformationOfUser = async (user_data) => {
+    const user_id = user_data.user_id;
+    const { result } = await executeQuery("select * from games_rating where user_id = ?", [user_id]);
+    const result1 = await executeQuery("select * from houses where id=?", [user_data.house_id]);
+    return { ...user_data, ...result1.result[0], game_data: result }
+}
+
 export const validateLoginData = async (data, role_id) => {
-    const user_data = await getUserByEmail(data.email, role_id);
+    let user_data = await getUserByEmail(data.email, role_id);
     if (!user_data) {
         return sendResponse(0, "Invalid credentials", { error: { email: "Email doest not exist" } });
     } else {
@@ -83,8 +90,7 @@ export const validateLoginData = async (data, role_id) => {
             if (user_data.status == 0) {
                 return sendResponse(0, "Your profile is in pending status. Please wait for admin to approve it.");
             } else if (user_data.status == 1) {
-                const { result } = await executeQuery("select * from games_rating where user_id = ?", [user_data.user_id]);
-                user_data.game_data = result;
+                user_data = await attachCompleteInformationOfUser(user_data);
                 return sendResponse(1, "Login successful", user_data);
             } else if (user_data.status == 2) {
                 return sendResponse(0, "Your profile is rejected by the admin. Try to contact with your admin.");
