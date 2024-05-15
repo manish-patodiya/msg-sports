@@ -65,6 +65,7 @@ const Events = () => {
     }
 
     if (events.length)
+    
         return (
             <section id='events' className='mb-14'>
                 <Typography variant='h2' className='text-rose-800 font-sans'>Games & Events</Typography>
