@@ -58,6 +58,12 @@ export const getLoginInfo = (role, field = null) => {
   return info && field ? info[field] : info;
 }
 
+export const updateLoginInfo = (role, field, data) => {
+  const info = JSON.parse(sessionStorage.getItem(role + "_info"));
+  info[field] = data;
+  sessionStorage.setItem(role + "_info", JSON.stringify(info));
+}
+
 export const removeLoginInfo = (role) => {
   sessionStorage.removeItem(role + "_auth");
   sessionStorage.removeItem(role + "_info");

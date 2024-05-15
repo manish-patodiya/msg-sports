@@ -1,3 +1,4 @@
+
 import { decryptPass, encryptPass, sendResponse, validateCPassword, validateContact, validateEmail, validateName, validatePassword } from '../constants/common.js';
 import { executeQuery } from "../database/connection.js"
 
@@ -82,6 +83,8 @@ export const validateLoginData = async (data, role_id) => {
             if (user_data.status == 0) {
                 return sendResponse(0, "Your profile is in pending status. Please wait for admin to approve it.");
             } else if (user_data.status == 1) {
+                const { result } = await executeQuery("select * from games_rating where user_id = ?", [user_data.user_id]);
+                user_data.game_data = result;
                 return sendResponse(1, "Login successful", user_data);
             } else if (user_data.status == 2) {
                 return sendResponse(0, "Your profile is rejected by the admin. Try to contact with your admin.");
