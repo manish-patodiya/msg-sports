@@ -21,19 +21,13 @@ const Events = () => {
         })
     }, [])
 
-    const registerForTheEvent = (game_id) => {
-        axios.post(API_BASE_URL + "events/event_registration/" + getLoginInfo("player", "user_id") + "/" + game_id).then(res => {
+    const registerForTheEvent = (event_id) => {
+        axios.post(API_BASE_URL + "events/event_registration/", { user_id: getLoginInfo("player", "user_id"), event_id: event_id, house_id: getLoginInfo("player", "house_id") }).then(res => {
             if (res.data.status == 1) {
-                const game_data = getLoginInfo("player", "game_data");
-                game_data && game_data.forEach((game) => {
-                    if (game.game_id == game_id) {
-                        game.status = 0;
-                        return;
-                    }
-                })
-                updateLoginInfo("player", "game_data", game_data);
+                const player_registrations = getLoginInfo("player", "player_registrations");
+                player_registrations.push({ event_id });
+                updateLoginInfo("player", "player_registrations", player_registrations);
                 setRender(!render);
-                console.log(game_data)
                 toast.success(res.data.message);
             } else {
                 toast.error(res.data.message);
@@ -43,12 +37,11 @@ const Events = () => {
         })
     }
 
-    const checkRegisteration = (game_id) => {
-        const game_data = getLoginInfo("player", "game_data");
+    const checkRegisteration = (eventID) => {
+        const player_registrations = getLoginInfo("player", "player_registrations");
         let registered = false;
-        // game_data = JSON.parse(game_data);
-        game_data && game_data.forEach((game) => {
-            if (game.game_id == game_id && game.status != null) {
+        player_registrations && player_registrations.forEach(({ event_id }) => {
+            if (eventID == event_id) {
                 registered = true;
                 return;
             }
@@ -60,12 +53,12 @@ const Events = () => {
                 <span className='ms-3'>Go to nominations page <i className='fa fa-arrow-right'></i></span>
             </Button>
         } else {
-            return <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3' onClick={() => registerForTheEvent(game_id)}>Register</Button>
+            return <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3' onClick={() => registerForTheEvent(eventID)}>Register</Button>
         }
     }
 
     if (events.length)
-    
+
         return (
             <section id='events' className='mb-14'>
                 <Typography variant='h2' className='text-rose-800 font-sans'>Games & Events</Typography>
@@ -98,7 +91,7 @@ const Events = () => {
                                             </Typography>
                                         </div>
                                         {checkAuth("player") ?
-                                            checkRegisteration(event.game_id) :
+                                            checkRegisteration(event.event_id) :
                                             <Button size='sm' className='bg-white text-rose-800 border-rose-800 shadow-none hover:shadow-none border mt-3' onClick={() => navigate("/player")}>Register</Button>
                                         }
                                     </div>

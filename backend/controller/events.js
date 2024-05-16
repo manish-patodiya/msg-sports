@@ -35,10 +35,30 @@ export const deleteEvent = async (event_id) => {
   }
 };
 
-export const nominateUser = async (user_id, game_id) => {
+export const nominateUser = async (user_id, event_id, house_id) => {
   try {
-    let result = await executeQuery("update games_rating set status = 0 where user_id = ? and game_id = ?", [user_id, game_id]);
-    return sendResponse(1, "Event added successfully", { result });
+    let { result } = await executeQuery("insert into event_registrations (user_id,event_id,house_id) values (?,?,?)", [user_id, event_id, house_id]);
+    return sendResponse(1, "Event registered successfully", { result });
+  } catch (err) {
+    console.log(err);
+    return sendResponse(2, "SQL Error", err.sqlMessage);
+  }
+}
+
+export const getUserNominations = async (user_id) => {
+  try {
+    let { result } = await executeQuery("select * from event_registrations er join events e on er.event_id = e.id where er.user_id = ?", [user_id]);
+    return sendResponse(1, "User nominations fetched successfully", { nominations: result });
+  } catch (err) {
+    console.log(err);
+    return sendResponse(2, "SQL Error", err.sqlMessage);
+  }
+}
+
+export const withdrawNomination = async (user_id, event_id) => {
+  try {
+    let result = await executeQuery("delete from event_registrations where user_id = ? and event_id = ?", [user_id, event_id]);
+    return sendResponse(1, "Successfully withdrawn from the event", { result });
   } catch (err) {
     console.log(err);
     return sendResponse(2, "SQL Error", err.sqlMessage);

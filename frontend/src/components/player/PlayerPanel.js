@@ -9,8 +9,6 @@ import Nominations from "./Nominations";
 import TeamMembers from "./TeamMembers";
 import { checkAuth, getLoginInfo } from "../../common/common";
 
-import Requests from "./Requests";
-
 const PlayerPanel = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,7 +36,6 @@ const PlayerPanel = () => {
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="nominations" element={<Nominations />}></Route>
               <Route path="team" element={<TeamMembers />}></Route>
-              <Route path="requests" element={<Requests />}></Route>
               <Route path="profile" element={<Profile updateComponent={updateComponent} />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>
             </Routes>

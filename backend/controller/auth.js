@@ -73,9 +73,9 @@ export const getUserByEmail = async (email, role_id) => {
 
 const attachCompleteInformationOfUser = async (user_data) => {
     const user_id = user_data.user_id;
-    const { result } = await executeQuery("select * from games_rating where user_id = ?", [user_id]);
+    const { result } = await executeQuery("select event_id from event_registrations where user_id = ?", [user_id]);
     const result1 = await executeQuery("select * from houses where id=?", [user_data.house_id]);
-    return { ...user_data, ...result1.result[0], game_data: result }
+    return { ...user_data, ...result1.result[0], player_registrations: result }
 }
 
 export const validateLoginData = async (data, role_id) => {
