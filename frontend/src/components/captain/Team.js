@@ -13,8 +13,10 @@ const Team = () => {
     const [userID, setUserID] = useState(0);
 
     useEffect(() => {
+        const house_id = getLoginInfo("player", "house_id");
+        if (!house_id) return;
         axios.get(API_BASE_URL + "players", {
-            params: { house_id: getLoginInfo("captain", "house_id") }
+            params: { house_id: house_id }
         }).then(res => {
             if (res.data.status) {
                 setPlayers(res.data.response.players);

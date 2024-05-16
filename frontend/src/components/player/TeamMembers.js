@@ -3,26 +3,35 @@ import { Avatar, Button, Typography, } from "@material-tailwind/react";
 import axios from 'axios';
 import { API_BASE_URL, BASE_URL } from '../../constants/constant'
 import { toast } from 'react-toastify';
-
+import { getLoginInfo } from "../../common/common.js";
+import UserInfoDialog from "../../common/UserInfoDialog.js";
 
 const TeamMembers = () => {
-    const TABLE_HEAD = ["Sl No", "Employee Name", "Phone no. / Email", "View"];
+    const TABLE_HEAD = ["Sl No", "Employee Name", "Phone no. / Email", "Action"];
     const COLUMN_WIDTH = ["8%", "23%", "49%", "20%"];
     const [players, setPlayers] = useState([]);
+    const [userID, setUserID] = useState(0);
 
     useEffect(() => {
-        axios.get(API_BASE_URL + "players")
-            .then(res => {
-                if (res.data.status) {
-                    setPlayers(res.data.response.players);
-                } else {
-                    toast.error(res.data.message);
-                }
-            }).catch(err => console.log(err))
+        const house_id = getLoginInfo("player", "house_id");
+        if (!house_id) return;
+        axios.get(API_BASE_URL + "players", {
+            params: { house_id: house_id }
+        }).then(res => {
+            if (res.data.status) {
+                setPlayers(res.data.response.players);
+            } else {
+                toast.error(res.data.message);
+            }
+        }).catch(err => console.log(err))
     }, [])
+
+    const [userInfoDialog, setUserInfoDialog] = React.useState(false);
+    const userInfoDialogHandler = () => setUserInfoDialog(!userInfoDialog);
 
     return (
         <div className="flex flex-col gap-3">
+            <UserInfoDialog open={userInfoDialog} handler={userInfoDialogHandler} userID={userID} />
             <Typography variant="h4" className=" text-rose-800">
                 Team Members
             </Typography>
@@ -70,7 +79,7 @@ const TeamMembers = () => {
                                         </td>
                                         <td width={COLUMN_WIDTH[4]} className="p-3 border-b border-blue-gray-50">
                                             <div className="flex flex-row">
-                                                <Button size="sm" variant="text"><i className="fa-regular fa-eye"></i></Button>
+                                                <Button size="sm" onClick={() => { setUserID(player.user_id); userInfoDialogHandler() }} variant="text" color="blue"><i className="fa-regular fa-eye"></i></Button>
                                             </div>
                                         </td>
                                     </tr>

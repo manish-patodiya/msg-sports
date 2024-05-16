@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <Navbar className="text-black flex justify-between items-center sticky top-0 bg-white bg-opacity-100
     z-10 rounded-none shadow-none">
-      <Typography variant="h4" className="flex items-center gap-2">
+      <Typography variant="h4" className="flex items-center gap-5">
         Captain Panel
         <div style={{ background: getLoginInfo("captain", "house_name") && getLoginInfo("captain", "background"), color: getLoginInfo("captain", "background") && "white" }} className="flex gap-1 items-center text-sm p-1 rounded-md">
           <i className="fa fa-home"></i>
