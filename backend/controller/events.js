@@ -35,9 +35,9 @@ export const deleteEvent = async (event_id) => {
   }
 };
 
-export const nominateUser = async (user_id, event_id, house_id) => {
+export const nominateUser = async (user_id, event_id) => {
   try {
-    let { result } = await executeQuery("insert into event_registrations (user_id,event_id,house_id) values (?,?,?)", [user_id, event_id, house_id]);
+    let { result } = await executeQuery("insert into event_registrations (user_id,event_id) values (?,?)", [user_id, event_id]);
     return sendResponse(1, "Event registered successfully", { result });
   } catch (err) {
     console.log(err);
@@ -55,10 +55,48 @@ export const getUserNominations = async (user_id) => {
   }
 }
 
+export const getHouseUsersNominations = async (house_id) => {
+  try {
+    let user_data = await executeQuery("select * from event_registrations er join events e on er.event_id = e.id join users u on er.user_id = u.id join games_rating gr on u.id = gr.user_id and e.game_id = gr.game_id  where u.house_id = ? order by e.game_id", [house_id]);
+    user_data = user_data.result;
+
+    let games = await executeQuery("select *,id as game_id from games where deleted_at is null order by id");
+    games = games.result;
+
+    const nominations = {};
+
+    let games_id = games.map((game) => { return game.game_id; })
+    games_id.map(id => { nominations[id] = []; })
+    user_data.map((user) => {
+      nominations[user.game_id].push(user);
+    })
+
+    const result = {
+      games: games,
+      nominations: nominations
+    }
+
+    return sendResponse(1, "User nominations fetched successfully", result);
+  } catch (err) {
+    console.log(err);
+    return sendResponse(2, "SQL Error", err.sqlMessage);
+  }
+}
+
 export const withdrawNomination = async (user_id, event_id) => {
   try {
     let result = await executeQuery("delete from event_registrations where user_id = ? and event_id = ?", [user_id, event_id]);
     return sendResponse(1, "Successfully withdrawn from the event", { result });
+  } catch (err) {
+    console.log(err);
+    return sendResponse(2, "SQL Error", err.sqlMessage);
+  }
+}
+
+export const updateNominationStatus = async (user_id, event_id, status) => {
+  try {
+    let result = await executeQuery("update event_registrations set nomination_status = ? where user_id = ? and event_id = ?", [status, user_id, event_id]);
+    return sendResponse(1, "Updated status successfully", { result });
   } catch (err) {
     console.log(err);
     return sendResponse(2, "SQL Error", err.sqlMessage);

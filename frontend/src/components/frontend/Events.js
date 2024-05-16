@@ -22,7 +22,7 @@ const Events = () => {
     }, [])
 
     const registerForTheEvent = (event_id) => {
-        axios.post(API_BASE_URL + "events/event_registration/", { user_id: getLoginInfo("player", "user_id"), event_id: event_id, house_id: getLoginInfo("player", "house_id") }).then(res => {
+        axios.post(API_BASE_URL + "events/event_registration/", { user_id: getLoginInfo("player", "user_id"), event_id: event_id }).then(res => {
             if (res.data.status == 1) {
                 const player_registrations = getLoginInfo("player", "player_registrations");
                 player_registrations.push({ event_id });
@@ -58,7 +58,6 @@ const Events = () => {
     }
 
     if (events.length)
-
         return (
             <section id='events' className='mb-14'>
                 <Typography variant='h2' className='text-rose-800 font-sans'>Games & Events</Typography>

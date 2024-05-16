@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./includes/Header";
 import Dashboard from "./Dashboard";
 import Sidebar from "./includes/Sidebar";
-import Players from "./Players";
+import PlayerNominations from "./PlayerNominations";
 import Team from "./Team";
 import Profile from "./Profile";
 import ManagePassword from "./ManagePassword";
@@ -27,7 +27,7 @@ const CaptainPanel = () => {
           <div className="bg-white p-4 rounded-md overflow-hidden">
             <Routes>
               <Route path="dashboard" element={<Dashboard />}></Route>
-              <Route path="players" element={<Players />}></Route>
+              <Route path="player-nominations" element={<PlayerNominations />}></Route>
               <Route path="team" element={<Team />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="manage-password" element={<ManagePassword />}></Route>

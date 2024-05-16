@@ -1,5 +1,5 @@
 import express from "express";
-import { addEvent, deleteEvent, getEvents, nominateUser, withdrawNomination, getUserNominations } from "../controller/events.js";
+import { addEvent, deleteEvent, getEvents, nominateUser, withdrawNomination, getUserNominations, updateNominationStatus, getHouseUsersNominations } from "../controller/events.js";
 import { fileUploadMiddleware } from "../constants/common.js";
 const router = express.Router();
 
@@ -16,15 +16,23 @@ router.delete("/:game_id", async (req, res) => {
 });
 
 router.post("/event_registration", async (req, res) => {
-  res.json(await nominateUser(req.body.user_id, req.body.event_id, req.body.house_id));
+  res.json(await nominateUser(req.body.user_id, req.body.event_id));
 });
 
 router.get("/get_user_nominations/:user_id", async (req, res) => {
   res.json(await getUserNominations(req.params.user_id));
 });
 
+router.get("/get_nominations_data/:house_id", async (req, res) => {
+  res.json(await getHouseUsersNominations(req.params.house_id));
+})
+
 router.post("/withdraw_nomination/:user_id/:event_id", async (req, res) => {
   res.json(await withdrawNomination(req.params.user_id, req.params.event_id));
+});
+
+router.post("/update_nomination_status/", async (req, res) => {
+  res.json(await updateNominationStatus(req.body.user_id, req.body.event_id, req.body.status_code));
 });
 
 export default router;
