@@ -60,7 +60,7 @@ const PlayerBidingDiaglog = ({ open, handler, userID }) => {
                             <Select label="House" className="text-white" style={{ backgroundColor: selectBG }} onChange={(val) => { setHouseID(val); setError(""); }}>
                                 {
                                     houses.map((house, index) => {
-                                        if (house.cap_id == null)
+                                        if (house.cap_id)
                                             return <Option onClick={() => setSelectBG(house.background)} className="text-white mb-1" style={{ backgroundColor: house.background }} key={index} value={`${house.house_id}`}>{house.house_name}</Option>
                                         return ""
                                     })

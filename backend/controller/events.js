@@ -57,7 +57,7 @@ export const getUserNominations = async (user_id) => {
 
 export const getHouseUsersNominations = async (house_id) => {
   try {
-    let user_data = await executeQuery("select * from event_registrations er join events e on er.event_id = e.id join users u on er.user_id = u.id join games_rating gr on u.id = gr.user_id and e.game_id = gr.game_id  where u.house_id = ? order by e.game_id", [house_id]);
+    let user_data = await executeQuery("select er.*,e.*,u.*,gr.rating from event_registrations er join events e on er.event_id = e.id join users u on er.user_id = u.id left join games_rating gr on u.id = gr.user_id and e.game_id = gr.game_id  where u.house_id = ? order by e.game_id", [house_id]);
     user_data = user_data.result;
 
     let games = await executeQuery("select *,id as game_id from games where deleted_at is null order by id");
@@ -68,7 +68,8 @@ export const getHouseUsersNominations = async (house_id) => {
     let games_id = games.map((game) => { return game.game_id; })
     games_id.map(id => { nominations[id] = []; })
     user_data.map((user) => {
-      nominations[user.game_id].push(user);
+      console.log()
+      user.game_id && nominations[user.game_id].push(user);
     })
 
     const result = {

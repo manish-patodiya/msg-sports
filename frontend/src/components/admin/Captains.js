@@ -145,19 +145,19 @@ const Captains = () => {
         </div>
         <div className="w-1/3">
           <form className="flex flex-col gap-3" onSubmit={addCaptain}>
-            <Select label="House" className="text-white" style={{ backgroundColor: selectBG }} onChange={(e) => setHouseID(e)} >
+            <Select label="House" className="text-white" style={{ backgroundColor: selectBG }} onChange={(e) => setHouseID(e)} lockScroll={false} >
               {
                 houses.map((house, index) => {
-                  if (house.cap_id == null)
+                  if (!house.cap_id)
                     return <Option onClick={() => setSelectBG(house.background)} className="text-white mb-1" style={{ backgroundColor: house.background }} key={index} value={`${house.house_id}`}>{house.house_name}</Option>
                   return ""
                 })
               }
             </Select>
 
-            <Select label="Player" onChange={e => setPlayerID(e)}>
+            <Select label="Player" onChange={e => setPlayerID(e)} lockScroll={false} >
               {players.map((player, index) => {
-                if (player.cap_id == null)
+                if (!player.cap_id)
                   return <Option key={index} value={`${player.user_id}`}>
                     {player.name} | {player.email}
                   </Option>

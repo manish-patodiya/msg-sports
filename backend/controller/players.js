@@ -2,7 +2,7 @@ import { sendResponse } from "../constants/common.js";
 import { PLAYER_ROLE_ID } from "../constants/constants.js"
 import { executeQuery } from "../database/connection.js"
 
-export const getPlayers = async (data) => {
+export const getPlayers = async (data, cap_flag = true) => {
     try {
         let where = "role_id = ?";
         let params = [PLAYER_ROLE_ID];
@@ -20,8 +20,14 @@ export const getPlayers = async (data) => {
                 params.push(data.house_id);
             }
         }
-        let { result } = await executeQuery(`select * from users join users_role on users.id = users_role.user_id where ${where}`, params);
-        return sendResponse(1, "Players fetched successfully", { players: result })
+
+        if (!cap_flag) {
+            let { result } = await executeQuery(`select * from users join users_role on users.id = users_role.user_id where ${where} and user_id not in (select cap_id from houses)`, params);
+            return sendResponse(1, "Players fetched successfully", { players: result })
+        } else {
+            let { result } = await executeQuery(`select * from users join users_role on users.id = users_role.user_id where ${where}`, params);
+            return sendResponse(1, "Players fetched successfully", { players: result })
+        }
     } catch (err) {
         console.log(err)
         return sendResponse(2, "SQL error", err.sqlMessage)

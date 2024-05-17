@@ -15,7 +15,7 @@ export const getHouses = async (image_name, data) => {
 export const getCaptainsList = async () => {
     try {
         const { result } = await executeQuery("select *,h.id as house_id from houses h join users u on h.cap_id = u.id");
-        return sendResponse(1, "Houses fetched successfully", { captains_list: result })
+        return sendResponse(1, "Captains fetched successfully", { captains_list: result })
     } catch (err) {
         console.log(err)
         return sendResponse(2, "SQL error", err.sqlMessage);

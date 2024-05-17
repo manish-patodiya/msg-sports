@@ -35,7 +35,7 @@ const Sidebar = () => {
           </Typography>
         </Link>
       </div>
-      <div className="p-1 ">
+      <div className="p-1 flex flex-col justify-between min-h-[80vh] z-0">
         <List className="text-white">
           {menu_items.map((menu, key) => {
             if (!menu.submenu) {
@@ -107,6 +107,15 @@ const Sidebar = () => {
             }
           })}
         </List>
+
+        <div className='flex flex-col gap-2 px-5 p-3'>
+          <Link to="/admin" className="ml-1 mb-1 font-sans text-sm text-white underline">
+            Admin login
+          </Link>
+          <Link to="/player" className="ml-1 mb-1 font-sans text-sm text-white underline">
+            Player login
+          </Link>
+        </div>
       </div>
     </div>
   );

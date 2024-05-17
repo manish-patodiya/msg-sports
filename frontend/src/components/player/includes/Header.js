@@ -21,10 +21,12 @@ const Header = () => {
     <Navbar className="text-black flex justify-between items-center sticky bg-white bg-opacity-100 rounded-none shadow-none">
       <Typography variant="h4" className="flex gap-5">
         Player Panel
-        <div style={{ background: getLoginInfo("player", "house_name") && getLoginInfo("player", "background"), color: getLoginInfo("player", "background") && "white" }} className="flex gap-1 items-center text-sm p-1 rounded-md">
-          <i className="fa fa-home"></i>
-          {getLoginInfo("player", "house_name")}
-        </div>
+        {getLoginInfo("player", "house_id") ?
+          <div style={{ background: getLoginInfo("player", "house_name") && getLoginInfo("player", "background"), color: getLoginInfo("player", "background") && "white" }} className="flex gap-1 items-center text-sm p-1 rounded-md">
+            <i className="fa fa-home"></i>
+            {getLoginInfo("player", "house_name")}
+          </div> : ""
+        }
       </Typography>
       <div className="flex items-center gap-2">
         <Typography variant="h6">

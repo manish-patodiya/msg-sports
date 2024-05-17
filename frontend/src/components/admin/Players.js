@@ -124,6 +124,7 @@ const Players = () => {
                           <Button size="sm" variant="text" onClick={() => updateStatus(player.user_id, 1)}><i className="fa-solid fa-check text-green-800"></i></Button>
                           <Button size="sm" variant="text" onClick={() => updateStatus(player.user_id, 2)}><i className="fa-solid fa-xmark text-red-800"></i></Button>
                         </> :
+                          player.status == 1 &&
                           <>
                             <Button size="sm" onClick={() => { setUserID(player.user_id); userInfoDialogHandler() }} variant="text" color="blue"><i className="fa-regular fa-eye"></i></Button>
                             <Button size="sm" onClick={() => { setUserID(player.user_id); assignHouseDialogHandler() }} variant="text" color="orange"><i className="fa fa-arrow-up"></i></Button>

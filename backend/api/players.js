@@ -5,7 +5,7 @@ import { fileUploadMiddleware } from '../constants/common.js';
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const result = await getPlayers(req.query);
+    const result = await getPlayers(req.query, false);
     res.json(result);
 })
 

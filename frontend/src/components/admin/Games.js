@@ -140,7 +140,7 @@ const Games = () => {
           <form className="flex flex-col gap-5 w-full" onSubmit={addGame}>
             <Input name="name" label="Game" value={gameValues.name} onChange={handleGameValues} required />
             <Textarea name="description" label="Description" value={gameValues.description} onChange={handleGameValues} required />
-            <div>
+            {/* <div>
               Select Categories
               <div className="flex flex-wrap">
                 {
@@ -149,7 +149,7 @@ const Games = () => {
                   })
                 }
               </div>
-            </div>
+            </div> */}
             <Button type="submit" disabled={isSubmitting} className="bg-rose-800" >
               {isSubmitting ? <i className="fas fa-spinner animate-spin"></i> : "Save"}
             </Button>
