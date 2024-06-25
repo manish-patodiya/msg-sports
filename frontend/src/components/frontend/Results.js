@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, Typography, CardFooter, Button } from '@material-tailwind/react'
+import { Card, CardHeader, CardBody, Typography, CardFooter, Button, Table } from '@material-tailwind/react'
 
 const tableData = {
     headers: ["S.No", "Event", "Team 1 ID", "Team 2 ID", "Winner", "Points"],
@@ -15,7 +15,8 @@ const tableData = {
 const Results = () => { 
     return(
         <>
-         <div className="container mx-auto">
+         <div id="results" className="container mx-auto p-5">
+            <Typography variant='h2' className='text-rose-800 font-sans'>Results</Typography>
             <table className="border-collapse border border-gray-400 w-full">
                 <thead>
                     <tr className="bg-rose-900 text-white">
