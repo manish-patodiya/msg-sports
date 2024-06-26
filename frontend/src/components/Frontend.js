@@ -2,7 +2,6 @@ import Header from './frontend/Header';
 import Home from './frontend/Home';
 import About from './frontend/About';
 import Events from './frontend/Events';
-import Results from './frontend/Results'; 
 import Footer from './frontend/Footer';
 import React, { useEffect, useState } from 'react'
 import { API_BASE_URL } from '../constants/constant';
@@ -36,8 +35,7 @@ const Frontend = () => {
             <div className='mx-auto px-10 py-4 my-4 text-lg'>
                 <Events />
                 <About data={data} />
-            </div>
-            <Results/> 
+            </div> 
             <Footer data={data} />
         </>
     )

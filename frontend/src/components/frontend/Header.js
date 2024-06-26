@@ -16,14 +16,17 @@ const Header = () => {
 
                 <li className='font-sans text-lg  pointer'><ScrollerLink to='events' className='px-4 py-2' activeClass='border-b-2 border-red-800' spy={true} smooth={true} offset={-80} duration={500}>Events</ScrollerLink></li>
 
-                <li className='font-sans text-lg  pointer'><ScrollerLink to='about' className='px-4 py-2' activeClass='border-b-2 border-red-800' spy={true} smooth={true} offset={-80} duration={500}>About</ScrollerLink></li>
-
-                <li className='font-sans text-lg  pointer'><ScrollerLink to='results' className='px-4 py-2' activeClass='border-b-2 border-red-800' spy={true} smooth={true} offset={-80} duration={500}>Results</ScrollerLink></li>
+                <li className='font-sans text-lg  pointer'><ScrollerLink to='about' className='px-4 py-2' activeClass='border-b-2 border-red-800' spy={true} smooth={true} offset={-80} duration={500}>About</ScrollerLink></li> 
 
                 <li className='font-sans text-lg  pointer'><ScrollerLink to='contact' className='px-4 py-2' activeClass='border-b-2 border-red-800' spy={true} smooth={true} offset={-80} duration={500}>Contact</ScrollerLink></li>
 
             </ul>
+
             <div>
+                <Link to = "/results">
+                       <Button className='bg-transparent text-rose-900 hover:bg-rose-800 hover:text-white shadow-md'>Results</Button> &nbsp; 
+                </Link>
+
                 <Link to="/player">
                     {
                         checkAuth("player") ?
