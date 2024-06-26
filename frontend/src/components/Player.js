@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./player/auth/Login";
 import NewUserLogin from "./player/auth/NewUserLogin";
 import PlayerPanel from "./player/PlayerPanel";
+import ResultsPage from "./frontend/ResultsPage";
 
 const Player = () => {
   return (

@@ -1,4 +1,6 @@
 import { Card, CardHeader, CardBody, Typography, CardFooter, Button, Table } from '@material-tailwind/react'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 
 const tableData = {
     headers: ["S.No", "Event", "Team 1", "Team 2", "Winner", "Points"],

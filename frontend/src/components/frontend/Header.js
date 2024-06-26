@@ -24,7 +24,7 @@ const Header = () => {
 
             <div>
                 <Link to = "/results">
-                       <Button className='bg-transparent text-rose-900 hover:bg-rose-800 hover:text-white shadow-md'>Results</Button> &nbsp; 
+                       <Button className='bg-transparent shadow-black text-rose-900 hover:bg-rose-800 hover:text-white hover:shadow-black'>Results</Button> &nbsp; 
                 </Link>
 
                 <Link to="/player">
