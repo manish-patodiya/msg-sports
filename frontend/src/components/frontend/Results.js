@@ -73,11 +73,11 @@ const CardComponent = ({ title, winner, link }) => (
       <Typography variant="h4" className="mb-2 text-rose-900">
         {title}
       </Typography>
-      <Typography>Winner: {winner}</Typography>
+      <Typography variant = "h6">Winner: {winner}</Typography>
     </CardBody>
     <CardFooter className="pt-0">
       <a href={link} className="inline-block hover:underline">
-        <Button size="sm" variant="text" className="flex items-center gap-2">
+        <Button size="sm" variant="text" className="flex items-center gap-2 hover:bg-rose-800 hover:text-white">
           See Games!
           <svg
             xmlns="http://www.w3.org/2000/svg"
