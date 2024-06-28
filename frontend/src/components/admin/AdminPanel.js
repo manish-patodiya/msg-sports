@@ -12,6 +12,7 @@ import Games from "./Games";
 import SiteSettings from "./SiteSettings";
 import { checkAuth } from "../../common/common";
 import Houses from "./Houses";
+import Fixtures from "./site_settings/Fixtures";
 
 
 const AdminPanel = () => {
@@ -40,6 +41,7 @@ const AdminPanel = () => {
                             <Route path='games' element={<Games />}></Route>
                             <Route path='houses' element={<Houses />}></Route>
                             <Route path="site-settings" element={<SiteSettings />}></Route>
+                            <Route path="fixtures" element={<Fixtures />}></Route>
                         </Routes>
                     </div>
                 </div>
