@@ -36,7 +36,7 @@ const Header = () => {
                                 </Typography>
                                 <Avatar src={BASE_URL + "profile_photo/" + (getLoginInfo("player", "profile") || "avatar.png")} />
                             </div> :
-                            <Button className='bg-rose-800 text-white animate-bounce hover:animate-none duration-300'>Login</Button>
+                            <Button className='bg-transparent shadow-black text-rose-900 hover:bg-rose-800 hover:text-white hover:shadow-black'>Login</Button>
                     }
                 </Link>
             </div>

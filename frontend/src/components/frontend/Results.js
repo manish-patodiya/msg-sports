@@ -5,18 +5,62 @@ import { Link } from 'react-router-dom';
 const cardData = [
   {
     title: "Men's Badminton (Singles)",
-    winner: "Grey House",
+    winner: "Pink House",
     status: "completed",
     link: "#",
   },
+
+  {
+    title: "Women's Badminton (Singles)",
+    winner: "Red House",
+    status: "completed",
+    link: "#",
+  },
+  
+  {
+    title: "Men's Carrom (Singles)",
+    winner: "Blue House",
+    status: "completed",
+    link: "#",
+  },
+
+  {
+    title: "Women's Table Tennies (Singles)",
+    winner: "Undecided",
+    status: "ongoing",
+    link: "#",
+  },
+
   {
     title: "Women's Volleyball",
     winner: "Undecided",
     status: "ongoing",
     link: "#",
   },
+
   {
-    title: "Mixed Doubles Tennis",
+    title: "Men's Foosball",
+    winner: "Undecided",
+    status: "ongoing",
+    link: "#",
+  },
+
+  {
+    title: "Chess",
+    winner: "Undecided",
+    status: "not started",
+    link: "#",
+  },
+
+  {
+    title: "Men's Badminton (Doubles)",
+    winner: "Undecided",
+    status: "not started",
+    link: "#",
+  },
+
+  {
+    title: "Women's Cricket",
     winner: "Undecided",
     status: "not started",
     link: "#",
@@ -71,7 +115,7 @@ const CardsList = ({ cards = [] }) => {
 };
 
 const Results = () => {
-  const [selectedCategory, setSelectedCategory] = useState('completed');
+  const [selectedCategory, setSelectedCategory] = useState('completed'); //seting default as completed 
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
