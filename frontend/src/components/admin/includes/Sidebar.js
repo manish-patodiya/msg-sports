@@ -15,6 +15,7 @@ export const Sidebar = () => {
         { name: "Games", path: "/admin/games", icon: "fa-baseball-bat-ball" },
         { name: "Houses", path: "/admin/houses", icon: "fa-house" },
         { name: "Site Settings", path: "/admin/site-settings", icon: "fa-gear" },
+        { name: "Fixtures", path: "/admin/fixtures", icon: "fa-calendar-alt" },
     ]
 
     const handleOpen = (value) => {
