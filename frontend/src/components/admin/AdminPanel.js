@@ -12,7 +12,7 @@ import Games from "./Games";
 import SiteSettings from "./SiteSettings";
 import { checkAuth } from "../../common/common";
 import Houses from "./Houses";
-import Fixtures from "./site_settings/Fixtures";
+import Fixtures from "./Fixtures";
 
 
 const AdminPanel = () => {

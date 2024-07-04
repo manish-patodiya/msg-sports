@@ -7,6 +7,8 @@ import categoriesRouter from './categories.js';
 import playersRouter from './players.js';
 import housesRouter from './houses.js';
 import captainsRouter from './captains.js';
+import fixturesRouter from './fixtures.js';
+import eventnameRouter from './eventname.js';
 
 const router = express.Router();
 
@@ -18,5 +20,7 @@ router.use("/categories", categoriesRouter);
 router.use('/players', playersRouter);
 router.use('/houses', housesRouter);
 router.use('/captains', captainsRouter);
+router.use('/fixtures', fixturesRouter);
+router.use('/eventname', eventnameRouter);
 
 export default router;
